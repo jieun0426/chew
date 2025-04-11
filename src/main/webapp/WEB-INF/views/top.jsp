@@ -45,7 +45,8 @@
       
       <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">관리자페이지 <span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a href="#">매장관리</a></li>
+          <li><a href="storein">매장관리</a></li>
+          <li><a href="sout">매장보기</a></li>
           <li><a href="#">회원관리</a></li>
           <li><a href="#">리뷰관리</a></li>
           <li><a href="#">예약관리</a></li>

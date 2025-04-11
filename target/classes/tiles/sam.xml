@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
 "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
 
@@ -24,5 +25,31 @@
 <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
 
 </definition>
+
+   <definition name="storeinput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeinput.jsp"/>
+   </definition> 
+   
+ <definition name="storeout" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeout.jsp"/>
+   </definition>  
+   
+    <definition name="storeout" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeout.jsp"/>
+   </definition>  
+   
+   <definition name="storedeleteview" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storedeleteview.jsp"/>
+   </definition> 
+   
+   <definition name="storemodifyview" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storemodifyview.jsp"/>
+   </definition> 
+   
 
 </tiles-definitions>
