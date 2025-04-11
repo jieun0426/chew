@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+.areaSelectBtn {
+	border: 2px solid #ffdb5a;
+	width: 90px;
+	height: 30px;
+	font-size: 1.1em;
+	background-color: #ffe98b;
+	border-radius: 15px;
+	font-weight: bold;
+}
+.categorySelectBtn {
+	border: 2px solid #ffdb5a;
+	width: 90px;
+	height: 30px;
+	font-size: 1.1em;
+	background-color: #ffe98b;
+	border-radius: 15px;
+	font-weight: bold;
+}
+.areaSelectBtn:hover {
+	cursor: pointer;
+	border: 2px solid #ffdb5a;
+	background-color: #ffe98b;
+}
+.categorySelectBtn:hover {
+	cursor: pointer;
+	border: 2px solid #ffdb5a;
+	background-color: #ffe98b;
+}
+.areaSelectBtn:active, .areaSelectBtn:focus {
+	outline: none;
+	border-color: rgba(255,219,90,0.4);
+	background-color: #fff;
+	box-shadow: 0 0 0 4px rgb(255 233 139 / 10%);
+}
+.categorySelectBtn:active, .categorySelectBtn:focus {
+	outline: none;
+	border-color: rgba(255,219,90,0.4);
+	background-color: #fff;
+	box-shadow: 0 0 0 4px rgb(255 233 139 / 10%);
+}
+.listView {
+	width: 1200px;
+	height: 200px;
+	text-align: center;
+	margin: 30px auto;
+}
+.main_areaList {
+	width: 33%;
+	height: 200px;
+	padding: 10px;
+	text-align: center;
+	float: left;
+	font-size: 18px;
+	line-height: 1.2em;
+}
+.main_areaList .storeimg {
+	width: 250px;
+	height: 160px;
+}
+.main_areaList>p {
+	margin-top: 10px;
+}
+.main_areaList a {
+	color: black;
+}
+.main_areaList a:hover {
+	color: black;
+	text-decoration: none;
+}
+.rating {
+  display: inline-block;
+}
+
+.rating input {
+  display: none;
+}
+
+.rating label {
+  float: right;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.rating label:before {
+  content: "\2605";
+  font-size: 20px;
+}
+
+.rating input:checked ~ label,
+.rating label:hover,
+.rating label:hover ~ label {
+  color: #ffd700;
+  transition: color 0.3s;
+}
+
+h2 {
+	display: inline-block;
+	clear: both;
+}
