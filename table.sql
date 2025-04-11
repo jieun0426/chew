@@ -1,6 +1,6 @@
 CREATE TABLE member_3 (
 	id	varchar2(20)	NOT NULL,
-	pw	varchar2(20)	NULL,
+	pw	varchar2(200)	NULL,
 	name	varchar2(20)	NULL,
 	phone	varchar2(20)	NULL,
 	birth	date	NULL

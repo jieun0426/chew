@@ -1,0 +1,96 @@
+package com.mbc.chew.joinlogin;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Date;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
+public class JoinController {
+	@Autowired
+	SqlSession sqlSession;
+	
+	@RequestMapping(value = "/joinput")
+	public String jj1()
+	{
+		return "joinput";
+	}
+	
+	@RequestMapping(value = "/joinsave")
+	public String jj2(HttpServletRequest request)
+	{
+		String id= request.getParameter("id");
+		String pw= request.getParameter("pw");
+		String name= request.getParameter("name");
+		String phone= request.getParameter("phone");
+		Date birth=Date.valueOf(request.getParameter("birth")) ;
+		PasswordEncoder pe = new BCryptPasswordEncoder();
+		pw=pe.encode(pw);
+		JoinLogService jls = sqlSession.getMapper(JoinLogService.class);
+		jls.jlsinsert(id,pw,name,phone,birth);
+		
+		
+		
+		return "redirect:/";
+	}
+	
+	
+	
+	@RequestMapping(value = "/loginput")
+	public String jj6()
+	{
+		
+		return "loginput";
+	}
+	
+	@RequestMapping(value = "/logsave")
+	public String jj7(HttpServletRequest request,HttpServletResponse response) throws IOException
+	{
+		String id=request.getParameter("id");
+		String pw=request.getParameter("pw");
+		
+		JoinLogService jls = sqlSession.getMapper(JoinLogService.class);
+		String  cpw = jls.passww(id);
+		
+		PasswordEncoder pe = new BCryptPasswordEncoder();
+		boolean flag = pe.matches(pw, cpw);
+		if(flag)
+		{
+			HttpSession hs = request.getSession();
+			hs.setAttribute("loginstate", true);
+			hs.setAttribute("id", id);
+			return "main";
+		}
+		else
+		{
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter pww = response.getWriter();
+			pww.print("<script>alert('아이디나 비번이 틀립니다.')</script>");
+			pww.print("<script>location.href='loginput'</script>");
+			pww.close();
+			return "redirect:/loginput";
+		}
+	
+	}
+	@RequestMapping(value = "/logout")
+	public String log3(HttpServletRequest request) 
+	{
+		HttpSession hs = request.getSession();
+		hs.removeAttribute("loginstate");
+		hs.removeAttribute("id");
+		return "redirect:/";
+	}
+	
+	
+}
