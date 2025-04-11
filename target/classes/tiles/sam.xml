@@ -25,4 +25,12 @@
 
 </definition>
 
+<definition name="detailview" extends="baseLayout">
+
+<put-attribute name="title" value="상세화면"/>
+
+<put-attribute name="body" value="/WEB-INF/views/detail/detailview.jsp"/>
+
+</definition>
+
 </tiles-definitions>
