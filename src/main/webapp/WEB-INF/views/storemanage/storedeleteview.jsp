@@ -6,6 +6,7 @@
 <style type="text/css">
 th{text-align: center;}
 </style>
+<link rel="stylesheet" href="css/buttons.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -34,8 +35,8 @@ th{text-align: center;}
 <input type="hidden" name="storecode" value="${dto.storecode}">
 <input type="hidden" name="storeimage" value="${dto.storeimage}">
  <div style="text-align: center; margin-top: 20px;">
-<button type="submit">삭제 확인</button>
-<button type="button" onclick="location.href='main';">취소</button>
+<button type="submit" class="buttons1">삭제 확인</button>
+<button type="button" onclick="location.href='main';" class="buttons1">취소</button>
 
 </form>
 </body>

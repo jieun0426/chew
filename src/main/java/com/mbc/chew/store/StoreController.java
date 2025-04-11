@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class StoreController {
 	@Autowired
 	SqlSession sqls;
-	String path="C:\\git\\chew\\src\\main\\webapp\\image";
+	String path="C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image";
 @RequestMapping(value="/storein")
 	public String storein()
 	{
@@ -35,7 +35,6 @@ public String storesave(MultipartHttpServletRequest mul) throws IllegalStateExce
 	String storename     = mul.getParameter("storename");
 	String storeaddress  = mul.getParameter("storeaddress");
 	String storecategory = mul.getParameter("storecategory");
-	int storelikes		 = Integer.parseInt(mul.getParameter("storelikes"));
 	String storearea	 = mul.getParameter("storearea");
 	MultipartFile mf 	 = mul.getFile("storeimage");
 	String fname		 = mf.getOriginalFilename();
@@ -43,8 +42,8 @@ public String storesave(MultipartHttpServletRequest mul) throws IllegalStateExce
 	UUID uu = UUID.randomUUID();
 	fname= uu.toString()+"_"+fname;
 	mf.transferTo(new File(path+"\\"+fname));
-	ss.insertstore(storecode,storename,storeaddress,storecategory,storelikes,storearea,fname);
-	return"redirect:/";
+	ss.insertstore(storecode,storename,storeaddress,storecategory,storearea,fname);
+	return "redirect:/sout";
 }
 @RequestMapping(value ="/sout")
 public String storeout(HttpServletRequest request,Model m)
@@ -73,7 +72,7 @@ public String delete(HttpServletRequest request)
 	ss.delete(storecode);
 	File ff 	 	= new File(path+"\\"+img);	
 	ff.delete();
-	return "storeout";
+	return "redirect:/sout";
 }
 @RequestMapping(value ="/smodify")
 public String ff(HttpServletRequest request,Model m)
@@ -93,12 +92,11 @@ public String gg(MultipartHttpServletRequest mul) throws IllegalStateException, 
 	String storename     = mul.getParameter("storename");
 	String storeaddress  = mul.getParameter("storeaddress");
 	String storecategory = mul.getParameter("storecategory");
-	int storelikes		 = Integer.parseInt(mul.getParameter("storelikes"));
 	String storearea	 = mul.getParameter("storearea");
 	MultipartFile mf 	 = mul.getFile("storeimage");
 	StoreService ss 	 = sqls.getMapper(StoreService.class);
 	if(mf.isEmpty()) { 
-		ss.updatemodi1(storecode,storename,storeaddress,storecategory,storelikes,storearea);
+		ss.updatemodi1(storecode,storename,storeaddress,storecategory,storearea);
 	}
 	else {
 		String fname = mf.getOriginalFilename();
@@ -108,10 +106,10 @@ public String gg(MultipartHttpServletRequest mul) throws IllegalStateException, 
 		String img   = mul.getParameter("storeimage");
 		File ff		 = new File(path+"\\"+img);	
 		ff.delete();
-		ss.updatemodi2(storecode,storename,storeaddress,storecategory,storelikes,storearea,fname);
+		ss.updatemodi2(storecode,storename,storeaddress,storecategory,storearea,fname);
 	}
 	
-	return "storeout";
+	return "redirect:/sout";
 }
 
 }

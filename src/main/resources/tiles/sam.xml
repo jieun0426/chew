@@ -34,12 +34,7 @@
  <definition name="storeout" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/storemanage/storeout.jsp"/>
-   </definition>  
-   
-    <definition name="storeout" extends="baseLayout">
-      <put-attribute name="title" value="메인화면"/>
-      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeout.jsp"/>
-   </definition>  
+   </definition>   
    
    <definition name="storedeleteview" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>

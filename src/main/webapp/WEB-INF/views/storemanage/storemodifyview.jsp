@@ -6,6 +6,7 @@
 <style type="text/css">
 th,tr,td{text-align: center;}
 </style>
+<link rel="stylesheet" href="css/buttons.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
@@ -17,22 +18,19 @@ th,tr,td{text-align: center;}
 		<th>매장코드</th><td><input type="text" name="storecode" readonly value="${dto.storecode}"></td>
 	</tr>
 	<tr>
-		<th>매장명</th><td><input type="text" name="storename"></td>
+		<th>매장명</th><td><input type="text" name="storename" value="${dto.storename}"></td>
 	</tr>
 	<tr>
-		<th>매장주소</th><td><input type="text" name="storeaddress" >
+		<th>매장주소</th><td><input type="text" name="storeaddress" value="${dto.storeaddress}">
 	</tr>
 	<tr>
-		<th>매장카테고리</th><td><input type="text" name="storecategory" >
+		<th>매장카테고리</th><td><input type="text" name="storecategory" value="${dto.storecategory}">
 	</tr>
 	<tr>
-		<th>매장좋아요수</th><td><input type="text" name="storelikes" >
-	</tr>
-	<tr>
-		<th>지점</th><td><input type="text" name="storearea" >
+		<th>지점</th><td><input type="text" name="storearea" value="${dto.storearea}">
 	</tr>
 	<tr>	
-		<th>매장이미지</th><td><input type="file" name="storeimage" ><br><br>
+		<th>매장이미지</th><td><input type="file" name="storeimage" class="buttons1"><br><br>
 		<img src="./image/${dto.storeimage}" width="200px" height="150px">
 		<br><br>
 	</td>
@@ -40,8 +38,8 @@ th,tr,td{text-align: center;}
 	
 <tr>
 	<td colspan="2">
-	<input type="submit" value ="수정확인">
-	<input type="button" value ="취소" onclick="location.href='sout';"> 
+	<input type="submit" value ="수정확인" class="buttons1">
+	<input type="button" value ="취소" class="buttons1" onclick="location.href='sout';"> 
 	</td>
 </tr>
 </table>

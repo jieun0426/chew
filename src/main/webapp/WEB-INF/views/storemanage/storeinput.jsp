@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/buttons.css">
 <style type="text/css">
 th,tr{text-align: center;}
 </style>
@@ -67,21 +68,17 @@ $(document).ready(function(){
 	<td><input type="text" id="storecategory" name="storecategory" ></td>
 </tr>
 <tr>
-	<th>매장좋아요수</th>
-	<td><input type="text" id="storelikes" name="storelikes" ></td>
-</tr>
-<tr>
 	<th>지점</th>
 	<td><input type="text" id="storearea" name="storearea" ></td>
 </tr>
 <tr>
 	<th>매장이미지</th>
-	<td><input type="file" id="storeimage" name="storeimage" ></td>
+	<td><input type="file" id="storeimage" name="storeimage" class="buttons1"></td>
 </tr>
 <tr style="text-align: center;">
 	<td colspan="2">
-	<button class="btn btn-success" type="submit">전송</button>
-	<button class="btn btn-info" type="reset" onclick="location.href='main'">취소</button>
+	<button class="btn btn-success buttons1" id="btn1" type="submit">전송</button>
+	<button class="btn btn-info buttons1" id="btn2" type="reset" onclick="location.href='main'">취소</button>
 	</td>
 </tr>
 </table>

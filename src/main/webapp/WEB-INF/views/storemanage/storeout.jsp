@@ -11,11 +11,11 @@ table { border-collapse: collapse;
         width: 1100px;
         margin: auto;}
 th, td {
-        border: 1px solid #ddd;
+        border: 1px solid #ffdb5a;
         padding: 10px;
         text-align: center;}
 th {
-        background-color: #f4f4f4;
+        background-color: #fff8e1;
         font-weight: bold;}
 img{
         display: block;
@@ -29,7 +29,6 @@ img{
         <th>매장명</th>
         <th>매장주소</th>
         <th>매장카테고리</th>
-        <th>매장좋아요수</th>
         <th>지점</th>
         <th>매장이미지</th>
         <th colspan="2">매장관리</th> 
@@ -39,8 +38,7 @@ img{
          <td>${aa.storecode}</td>
          <td>${aa.storename}</td>
          <td>${aa.storeaddress}</td> 
-         <td>${aa.storecategory}</td> 
-         <td>${aa.storelikes}</td> 
+         <td>${aa.storecategory}</td>  
          <td>${aa.storearea}</td>
          <td>
              <img src="./image/${aa.storeimage}" width="70px" height="50px">

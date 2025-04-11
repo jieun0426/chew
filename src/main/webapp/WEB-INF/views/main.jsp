@@ -6,11 +6,18 @@
 <meta charset="UTF-8">
 <title>Main</title>
 <link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/slider.css">
 </head>
 <body>
-<div id="banner">
-	<img alt="" src="image/banner1.JPG" width="1200px" height="400px" id="bannerImg">
-</div>
+
+<div class="slider-container" id="slider-container">
+    <div class="slider" id="slider">
+      <div class="slide"><img alt="" src="image/banner1.JPG"></div>
+      <div class="slide"><img alt="" src="image/food1.JPG"></div>
+      <div class="slide"><img alt="" src="image/food2.JPG"></div>
+    </div>
+  </div>
+
 <br><br><br>
 <div>
 	<h2>지역별 추천</h2><br><br>
@@ -72,5 +79,6 @@
 </div>
 
 <br><br><br><br><br><br><br>
+<script src="js/slider.js"></script>
 </body>
 </html>
