@@ -25,4 +25,20 @@
 
 </definition>
 
+<definition name="joinput" extends="baseLayout">
+
+<put-attribute name="title" value="회원가입"/>
+
+<put-attribute name="body" value="/WEB-INF/views/joinlogin/joinput.jsp"/>
+
+</definition>
+
+<definition name="loginput" extends="baseLayout">
+
+<put-attribute name="title" value="로그인"/>
+
+<put-attribute name="body" value="/WEB-INF/views/joinlogin/loginput.jsp"/>
+
+</definition>
+
 </tiles-definitions>
