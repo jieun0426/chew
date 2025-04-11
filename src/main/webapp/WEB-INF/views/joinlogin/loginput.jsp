@@ -73,6 +73,18 @@
   .button2:hover {
     background-color: #ffc400;
   }
+  a1 {
+	color: #222;
+	text-decoration: none;
+	margin-left: 20px;
+	color: #222;
+}
+
+a1:hover {
+	color: #2698cb;
+	text-decoration: none;
+	margin-left: 20px;
+}
 </style>
 <meta charset="EUC-KR">
 <title>Insert title here</title>
@@ -91,8 +103,9 @@
 
   <div class="btn">
     <input class="button1" type="submit" value="로그인">
-    <input class="button2" type="reset" value="취소">
+    
   </div>
+  <a1 onclick="location.href='personalFind'" style="text-decoration: none; cursor: pointer; display: block;"> <p1> ID / 비번 찾기</p1></a1>
 </form>
 </body>
 </html>

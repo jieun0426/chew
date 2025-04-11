@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
@@ -13,7 +14,7 @@ public class JoinLogAjaxController {
 	SqlSession sqlSession;
 	
 	@ResponseBody
-	@RequestMapping(value = "/logcheck" )
+	@RequestMapping(value = "/logcheck",method = RequestMethod.POST )
 	public String ajaxx1(String id)
 	{
 		JoinLogService jls =sqlSession.getMapper(JoinLogService.class);
