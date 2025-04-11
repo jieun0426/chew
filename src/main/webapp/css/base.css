@@ -1,0 +1,40 @@
+@charset "UTF-8";
+<!-- 로고 갈색: 133,59,44 or #853b2c-->
+<!-- 로고 노랑: 255,219,90 or #ffdb5a -->
+<!-- 로고 연노랑: 255,233,139 or #ffe98b -->
+<!-- main 버튼 기존 background-color: #ffe98b;border: 2px solid #ffcc33; -->
+
+body {
+	text-align: center;
+	padding: 20px;
+}
+#top_div {
+	height: 200px;
+	
+}
+#logo {
+	width: 180px;
+	height: 180px;
+	text-align: left;
+	float: left;
+	margin-bottom: 50px;
+}
+#top_h1>a {
+	font-size: 70px;
+	color: #ffdb5a;
+	text-shadow: 0 0 4px #ffe98b;
+	height: 180px;
+	vertical-align: middle;
+}
+#top_h1>a:hover {
+	text-decoration: none;
+	color: #ffdb5a;
+	cursor: pointer;
+}
+#top_h1{
+	display: block;
+	width: 80%;
+	text-align: center;
+	padding-top: 50px;
+	margin-right: 180px;
+}
