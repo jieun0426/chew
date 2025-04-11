@@ -105,7 +105,7 @@ a1:hover {
     <input class="button1" type="submit" value="로그인">
     
   </div>
-  <a1 onclick="location.href='personalFind'" style="text-decoration: none; cursor: pointer; display: block;"> <p1> ID / 비번 찾기</p1></a1>
+  <a1 onclick="location.href='loginfind'" style="text-decoration: none; cursor: pointer; display: block;"> <p1> ID / 비번 찾기</p1></a1>
 </form>
 </body>
 </html>
