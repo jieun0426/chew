@@ -44,7 +44,9 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid #ddd;
-      padding: 10px 20px;
+      padding: 13px 20px;  
+      background-color: #F3E2A9;
+      
     }
     .top-nav ul {
       list-style: none;
@@ -317,11 +319,11 @@
   </header>
 
   <div class="container1">
-    <div class="restaurant-header">
+    <div class="restaurant-header" id="home">
       <img src="./image/gab5.jpg" alt="레스토랑 사진">
       <div class="restaurant-info">
         <div class="title-like">
-          <h1>카보정 갈비</h1>
+          <h1>${sdto.storename}</h1>
           <label class="like-wrapper">
             <input type="checkbox" class="check">
             <div class="like-btn">

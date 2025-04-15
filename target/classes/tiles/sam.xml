@@ -27,6 +27,15 @@
 </definition>
 
 
+<definition name="detailmain" extends="baseLayout">
+
+<put-attribute name="title" value="상세메인화면"/>
+
+<put-attribute name="body" value="/WEB-INF/views/detail/detailmain.jsp"/>
+
+</definition>
+
+
 <definition name="detailview" extends="baseLayout">
 
 <put-attribute name="title" value="상세화면"/>
@@ -59,7 +68,5 @@
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/storemanage/storemodifyview.jsp"/>
    </definition> 
-   
-
 
 </tiles-definitions>
