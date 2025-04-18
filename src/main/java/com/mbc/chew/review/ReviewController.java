@@ -1,38 +1,56 @@
 package com.mbc.chew.review;
 
-import java.io.IOException;
-import java.sql.Date;
+
+
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.bind.annotation.RequestMethod;
+
 
 @Controller
 public class ReviewController {
 	@Autowired
-	SqlSession sqls;
-	String path="C:\\git\\chew\\src\\main\\webapp\\image";
-	@RequestMapping(value="/reviewin")
-	public String reviewin()
-	{
-		return"reviewinput";
+	SqlSession sqlSession;
+	
+	@RequestMapping(value="/submitReview", method = RequestMethod.POST)
+	public String submitReview(HttpServletRequest request) {
+	    ReviewDTO dto = new ReviewDTO();
+	    dto.setId(request.getParameter("id"));
+	    dto.setStorecode(Integer.parseInt(request.getParameter("storecode")));
+	    dto.setContent(request.getParameter("content"));
+	    dto.setStars(Integer.parseInt(request.getParameter("stars")));
+	    dto.setTitle(request.getParameter("title"));
+    
+	    ReviewService rs = sqlSession.getMapper(ReviewService.class);
+	    rs.insertReview(dto);     
+	   
+	       
+	   
+
+	    return "redirect:/detailview?storecode=" + dto.getStorecode();
 	}
 	
-	public String reviewsave(HttpServletRequest request)
-	{
-		int tablenum  	 = Integer.parseInt(request.getParameter("tablenum"));
-		int storecode 	 = Integer.parseInt(request.getParameter("storecode"));
-		String id 	     = request.getParameter("id");
-		int saramsu 	 = Integer.parseInt(request.getParameter("saramsu"));
-		String state 	 = request.getParameter("state");
-		Date bookingdate = Date.valueOf(request.getParameter("bookingdate"));
-		Date bookingtime = Date.valueOf(request.getParameter("bookingtime"));
-		ReviewService rs = sqls.getMapper(ReviewService.class);
-		rs.insertreview(tablenum,storecode,id,saramsu,state,bookingdate,bookingtime);
-		return "redirect:/";
+	@RequestMapping(value="/reviews")
+	public String Reviewlist(Model model, HttpServletRequest request) {
+	    int storecode = Integer.parseInt(request.getParameter("storecode"));
+	    ReviewService rs = sqlSession.getMapper(ReviewService.class);
+	    ArrayList<ReviewDTO> list = rs.reviewout(storecode);
+	    
+	    model.addAttribute("list", list);
+	    model.addAttribute("storecode", storecode);
+
+	    
+	    return "detailview"; 
 	}
+
+
+	
+	
 }

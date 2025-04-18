@@ -1,23 +1,19 @@
 package com.mbc.chew.review;
 
-import java.sql.Date;
 
 public class ReviewDTO {
 	
-	int tablenum;
-	int storecode;
 	String id;
-	int saramsu;
-	String state;
-	Date bookingdate;
-	Date bookingtime;
-	public ReviewDTO() {
+	int storecode;
+	String content;
+	int stars;
+	String title;
+	
+	public String getId() {
+		return id;
 	}
-	public int getTablenum() {
-		return tablenum;
-	}
-	public void setTablenum(int tablenum) {
-		this.tablenum = tablenum;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public int getStorecode() {
 		return storecode;
@@ -25,35 +21,27 @@ public class ReviewDTO {
 	public void setStorecode(int storecode) {
 		this.storecode = storecode;
 	}
-	public String getId() {
-		return id;
+	public String getContent() {
+		return content;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setContent(String content) {
+		this.content = content;
 	}
-	public int getSaramsu() {
-		return saramsu;
+	public int getStars() {
+		return stars;
 	}
-	public void setSaramsu(int saramsu) {
-		this.saramsu = saramsu;
+	public void setStars(int stars) {
+		this.stars = stars;
 	}
-	public String getState() {
-		return state;
+	public String getTitle() {
+		return title;
 	}
-	public void setState(String state) {
-		this.state = state;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public Date getBookingdate() {
-		return bookingdate;
-	}
-	public void setBookingdate(Date bookingdate) {
-		this.bookingdate = bookingdate;
-	}
-	public Date getBookingtime() {
-		return bookingtime;
-	}
-	public void setBookingtime(Date bookingtime) {
-		this.bookingtime = bookingtime;
-	}
+	
+	
+	
+	
 	
 }
