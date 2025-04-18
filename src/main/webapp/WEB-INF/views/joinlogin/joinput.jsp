@@ -104,11 +104,8 @@ function send_go(){
         }
     }
 
-
     return true;
 }
-
-
 </script>
 
 <style>
@@ -119,15 +116,12 @@ function send_go(){
   padding: 2em;
   background-color: #fff8e1;
   border-radius: 25px;
-  transition: 0.4s ease-in-out;
-  width: 450px;
+  width: 480px; /* 넓이 증가 */
   margin: 50px auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.form:hover {
-  transform: scale(1.02);
-  border: 2px solid #FFD732;
+  box-shadow: none !important;
+  background-image: none !important;
+  filter: none !important;
+  border: none !important;
 }
 
 #heading {
@@ -136,63 +130,6 @@ function send_go(){
   color: #333;
   font-size: 1.6em;
   font-weight: bold;
-}
-
-.field {
-  display: flex;
-  align-items: center;
-  gap: 0.5em;
-  border-radius: 25px;
-  padding: 0.6em;
-  background-color: #fff;
-  box-shadow: inset 1px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.input-field {
-  background: none;
-  border: none;
-  outline: none;
-  width: 100%;
-  color: #333;
-  font-size: 1em;
-}
-
-.form .btn {
-  display: flex;
-  justify-content: center;
-  gap: 1em;
-  margin-top: 1.5em;
-  flex-wrap: wrap;
-}
-
-.button {
-  padding: 0.6em 1.6em;
-  border-radius: 25px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
-  background-color: #FFD732;
-  color: #333;
-}
-
-.button:hover {
-  background-color: #ffc400;
-}
-
-.id-check-btn {
-  margin-left: 10px;
-  background-color: #FFD732;
-  color: #333;
-  border: none;
-  border-radius: 10px;
-  padding: 5px 10px;
-  cursor: pointer;
-  font-size: 0.9em;
-}
-
-.id-check-btn:hover {
-  background-color: #ffc400;
 }
 
 .required-label {
@@ -208,32 +145,116 @@ function send_go(){
   font-weight: bold;
   margin-left: 3px;
 }
+
+.field {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 10px;
+}
+
+.input-field {
+  flex: 1;
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 1em;
+  box-sizing: border-box;
+  background-color: #fff;
+  min-width: 0;
+}
+
+.input-field::placeholder {
+  font-size: 0.9em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.id-check-btn {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  background-color: #FFD732;
+  color: #333;
+  font-size: 0.95em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
+}
+
+.id-check-btn:hover {
+  background-color: #ffc400;
+}
+
+.btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1em;
+  box-shadow: none !important;
+  filter: none !important;
+  background-image: none !important;
+}
+
+* {
+  box-shadow: none !important;
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1em;
+  font-weight: bold;
+  color: #000;
+  background-color: #FFD732;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #ffc400;
+}
+
+.id-check-btn:focus,
+.id-check-btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
 </style>
 </head>
-<body>
 
+<body>
 <form name="f" class="form" action="joinsave" method="post" onsubmit="return send_go()">
   <div id="heading">회원가입</div>
 
   <label class="required-label">ID <span class="required">*</span></label>
   <div class="field">
-    <input class="input-field" type="text" name="id" id="id">
+    <input class="input-field" type="text" name="id" id="id" placeholder="아이디는 4-12자, 영문 대소문자 또는 숫자만 입력 가능">
     <input class="id-check-btn" type="button" value="중복확인" id="logcheck">
   </div>
 
   <label class="required-label">비밀번호 <span class="required">*</span></label>
   <div class="field">
-    <input class="input-field" type="password" name="pw">
+    <input class="input-field" type="password" name="pw" placeholder="비밀번호는 4-15자, 영문 대소문자 또는 숫자만 입력 가능">
   </div>
 
   <label class="required-label">이름 <span class="required">*</span></label>
   <div class="field">
-    <input class="input-field" type="text" name="name">
+    <input class="input-field" type="text" name="name" placeholder="이름은 4자 이내, 숫자 입력 불가">
   </div>
 
   <label class="required-label">전화번호 <span class="required">*</span></label>
   <div class="field">
-    <input class="input-field" type="text" name="phone">
+    <input class="input-field" type="text" name="phone" placeholder="전화번호 입력예시) 010-XXXX-XXXX">
   </div>
 
   <label class="required-label">생년월일 <span class="required">*</span></label>
@@ -245,13 +266,7 @@ function send_go(){
     <input class="button" type="submit" value="회원가입">
     <input class="button" type="reset" value="취소">
   </div>
-  
 </form>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<br><br><br><br><br><br><br>
 </body>
 </html>

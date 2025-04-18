@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class JoinLogDTO {
 	
-	String id,pw,name,phone;
+	String id,pw,name,phone,newpw,newpwconfirm;
 	Date birth;
 	
 	public JoinLogDTO() {}
@@ -47,6 +47,22 @@ public class JoinLogDTO {
 
 	public void setBirth(Date birth) {
 		this.birth = birth;
+	}
+
+	public String getNewpw() {
+		return newpw;
+	}
+
+	public void setNewpw(String newpw) {
+		this.newpw = newpw;
+	}
+
+	public String getNewpwconfirm() {
+		return newpwconfirm;
+	}
+
+	public void setNewpwconfirm(String newpwconfirm) {
+		this.newpwconfirm = newpwconfirm;
 	}
 	
 	
