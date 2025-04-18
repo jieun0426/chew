@@ -6,7 +6,7 @@
 <mapper namespace="com.mbc.chew.store.StoreService">
 
 <insert id="insertstore">
-insert into store_3 values(#{param1},#{param2},#{param3},#{param4},#{param6},#{param7})
+insert into store_3 values(#{param1},#{param2},#{param3},#{param4},0,#{param5},#{param6})
 </insert>
 
 <select id="outstore" resultType="com.mbc.chew.store.StoreDTO">
@@ -32,5 +32,9 @@ update store_3 set storename=#{param2},storeaddress=#{param3},storecategory=#{pa
 <update id="updatemodi2">
 update store_3 set storename=#{param2},storeaddress=#{param3},storecategory=#{param4},storearea=#{param5},storeimage=#{param6} where storecode=#{param1}
 </update>
+
+<select id="selectOne" resultType="com.mbc.chew.store.StoreDTO">
+select * from store_3 where storecode=#{param}
+</select>
 </mapper>
 

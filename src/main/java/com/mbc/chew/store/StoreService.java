@@ -21,6 +21,8 @@ public interface StoreService {
 	void updatemodi2(int storecode, String storename, String storeaddress, String storecategory, 
 			String storearea, String fname);
 
+	StoreDTO selectOne(int num);
+
 
 
 

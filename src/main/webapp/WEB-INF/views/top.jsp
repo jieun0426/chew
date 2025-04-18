@@ -5,70 +5,95 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/searchinput.css">
+  <link rel="stylesheet" href="css/style.css">
+  
+  
 <title>Main</title>
 </head>
 <body>
 <div id="top_div">
-	<a href="main"><img src="image/logo.png" id="logo"></a>
-	<h1 id="top_h1"><a href="main">CHEWTOPIA</a></h1>
-	
-	<div class="group">
-  		<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
-  		<input placeholder="Search" type="search" class="input">
-	</div>
-	
+	<a href="main"><img src="image/logo.png" id="logo"></a>	
+
 </div>
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">Chew</a>
-    </div>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">맛집 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="detail">상세화면</a></li>
-          <li><a href="#">Page 1-2</a></li>
-          <li><a href="#">Page 1-3</a></li>
-        </ul>
-      </li>
-     
-      <li><a href="#">이벤트</a></li>
-      
-      <li><a href="#">FAQ</a></li>
-      
-      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">관리자페이지 <span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="storein">매장관리</a></li>
-          <li><a href="sout">매장보기</a></li>
-          <li><a href="#">회원관리</a></li>
-          <li><a href="#">리뷰관리</a></li>
-          <li><a href="#">예약관리</a></li>
-        </ul>
-      </li>
-    </ul>
-   <ul class="nav navbar-nav navbar-right">
-    <c:choose>
-    	<c:when test="${loginstate==true }">
-    		<li><a href="#"><span class="glyphicon glyphicon-user"></span>${id}님! 반갑습니다.</a></li>
-      		<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>로그아웃</a></li>    	
-    	</c:when>
-    	<c:otherwise>
-    		<li><a href="joinput"><span class="glyphicon glyphicon-user"></span> 회원가입</a></li>
-      		<li><a href="loginput"><span class="glyphicon glyphicon-log-in"></span>로그인</a></li>
-    	</c:otherwise>
-    
-    </c:choose>
-      
-    </ul>
+
+<!-- 사이드바 토글 버튼 -->
+<button id="toggleSidebarBtn">☰ 메뉴</button>
+
+<!-- 왼쪽 사이드바 -->
+<nav id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <h3>Chew</h3>
   </div>
+  <ul class="menu">
+    <li><a href="main">메인으로</a></li>
+    
+    <li>
+      <button class="menu-toggle">맛집 ▼</button>
+      <ul class="submenu">
+        <li><a href="detailview">상세화면</a></li>
+        <li><a href="#">Page 1-2</a></li>
+        <li><a href="#">Page 1-3</a></li>
+      </ul>
+    </li>
+
+    <li><a href="#">이벤트</a></li>
+    <li><a href="#">FAQ</a></li>
+
+    <li>
+      <button class="menu-toggle">관리자페이지 ▼</button>
+      <ul class="submenu">
+        <li><a href="sout">매장관리</a></li>
+        <li><a href="#">회원관리</a></li>
+        <li><a href="#">리뷰관리</a></li>
+        <li><a href="#">예약관리</a></li>
+      </ul>
+    </li>
+
+    <c:choose>
+      <c:when test="${loginstate == true}">
+        <li><a href="#">👤 ${id}님 반갑습니다</a></li>
+        <li><a href="logout">🔓 로그아웃</a></li>
+      </c:when>
+      <c:otherwise>
+        <li><a href="joinput">👤 회원가입</a></li>
+        <li><a href="loginput">🔐 로그인</a></li>
+      </c:otherwise>
+    </c:choose>
+  </ul>
 </nav>
+<script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggleSidebarBtn");
+    const sidebar = document.getElementById("sidebar");
+
+    toggleBtn.addEventListener("click", function () {
+      sidebar.classList.toggle("hidden");
+    });
+  });
+  </script>
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const toggles = document.querySelectorAll(".menu-toggle");
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener("click", function () {
+        const submenu = this.nextElementSibling;
+
+        if (submenu.style.display === "block") {
+          submenu.style.display = "none";
+        } else {
+          submenu.style.display = "block";
+        }
+      });
+    });
+  });
+</script>
 
 </body>
 </html>

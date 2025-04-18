@@ -31,16 +31,16 @@
       <beans:property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
       <beans:property name="username" value="mbc"/>
       <beans:property name="password" value="1234"/>
-      </beans:bean>
-      <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+     </beans:bean>
+     <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <beans:property name="dataSource" ref="dataSource"/>
       <!--  패키지 경로는 매번 바뀌므로 다시 써줘야한다.  -->
       <beans:property name="mapperLocations" value="classpath:com/mbc/chew/*/*.xml"/>
       <!--  패키지 경로는 매번 바뀌므로 다시 써줘야한다.  -->
-      </beans:bean>
-      <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+     </beans:bean>
+     <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
       <beans:constructor-arg index="0" ref="sqlSessionFactory"/>
-      </beans:bean>     
+     </beans:bean>     
    <!-- 마이바티스 종료 -->
    <!-- 화일업로드 시작  -->
       <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

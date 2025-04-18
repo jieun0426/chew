@@ -38,4 +38,15 @@
 		<appender-ref ref="console" />
 	</root>
 	
+	<!-- 쿼리 실행 확인 -->
+    <!-- MyBatis SQL 로그 활성화 -->
+    <logger name="org.apache.ibatis" level="DEBUG">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.mybatis.spring" level="DEBUG">
+        <appender-ref ref="console" />
+    </logger>
+
+	<!-- 쿼리 실행 확인 -->
 </log4j:configuration>

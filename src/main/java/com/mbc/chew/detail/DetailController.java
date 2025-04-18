@@ -14,9 +14,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class DetailController {
 
-	@RequestMapping(value = "/detail")
-	public String dd1() {
+	@RequestMapping(value = "/detailview")
+	public String dd1(HttpServletRequest request,Model model) {
+		int code=Integer.parseInt(request.getParameter("storecode"));
 		
+
+		
+		model.addAttribute("ddto", null);
 		return "detailview";
 	}
 	

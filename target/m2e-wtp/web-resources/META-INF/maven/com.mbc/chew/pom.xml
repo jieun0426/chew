@@ -75,8 +75,6 @@
 		<!-- https://mvnrepository.com/artifact/org.apache.tiles/tiles-core -->
 		<dependency>
 		
-		
-		
 		<groupId>org.apache.tiles</groupId>
 		
 		<artifactId>tiles-core</artifactId>
@@ -123,12 +121,12 @@
 		<!-- Tiles 설정 종료 -->
 		
 		<!-- 암호화 설정 -->
-<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
-<dependency>
-<groupId>org.springframework.security</groupId>
-<artifactId>spring-security-core</artifactId>
-<version>5.7.0</version>
-</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+		<groupId>org.springframework.security</groupId>
+		<artifactId>spring-security-core</artifactId>
+		<version>5.7.0</version>
+		</dependency>
 		
 		<!-- AspectJ -->
 		<dependency>
