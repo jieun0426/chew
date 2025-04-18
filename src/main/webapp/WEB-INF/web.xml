@@ -30,6 +30,8 @@
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
+	
+
 <!-- 한글 깨짐 방지 -->
 <!-- filter와 filter-mapping을 만들어 준다. -->
     <filter> 

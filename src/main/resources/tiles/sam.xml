@@ -48,6 +48,31 @@
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storedeleteview.jsp"/>
 	</definition> 
    
+    <definition name="login_Idfind" extends="baseLayout">
+      <put-attribute name="title" value="아이디찾기"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/login_Idfind.jsp"/>
+   </definition>
+   
+   <definition name="findIdresult" extends="baseLayout">
+      <put-attribute name="title" value="아이디찾기결과"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/findIdresult.jsp"/>
+   </definition>
+   
+   <definition name="login_Pwfind" extends="baseLayout">
+      <put-attribute name="title" value="비번찾기"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/login_Pwfind.jsp"/>
+   </definition>
+   
+   <definition name="findPwresult" extends="baseLayout">
+      <put-attribute name="title" value="비번찾기결과"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/findPwresult.jsp"/>
+   </definition>
+   
+   <definition name="errorpage" extends="baseLayout">
+      <put-attribute name="title" value="페이지오류"/>
+      <put-attribute name="body" value="/WEB-INF/views/errorpage.jsp"/>
+   </definition>
+   
 	<definition name="storemodifyview" extends="baseLayout">
 		<put-attribute name="title" value="메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemodifyview.jsp"/>
@@ -57,5 +82,6 @@
 		<put-attribute name="title" value="메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_detail.jsp"/>
 	</definition> 
+
 
 </tiles-definitions>

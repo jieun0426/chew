@@ -14,12 +14,21 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 @Controller
-public class JoinController {
+public class JoinLogController {
 	@Autowired
 	SqlSession sqlSession;
+	
+	
+	@RequestMapping("/errorpage")
+    public String Error() {
+        return "errorpage";
+    }
+
 	
 	@RequestMapping(value = "/joinput")
 	public String jj1()
@@ -92,5 +101,16 @@ public class JoinController {
 		return "redirect:/";
 	}
 	
+	//아이디 중복검사
+	@ResponseBody
+	@RequestMapping(value = "/logcheck",method = RequestMethod.POST )
+	public String ajaxx1(String id)
+	{
+		JoinLogService jls =sqlSession.getMapper(JoinLogService.class);
+		int count = jls.idcount22(id);
+		String bigo =(count==1)?"no":"ok";
+		
+		return bigo;
+	}
 	
 }
