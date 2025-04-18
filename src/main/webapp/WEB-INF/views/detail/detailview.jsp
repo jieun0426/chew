@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -44,7 +46,9 @@
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid #ddd;
-      padding: 10px 20px;
+      padding: 13px 20px;  
+      background-color: #F3E2A9;
+      
     }
     .top-nav ul {
       list-style: none;
@@ -189,13 +193,51 @@
     button.prev { left: 0; }
     button.next { right: 0; }
 
-    .review-section {
-      margin-top: 30px;
-    }
-    .review {
-      border-top: 1px solid #ddd;
-      padding: 10px 0;
-    }
+   .review-section {
+  padding: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  margin-top: 50px;
+  background-color: #fefefe;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.review-id {
+  font-size: 13px;
+  color: #888;
+}
+
+.review-stars {
+  font-size: 22px;
+  color: #f1c40f;
+  margin-bottom: 8px;
+}
+
+.review-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 6px;
+}
+
+.review-content {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+
+   
+   
 
     .map-wrapper {
       display: flex;
@@ -238,9 +280,31 @@
       color: black;
     }
     
-    
+.review_form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+.review_title {
+  width: 600px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 15px 0 0 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 40px;
+  padding: 10px 15px;
+  font-size: 13px;
+  font-family: sans-serif;
+  font-weight: bold;
+  
+}
+
 .star_box {
-  width: 400px;
+  width: 600px;
   box-sizing: border-box;
   display: inline-block;
   margin: 15px 0;
@@ -253,9 +317,11 @@
   font-size: 13px;
   font-family: sans-serif;
 }
+
+
 .btn02 {
   display:block;
-  width: 400px;
+  width: 600px;
   font-weight: bold;
   border: 0;
   border-radius: 10px;
@@ -299,6 +365,7 @@
 }
 
 
+
   </style>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -317,11 +384,11 @@
   </header>
 
   <div class="container1">
-    <div class="restaurant-header">
-      <img src="./image/gab5.jpg" alt="레스토랑 사진">
+    <div class="restaurant-header" id="home">
+      <img src="${ddto.storeimage}" alt="레스토랑 사진">
       <div class="restaurant-info">
         <div class="title-like">
-          <h1>카보정 갈비</h1>
+          <h1>${ddto.storename}</h1>
           <label class="like-wrapper">
             <input type="checkbox" class="check">
             <div class="like-btn">
@@ -340,8 +407,8 @@
           </label>
         </div>
         <div class="stars">★★★★★ (4.5)</div>
-        <div class="location">경기도 수원시 팔달구 인계동</div>
-        <p>한식 · 고기 요리 전문 · 가족 모임 추천</p>
+        <div class="location">${ddto.storeaddress}</div>
+        <p>${ddto.storecategory}</p>
       </div>
     </div>
    </div>
@@ -365,8 +432,8 @@
       <div class="map-wrapper">
         <div id="map"></div>
         <div class="address-box">
-          <h5>경기도 수원시 팔달구 인계동 30번길 65</h5>
-          <p>주차 가능 / 수원역에서 10분 거리</p>
+          <h5>${ddto.storeaddress}</h5>
+          <p>주차 가능여부 테이블 넣어줘요</p>
         </div>
       </div>
     </div>
@@ -405,12 +472,19 @@
 
  <div class="container3">  
    <!-- 리뷰 작성 폼 -->
-<div style="margin-top: 30px;">
-  <form action="submitReview.do" method="post">
-    <h3>리뷰 작성하기</h3>
+<div class="review-form" style="margin-top: 30px;">
+ <form action="submitReview" method="post" class="review_form">
+  <h3>리뷰 작성하기</h3>
+  <p>식사는 만족스러우셨나요?</p>
 
-    <!-- 별점 -->
-   <div style="text-align: center;">
+  <!-- 고정된 사용자 ID -->
+  <input type="hidden" name="id" value="testuser">
+
+  <!-- storecode는 해당 가게의 코드 -->
+  <input type="hidden" name="storecode" value="${ddto.storecode}">
+
+  <!-- 별점 선택 -->
+  <div style="text-align: center;">
     <div class="rating" style="display: inline-block;">
       <input value="5" name="stars" id="star5" type="radio">
       <label title="5점" for="star5"></label>
@@ -423,31 +497,47 @@
       <input value="1" name="stars" id="star1" type="radio">
       <label title="1점" for="star1"></label>
     </div>
-   </div>
-   
-    <!-- 리뷰 내용 -->
-    <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
+  </div>
+  
+  <!-- 제목 입력칸 -->
+  <input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
 
-    <!-- 리뷰 등록 버튼 -->
-    <button type="submit" class="btn02" style="display: block; margin: 0 auto;">리뷰 등록하기</button>
-  </form>
+  <!-- 리뷰 내용 입력 -->
+  <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
+
+  <!-- 리뷰 등록 버튼 -->
+  <button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
+</form>
+ 
 </div>
    
-   
-   <h2>리뷰</h2>
-    <div class="review-section" id="reviews">    
-      <div class="review">
-        <h4>김철수</h4>
-        <div class="stars">★★★★☆</div>
-        <p>고기가 정말 부드럽고 서비스도 친절했어요!</p>
-      </div>
-      <div class="review">
-        <h4>박영희</h4>
-        <div class="stars">★★★★★</div>
-        <p>가족끼리 방문했는데 다들 만족했어요. 재방문의사 100%</p>
-      </div>
-    </div>
-  </div>
+<div class="review-section" id="reviews">
+    <h2>리뷰</h2>
+
+    <c:forEach var="r" items="${list}">
+        <div class="review">
+            <div class="review-header">
+                <span class="review-avatar-emoji">👤</span>
+                <span class="review-id">${r.id}</span>
+            </div>
+            <div class="review-stars">
+                <c:forEach var="i" begin="1" end="${r.stars}">
+                    ★
+                </c:forEach>
+                <c:forEach var="i" begin="${r.stars + 1}" end="5">
+                    ☆
+                </c:forEach>
+            </div>
+            <div class="review-title">${r.title}</div>
+            <div class="review-content">${r.content}</div>
+        </div>
+    </c:forEach>
+</div>
+
+
+
+
+</div>
 
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc847f687b096a45e3012f1089780b4f"></script>
   <script>
@@ -520,6 +610,8 @@
             this.reset(); // 폼 초기화
           });     
       });
+    
+
   
  
 

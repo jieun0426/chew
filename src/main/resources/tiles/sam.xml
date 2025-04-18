@@ -33,10 +33,15 @@
 		<put-attribute name="body" value="/WEB-INF/views/detail/detailview.jsp"/>
 	</definition>
 
-	<definition name="storeinput" extends="baseLayout">
-		<put-attribute name="title" value="메인화면"/>
-		<put-attribute name="body" value="/WEB-INF/views/storemanage/storeinput.jsp"/>
-	</definition> 
+	<definition name="detailmain" extends="baseLayout">
+		<put-attribute name="title" value="상세메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/detail/detailmain.jsp"/>
+	</definition>
+
+   <definition name="storeinput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeinput.jsp"/>
+   </definition> 
    
 	<definition name="storeout" extends="baseLayout">
 		<put-attribute name="title" value="메인화면"/>
