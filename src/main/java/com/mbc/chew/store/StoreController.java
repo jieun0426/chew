@@ -3,6 +3,7 @@ package com.mbc.chew.store;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +12,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,29 +22,45 @@ public class StoreController {
 	@Autowired
 	SqlSession sqls;
 	String path="C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image";
+	
 @RequestMapping(value="/storein")
 	public String storein()
-	{
+{
 		return"storeinput";
-	}
-@RequestMapping(value="/storesave")
+}
+
+@RequestMapping(value="/storesave", method = RequestMethod.POST)
 public String storesave(MultipartHttpServletRequest mul) throws IllegalStateException, IOException
 {
 	
-	int storecode        = Integer.parseInt(mul.getParameter("storecode"));
-	String storename     = mul.getParameter("storename");
-	String storeaddress  = mul.getParameter("storeaddress");
-	String storecategory = mul.getParameter("storecategory");
-	String storearea	 = mul.getParameter("storearea");
-	MultipartFile mf 	 = mul.getFile("storeimage");
-	String fname		 = mf.getOriginalFilename();
+	int storecode         = Integer.parseInt(mul.getParameter("storecode"));
+	String storename      = mul.getParameter("storename");
+	String storeaddress   = mul.getParameter("storeaddress");
+	String storecategory  = mul.getParameter("storecategory");
+	String storearea	  = mul.getParameter("storearea");
+	
+	
+	List<MultipartFile> files = mul.getFiles("storeimage");
 	StoreService ss 	 = sqls.getMapper(StoreService.class);
-	UUID uu = UUID.randomUUID();
-	fname= uu.toString()+"_"+fname;
-	mf.transferTo(new File(path+"\\"+fname));
-	ss.insertstore(storecode,storename,storeaddress,storecategory,storearea,fname);
+	StringBuilder fn	  = new StringBuilder();
+
+	for (MultipartFile mf : files) {
+		if(!mf.isEmpty()) {
+		String fname		 = mf.getOriginalFilename();
+		UUID uu = UUID.randomUUID();
+		fname= uu.toString()+"_"+fname;
+		mf.transferTo(new File(path+"\\"+fname));
+		fn.append(fname).append(",");
+		}
+	}
+	if (fn.length()>0) {
+		fn.setLength(fn.length()-1);
+	}
+	
+	ss.insertstore(storecode,storename,storeaddress,storecategory,storearea,fn.toString());
 	return "redirect:/sout";
 }
+
 @RequestMapping(value ="/sout")
 public String storeout(HttpServletRequest request,Model m)
 {

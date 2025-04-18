@@ -1,307 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #FBF8EF;
-    }
-    .container1 {
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    
-    .container2 {
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    
-    .container3 {
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #FFFFFF;
-    }
-
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(4px);
-      border-bottom: 1px solid #ddd;
-      padding: 10px 20px;
-    }
-    .top-nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
-    }
-    .top-nav a {
-      text-decoration: none;
-      font-weight: bold;
-      color: #333;
-    }
-    .top-nav a:hover {
-      color: #f52121;
-    }
-
-    .restaurant-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .restaurant-header img {
-      width: 200px;
-      height: 150px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-    .restaurant-info h1 {
-      margin: 0;
-    }
-    .stars {
-      color: #ffc107;
-      font-size: 20px;
-    }
-    .location {
-      color: #666;
-    }
-
-    .title-like {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .like-wrapper {
-      font-size: 12px;
-      background: none;
-      box-shadow: none;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.2em 0.4em;
-      border: 0.1em solid #313131;
-      border-radius: 0.35em;
-      cursor: pointer;
-      gap: 0.3em;
-    }
-    .like-wrapper .check { display: none; }
-    .like-wrapper .like-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.3em;
-    }
-    .like-wrapper .icon {
-      width: 1em;
-      height: 1em;
-      fill: white;
-      transition: transform 0.2s ease-in-out;
-    }
-    .like-wrapper .icon.active {
-      display: none;
-      fill: #f52121;
-    }
-    .like-wrapper .check:checked + .like-btn .icon.active {
-      display: inline-block;
-      animation: wiggle 0.5s ease-in-out;
-    }
-    .like-wrapper .check:checked + .like-btn .icon.inactive {
-      display: none;
-    }
-    .like-wrapper .like-text {
-      font-weight: bold;
-      color: black;
-      line-height: 1;
-    }
-    @keyframes wiggle {
-      0%,100% { transform: rotate(0deg); }
-      25%     { transform: rotate(-10deg); }
-      50%     { transform: rotate(10deg); }
-      75%     { transform: rotate(-10deg); }
-    }
-
-    .card {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      max-width: 1000px;
-      height: 500px;
-      margin: 30px auto;
-    }
-    .cardWrap {
-      position: relative;
-      width: 800px;
-      height: 500px;
-      overflow: hidden;
-    }
-    .cardWrap ul {
-      position: absolute;
-      display: flex;
-      width: calc((800px + 20px) * 4);
-      height: 500px;
-      left: 0;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .cardWrap ul li {
-      width: 800px;
-      height: 500px;
-      margin: 0 10px;
-      flex-shrink: 0;
-    }
-    .cardWrap ul li img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    button.prev, button.next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 50px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: #333;
-    }
-    button.prev { left: 0; }
-    button.next { right: 0; }
-
-    .review-section {
-      margin-top: 30px;
-    }
-    .review {
-      border-top: 1px solid #ddd;
-      padding: 10px 0;
-    }
-
-    .map-wrapper {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-    #map {
-      width: 35%;
-      height: 250px;
-      margin-left: 70px;
-    }
-    .address-box {
-      flex: 1;
-    }
-    .modal {
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 10px;
-      width: 400px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      cursor: pointer;
-    }
-    .close:hover {
-      color: black;
-    }
-    
-    
-.star_box {
-  width: 400px;
-  box-sizing: border-box;
-  display: inline-block;
-  margin: 15px 0;
-  background: #F3F4F8;
-  border: 0;
-  border-radius: 10px;
-  height: 100px;
-  resize: none;
-  padding: 15px;
-  font-size: 13px;
-  font-family: sans-serif;
-}
-.btn02 {
-  display:block;
-  width: 400px;
-  font-weight: bold;
-  border: 0;
-  border-radius: 10px;
-  max-height: 50px;
-  padding: 15px 0;
-  font-size: 1.1em;
-  text-align: center;
-  background:bisque;
-}
-.rating:not(:checked) > input {
-  position: absolute;
-  appearance: none;
-}
-
-.rating:not(:checked) > label {
-  float: right;
-  cursor: pointer;
-  font-size: 30px;
-  color: #666;
-}
-
-.rating:not(:checked) > label:before {
-  content: '★';
-}
-
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-  color: #e58e09;
-}
-
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-  color: #ff9e0b;
-}
-
-.rating > input:checked ~ label {
-  color: #ffa723;
-}
-
-
-  </style>
-
+  
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/detailview.css">
 </head>
 <body>
 
@@ -373,15 +80,17 @@
    </div>
     
      <!-- 예약 모달 창 -->
-  <div id="reservationModal" style="display:none;" class="modal">
+  <div id="bookingModal" style="display:none;" class="modal">
     <div class="modal-content">
+    <c:if test="${not empty error}">
+    <div class="error-message" style="color: red; margin-bottom: 10px;">
+            ${error}
+        </div></c:if>
       <span class="close">&times;</span>
       <h4>예약하기</h4>
-      <form id="reservationForm">
-        <label for="name">성함:</label><br>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="people">인원수:</label><br>
-        <select id="people" name="people">
+      <form id="bookingForm" method="post">
+        <label for="saramsu">인원수:</label><br>
+        <select id="saramsu" name="saramsu" required="required">
         <option value="1">1명</option>
         <option value="2">2명</option>
         <option value="3">3명</option>
@@ -394,9 +103,14 @@
         <option value="10">10명 이상</option>
         </select><br><br>
         <label for="date">날짜:</label><br>
-        <input type="date" id="date" name="date"><br><br>
+        <input type="date" id="bookingdate" name="bookingdate" pattern="\d{4}-\d{2}-\d{2}" required="required"><br><br>
         <label for="time">시간:</label><br>
-        <input type="time" id="time" name="time"><br><br>
+        <input type="time" id="bookingtime" name="bookingtime" step="60" required="required" ><br><br>
+        <!-- 나중에 join -->
+        <input type="hidden" name="tablenum" value="1">
+		<input type="hidden" name="storecode" value="1001">
+        <input type="hidden" name="state" value="예약중">
+        
         <button type="submit">예약하기</button>
       </form>
     </div>
@@ -406,7 +120,7 @@
  <div class="container3">  
    <!-- 리뷰 작성 폼 -->
 <div style="margin-top: 30px;">
-  <form action="submitReview.do" method="post">
+  <form action="reviewsave" method="post">
     <h3>리뷰 작성하기</h3>
 
     <!-- 별점 -->
@@ -424,6 +138,41 @@
       <label title="1점" for="star1"></label>
     </div>
    </div>
+   
+     <!-- 카카오 맵 임다 --> 
+    <div class="location-section" id="location">
+      <h2>위치</h2>
+      <div class="map-wrapper">
+        <!-- 여기에 지도를 넣습니다 -->
+        <div id="map" style="width: 500px; height: 250px;"></div> <!-- 반드시 너비/높이 지정! -->
+        <div class="address-box">
+          <!-- 주소 텍스트 등 -->
+          <h5>${storeInfo.address}</h5> <!-- 예시: DB에서 가져온 주소 표시 -->
+          <p>주차 시설 완비</p>
+        </div>
+      </div>
+    </div>
+   
+   <!-- detail 로 보내버릴 것 -->
+   <script>
+   const storeLatitude = ${storeInfo.lat};
+   const storeLongitude = ${storeInfo.lon};
+   const storeName = "${storeInfo.storename}"; 
+   
+   function initMap() {}
+// 3. 카카오맵 SDK 비동기 로드 및 initMap 호출
+   const script = document.createElement('script');
+   script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=47eccc1e7f407254053a2b138b0d08f4&autoload=false`; //
+   // 이부분 My APP Key 47eccc1e7f407254053a2b138b0d08f4
+   script.async = true;
+   script.onload = () => {
+       if (window.kakao && window.kakao.maps) {
+           kakao.maps.load(initMap);
+       } else { console.error("Kakao Maps SDK 로드 실패"); }
+   };
+   script.onerror = () => { console.error("Kakao Maps SDK 스크립트 로드 중 에러 발생"); };
+   document.head.appendChild(script);
+</script>
    
     <!-- 리뷰 내용 -->
     <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
@@ -449,22 +198,13 @@
     </div>
   </div>
 
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc847f687b096a45e3012f1089780b4f"></script>
-  <script>
-    var mapContainer = document.getElementById('map'),
-        mapOption = { 
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3 
-        };
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
-    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-    marker.setMap(map);
-  </script>
+  
+  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script src="js/jquery-3.6.0.min.js"></script>
+  <!-- 예약 모달 js 임다 -->
+  <script src="js/booking.js"></script>
+  
   <script>
     $(document).ready(function(){
       let i = 0,
@@ -491,39 +231,7 @@
 
       updateNav();
     });
-    
-    $(function() {
-        const modal = $('#reservationModal');
-        const openBtn = $('#openModalBtn');
-        const closeBtn = $('.close');
+   </script>
 
-        openBtn.on('click', function(e) {
-          e.preventDefault();
-          modal.fadeIn();
-        });
-
-        closeBtn.on('click', function() {
-          modal.fadeOut();
-        });
-
-        $(window).on('click', function(e) {
-          if ($(e.target).is(modal)) {
-            modal.fadeOut();
-          }
-        });
-        
-        //예약완료 알림처리
-        $('#reservationForm').on('submit', function(e) {
-            e.preventDefault(); // 실제 전송 방지
-            alert('예약이 완료되었습니다!');
-            modal.fadeOut(); // 알림 후 모달 닫기
-            this.reset(); // 폼 초기화
-          });     
-      });
-  
- 
-
-    
-  </script>
 </body>
 </html>
