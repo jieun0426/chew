@@ -6,6 +6,7 @@
 
 <tiles-definitions>
 
+<<<<<<< HEAD
 	<definition name="baseLayout" template="/WEB-INF/views/layout.jsp">
 		<put-attribute name="title" value=""/>
 		<put-attribute name="top" value="/WEB-INF/views/top.jsp"/>
@@ -47,6 +48,69 @@
 		<put-attribute name="title" value="메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storedeleteview.jsp"/>
 	</definition> 
+=======
+   <definition name="baseLayout" template="/WEB-INF/views/layout.jsp">
+      <put-attribute name="title" value=""/>
+      <put-attribute name="top" value="/WEB-INF/views/top.jsp"/>
+      <put-attribute name="body" value=""/>
+      <put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+   </definition>
+   
+   <definition name="main" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/main.jsp"/>
+   </definition>
+   
+   <definition name="joinput" extends="baseLayout">
+      <put-attribute name="title" value="회원가입"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/joinput.jsp"/>
+   </definition>
+   
+   <definition name="loginput" extends="baseLayout">
+      <put-attribute name="title" value="로그인"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/loginput.jsp"/>
+   </definition>
+   
+    <definition name="login_Idfind" extends="baseLayout">
+      <put-attribute name="title" value="아이디찾기"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/login_Idfind.jsp"/>
+   </definition>
+   
+   <definition name="findIdresult" extends="baseLayout">
+      <put-attribute name="title" value="아이디찾기결과"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/findIdresult.jsp"/>
+   </definition>
+   
+   <definition name="login_Pwfind" extends="baseLayout">
+      <put-attribute name="title" value="비번찾기"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/login_Pwfind.jsp"/>
+   </definition>
+   
+   <definition name="findPwresult" extends="baseLayout">
+      <put-attribute name="title" value="비번찾기결과"/>
+      <put-attribute name="body" value="/WEB-INF/views/joinlogin/findPwresult.jsp"/>
+   </definition>
+   
+   <definition name="errorpage" extends="baseLayout">
+      <put-attribute name="title" value="페이지오류"/>
+      <put-attribute name="body" value="/WEB-INF/views/errorpage.jsp"/>
+   </definition>
+   
+   <definition name="detailview" extends="baseLayout">
+      <put-attribute name="title" value="상세화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/detail/detailview.jsp"/>
+   </definition>
+
+   <definition name="storeinput" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeinput.jsp"/>
+   </definition> 
+   
+   <definition name="storeout" extends="baseLayout">
+      <put-attribute name="title" value="메인화면"/>
+      <put-attribute name="body" value="/WEB-INF/views/storemanage/storeout.jsp"/>
+   </definition>   
+>>>>>>> a77a7e7bac3070e23eb66f93096386648a80d533
    
 	<definition name="storemodifyview" extends="baseLayout">
 		<put-attribute name="title" value="메인화면"/>
@@ -57,5 +121,6 @@
 		<put-attribute name="title" value="메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_detail.jsp"/>
 	</definition> 
+
 
 </tiles-definitions>

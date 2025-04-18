@@ -14,4 +14,15 @@ select pw from member_3 where id=#{param1}
 <select id="idcount22" resultType="int" >
 select count(*) from member_3 where id=#{param1}
 </select>
+<select id="findidid" resultType="String">
+    select id from member_3 where name=#{param1} and phone=#{param2}
+</select>
+<select id="findpwpw" resultType="String">
+    select pw from member_3 where id=#{param1} and name=#{param2}
+</select>
+<update id="updatePassword">
+    update member_3 set pw = #{param2} where id = #{param1}
+</update>
+
+
 </mapper> 
