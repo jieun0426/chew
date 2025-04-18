@@ -1,10 +1,14 @@
 package com.mbc.chew.review;
 
-import java.sql.Date;
+import java.util.ArrayList;
 
 public interface ReviewService {
 
-	void insertreview(int tablenum, int storecode, String id, int saramsu, String state, Date bookingdate,
-			Date bookingtime);
+	void insertReview(ReviewDTO dto);
+
+	ArrayList<ReviewDTO> reviewout(int storecode);
+
+	
+	 
 
 }

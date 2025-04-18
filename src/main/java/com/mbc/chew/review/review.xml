@@ -3,11 +3,29 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mbc.kim.review.ReviewService">
+<mapper namespace="com.mbc.chew.review.ReviewService">
 
-<insert id="insertreview">
-insert into review_3 values(#{param1},#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
+<insert id="insertReview" parameterType="com.mbc.chew.review.ReviewDTO">
+        INSERT INTO REVIEW_3 (ID, STORECODE, CONTENT, STARS, TITLE)
+        VALUES (
+            #{id, jdbcType=VARCHAR},
+            #{storecode, jdbcType=NUMERIC},
+            #{content, jdbcType=VARCHAR},
+            #{stars, jdbcType=NUMERIC},
+            #{title, jdbcType=VARCHAR}
+        )
 </insert>
+
+<select id="reviewout" parameterType="int" resultType="com.mbc.chew.review.ReviewDTO">
+        SELECT ID, STORECODE, CONTENT, STARS, TITLE
+        FROM REVIEW_3 
+        where storecode= #{storecode}
+
+</select>
+    
+    
+    
+    
 
 </mapper>
 

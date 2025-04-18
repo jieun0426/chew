@@ -2,6 +2,7 @@
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>   
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,18 +18,20 @@ body {
 }
 
 .container1 {
-  min-height: 100vh;
+  width: 90%;                  /* 전체 너비의 90%로 설정 */
+  max-width: 1000px;           /* 최대 너비 지정 */
+  min-height: 85vh;            /* 화면의 85% 높이 */
+  margin: 60px auto;           /* 가운데 정렬 + 위아래 여백 */
+  background-color: #FFF5E2;
+  padding: 60px 40px;          /* 내부 여백 늘리기 */
+  border-radius: 30px;         /* 모서리 둥글게 */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);  /* 부드러운 그림자 */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* 중앙 정렬에서 살짝 위로 올림 */
   align-items: center;
-  padding-top: 100px;  /* 원하는 만큼만 여백 주기 */
-  background-color: #FFF5E2;
   font-family: Arial, sans-serif;
-  margin-bottom: 0;
-  padding-bottom: 0;
-  
 }
+
 
 /* h1 스타일 */
 .container1 h1 {
@@ -497,63 +500,26 @@ body {
 </div>
 
 <div class="container2">
-<h2>츄토피아 추천 음식점</h2>
-<div class="restaurant-grid">
+  <h2>츄토피아 추천 음식점</h2>
+  <div class="restaurant-grid">
 
-<%
-  // DB 연결 정보
-  String dbURL = "jdbc:mysql://localhost:3306/restaurantdb?useSSL=false&serverTimezone=UTC";
-  String dbUser = "mbc12";
-  String dbPass = "1234"; // ← 본인 비밀번호
-  Connection conn = null;
-  PreparedStatement pstmt = null;
-  ResultSet rs = null;
-
-  try {
-    Class.forName("com.mysql.cj.jdbc.Driver");
-    conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-
-    String sql = "SELECT * FROM restaurants";
-    pstmt = conn.prepareStatement(sql);
-    rs = pstmt.executeQuery();
-
-    while (rs.next()) {
-      String name = rs.getString("name");
-      int stars = rs.getInt("stars");
-      String category = rs.getString("category");
-      String address = rs.getString("address");
-      String image = rs.getString("image_path");
-
-      // 별점 ★ 문자열 생성
-      String starString = "";
-      for (int i = 0; i < stars; i++) {
-        starString += "★";
-      }
-%>
-    <!-- 레스토랑 카드 HTML -->
-    <div class="restaurant-card">
-      <img src="<%= image %>" alt="레스토랑 이미지">
-      <div class="restaurant-info">
-        <div class="restaurant-name"><%= name %></div>
-        <div class="stars"><%= starString %></div>
-        <div class="storecategory"><%= category %></div>
-        <div class="storeaddress"><%= address %></div>
+    <c:forEach items="${list}" var="r">
+    <a href="detailview?storecode=${r.storecode}" class="restaurant-card-link">
+      <div class="restaurant-card">
+        <img src="${r.storeimage}" width="300">
+        <div class="restaurant-info">
+          <div class="restaurant-name">${r.storename}</div>
+          <div class="storecategory">${r.storecategory}</div>
+          <div class="storeaddress">${r.storeaddress}</div>
+        </div>
       </div>
-    </div>
-<%
-    } // while문 끝
-  } catch (Exception e) {
-    out.println("<p style='color:red;'>오류 발생: " + e.getMessage() + "</p>");
-    e.printStackTrace();
-  } finally {
-    try { if (rs != null) rs.close(); } catch (Exception e) {}
-    try { if (pstmt != null) pstmt.close(); } catch (Exception e) {}
-    try { if (conn != null) conn.close(); } catch (Exception e) {}
-  }
-%>
+     </a>
+    </c:forEach>
 
-  </div> <!-- restaurant-grid 끝 -->
-</div> <!-- container2 끝 -->
+  </div>
+</div>
+
+
 
 </body>
 </html>
