@@ -21,7 +21,12 @@ public interface StoreService {
 	void updatemodi2(int storecode, String storename, String storeaddress, String storecategory, 
 			String storearea, String fname);
 
+	static StoreDTO getstoreInfo(int storecode) {
+		return null;
+	}
+
 	StoreDTO selectOne(int num);
+
 
 
 

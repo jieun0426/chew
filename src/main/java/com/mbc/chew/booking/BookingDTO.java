@@ -10,7 +10,7 @@ public class BookingDTO {
 	int saramsu;
 	String state;
 	Date bookingdate;
-	Date bookingtime;
+	String bookingtime;
 	public BookingDTO() {
 	}
 	public int getTablenum() {
@@ -49,12 +49,13 @@ public class BookingDTO {
 	public void setBookingdate(Date bookingdate) {
 		this.bookingdate = bookingdate;
 	}
-	public Date getBookingtime() {
+	public String getBookingtime() {
 		return bookingtime;
 	}
-	public void setBookingtime(Date bookingtime) {
+	public void setBookingtime(String bookingtime) {
 		this.bookingtime = bookingtime;
 	}
+
 	
 	
 }
