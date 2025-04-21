@@ -21,8 +21,6 @@
 
 </div>
 
-<<<<<<< HEAD
-
 <!-- 사이드바 토글 버튼 -->
 <button id="toggleSidebarBtn">☰ 메뉴</button>
 
@@ -38,7 +36,6 @@
     <li>
       <button class="menu-toggle">맛집 ▼</button>
       <ul class="submenu">
-        <li><a href="detail">상세화면</a></li>
         <li><a href="detailmain">상세보기</a></li>
         <li><a href="#">Page 1-3</a></li>
       </ul>
