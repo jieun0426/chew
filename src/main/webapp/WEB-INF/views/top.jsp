@@ -11,15 +11,42 @@
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/searchinput.css">
   <link rel="stylesheet" href="css/style.css">
-  
+<style type="text/css">
+  .login {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+  }
+  .login a {
+    margin-left: 10px;
+    text-decoration: none;
+  }
+</style>
+
   
 <title>Main</title>
 </head>
 <body>
-<div id="top_div">
-	<a href="main"><img src="image/logo.png" id="logo"></a>	
 
+
+
+<!-- 상단 로고 + 로그인/회원가입 메뉴 -->
+
+<div id="top_div">
+  <a href="main"><img src="image/logo.png" id="logo"></a>  
 </div>
+<div class="login">
+      <c:choose>
+        <c:when test="${loginstate == true}">
+          <a href="mypagePwcheck">👤 ${id}님 반갑습니다</a>
+          <a href="logout">🔓 로그아웃</a>
+        </c:when>
+        <c:otherwise>
+          <a href="joinput">👤 회원가입</a>
+          <a href="loginput">🔐 로그인</a>
+        </c:otherwise>
+      </c:choose>
+    </div>
 
 <!-- 사이드바 토글 버튼 -->
 <button id="toggleSidebarBtn">☰ 메뉴</button>
@@ -28,11 +55,10 @@
 <nav id="sidebar" class="sidebar">
   <div class="sidebar-header">
     <h3>Chew</h3>
-
   </div>
   <ul class="menu">
     <li><a href="main">메인으로</a></li>
-    
+
     <li>
       <button class="menu-toggle">맛집 ▼</button>
       <ul class="submenu">
@@ -53,20 +79,14 @@
         <li><a href="#">예약관리</a></li>
       </ul>
     </li>
-
-    <c:choose>
-      <c:when test="${loginstate == true}">
-        <li><a href="#">👤 ${id}님 반갑습니다</a></li>
-        <li><a href="logout">🔓 로그아웃</a></li>
-      </c:when>
-      <c:otherwise>
-        <li><a href="joinput">👤 회원가입</a></li>
-        <li><a href="loginput">🔐 로그인</a></li>
-      </c:otherwise>
-    </c:choose>
+    
+   <li><a href="mypagePwcheck">마이페이지</a></li>
+    
   </ul>
 </nav>
-<script type="text/javascript">
+
+<!-- 토글 및 서브메뉴 스크립트 -->
+<script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.getElementById("toggleSidebarBtn");
     const sidebar = document.getElementById("sidebar");
@@ -74,10 +94,7 @@
     toggleBtn.addEventListener("click", function () {
       sidebar.classList.toggle("hidden");
     });
-  });
-  </script>
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
+
     const toggles = document.querySelectorAll(".menu-toggle");
 
     toggles.forEach((toggle) => {

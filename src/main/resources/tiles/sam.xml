@@ -28,6 +28,21 @@
 		<put-attribute name="body" value="/WEB-INF/views/joinlogin/loginput.jsp"/>
 	</definition>
 	
+	<definition name="mypagePwcheck" extends="baseLayout">
+		<put-attribute name="title" value="마이페이지"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagePwcheck.jsp"/>
+	</definition>
+	
+	<definition name="mypinfo" extends="baseLayout">
+		<put-attribute name="title" value="회원정보수정"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/mypinfo.jsp"/>
+	</definition>
+	
+	<definition name="myinforeview" extends="baseLayout">
+		<put-attribute name="title" value="회원정보수정"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/myinforeview.jsp"/>
+	</definition>
+	
 	<definition name="detailview" extends="baseLayout">
 		<put-attribute name="title" value="상세화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/detail/detailview.jsp"/>
