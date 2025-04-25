@@ -203,7 +203,15 @@
 <title>로그인</title>
 </head>
 <body>
+<c:if test="${not empty sessionScope.alertMessage}">
+    <script>
+        alert('${sessionScope.alertMessage}');
+    </script>
+    <c:remove var="alertMessage" scope="session"/>
+</c:if>
+
 <form class="form" action="logsave" method="post">
+
   <div id="heading">로그인</div>
 
   <div class="field">
@@ -225,6 +233,8 @@
   </c:if>
 
   <div class="links">
+  <a href="joinput">회원가입</a>
+    <span>|</span>
     <a href="login_Idfind">아이디찾기</a>
     <span>|</span>
     <a href="login_Pwfind">비밀번호찾기</a>

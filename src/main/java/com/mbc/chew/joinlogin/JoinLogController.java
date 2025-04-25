@@ -37,7 +37,8 @@ public class JoinLogController {
 	}
 	
 	@RequestMapping(value = "/joinsave")
-	public String jj2(HttpServletRequest request)
+	public void jj2(HttpServletRequest request, 
+			HttpServletResponse response) throws IOException
 	{
 		String id= request.getParameter("id");
 		String pw= request.getParameter("pw");
@@ -49,9 +50,16 @@ public class JoinLogController {
 		JoinLogService jls = sqlSession.getMapper(JoinLogService.class);
 		jls.jlsinsert(id,pw,name,phone,birth);
 		
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		out.println("alert('회원가입을 환영합니다!');");
+		String contextPath = request.getContextPath();
+		out.println("location.href='" + contextPath + "/main';");
+		out.println("</script>");
+		out.close();
+
 		
-		
-		return "redirect:/";
 	}
 	
 	
