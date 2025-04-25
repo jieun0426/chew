@@ -108,5 +108,8 @@
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_detail.jsp"/>
 	</definition> 
 
-
+	<definition name="storemanage_search" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_search.jsp"/>
+	</definition>
 </tiles-definitions>

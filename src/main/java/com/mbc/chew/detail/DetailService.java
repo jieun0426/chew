@@ -8,4 +8,9 @@ public interface DetailService {
 
 	DetailDTO dout1(String code);
 
+	/* 페이징 처리 */
+	ArrayList<DetailDTO> paging(int start, int end);
+
+	int countAllRecords();
+	/* 페이징 처리 끝*/
 }

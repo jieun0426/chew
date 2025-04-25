@@ -32,9 +32,10 @@
 
 <input type="hidden" name="storecode" value="${dto.storecode}">
 <input type="hidden" name="storeimage" value="${dto.storeimage}">
- <div style="text-align: center; margin-top: 20px;">
-<button type="submit" class="buttons1">삭제 확인</button>
-<button type="button" onclick="location.href='sout';" class="buttons1">취소</button>
+<div style="text-align: center; margin-top: 20px;">
+	<button type="submit" class="buttons1">삭제 확인</button>
+	<button type="button" onclick="location.href='sout';" class="buttons1">취소</button>
+</div>
 
 </form>
 </body>

@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
-
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -43,7 +42,7 @@
     .top-nav {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 500;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid #ddd;
@@ -90,110 +89,64 @@
       color: #666;
     }
 
-    .title-like {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .title{
+      text-align: center;
     }
 
-    .like-wrapper {
-      font-size: 12px;
-      background: none;
-      box-shadow: none;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.2em 0.4em;
-      border: 0.1em solid #313131;
-      border-radius: 0.35em;
-      cursor: pointer;
-      gap: 0.3em;
-    }
-    .like-wrapper .check { display: none; }
-    .like-wrapper .like-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.3em;
-    }
-    .like-wrapper .icon {
-      width: 1em;
-      height: 1em;
-      fill: white;
-      transition: transform 0.2s ease-in-out;
-    }
-    .like-wrapper .icon.active {
-      display: none;
-      fill: #f52121;
-    }
-    .like-wrapper .check:checked + .like-btn .icon.active {
-      display: inline-block;
-      animation: wiggle 0.5s ease-in-out;
-    }
-    .like-wrapper .check:checked + .like-btn .icon.inactive {
-      display: none;
-    }
-    .like-wrapper .like-text {
-      font-weight: bold;
-      color: black;
-      line-height: 1;
-    }
-    @keyframes wiggle {
-      0%,100% { transform: rotate(0deg); }
-      25%     { transform: rotate(-10deg); }
-      50%     { transform: rotate(10deg); }
-      75%     { transform: rotate(-10deg); }
-    }
-
+    
     .card {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      max-width: 1000px;
-      height: 500px;
-      margin: 30px auto;
-    }
-    .cardWrap {
-      position: relative;
-      width: 800px;
-      height: 500px;
-      overflow: hidden;
-    }
-    .cardWrap ul {
-      position: absolute;
-      display: flex;
-      width: calc((800px + 20px) * 4);
-      height: 500px;
-      left: 0;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .cardWrap ul li {
-      width: 800px;
-      height: 500px;
-      margin: 0 10px;
-      flex-shrink: 0;
-    }
-    .cardWrap ul li img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    button.prev, button.next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 50px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: #333;
-    }
-    button.prev { left: 0; }
-    button.next { right: 0; }
-
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 1000px;
+  height: 500px;
+  margin: 30px auto;
+}
+.cardWrap {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  overflow: hidden;
+}
+.cardWrap ul {
+  position: absolute;
+  display: flex;
+  height: 500px;
+  left: 0;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: left 0.3s;
+}
+.cardWrap ul li {
+  width: 800px;
+  height: 500px;
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+.cardWrap ul li img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+button.prev,
+button.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 50px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #333;
+}
+button.prev { left: 0; }
+button.next { right: 0; }
+    
    .review-section {
   padding: 20px;
   max-width: 600px;
@@ -280,14 +233,101 @@
     .close:hover {
       color: black;
     }
-    
-.review_form {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
+	    
+	.review_form {
+	  display: flex;
+	  flex-direction: column;
+	  width: 100%;
+	  align-items: center;
+	}
+	
+	.review_title {
+	  width: 600px;
+	  box-sizing: border-box;
+	  display: inline-block;
+	  margin: 15px 0 0 0;
+	  background: #fff;
+	  border: 1px solid #ccc;
+	  border-radius: 10px;
+	  height: 40px;
+	  padding: 10px 15px;
+	  font-size: 13px;
+	  font-family: sans-serif;
+	  font-weight: bold;
+	  
+	}
+	
+	.star_box {
+	  width: 600px;
+	  box-sizing: border-box;
+	  display: inline-block;
+	  margin: 15px 0;
+	  background: #F3F4F8;
+	  border: 0;
+	  border-radius: 10px;
+	  height: 100px;
+	  resize: none;
+	  padding: 15px;
+	  font-size: 13px;
+	  font-family: sans-serif;
+	}
+	
+	
+	.btn02 {
+	  display:block;
+	  width: 600px;
+	  font-weight: bold;
+	  border: 0;
+	  border-radius: 10px;
+	  max-height: 50px;
+	  padding: 15px 0;
+	  font-size: 1.1em;
+	  text-align: center;
+	  background:bisque;
+	}
+	.rating:not(:checked) > input {
+	  position: absolute;
+	  appearance: none;
+	}
+	
+	.rating:not(:checked) > label {
+	  float: right;
+	  cursor: pointer;
+	  font-size: 30px;
+	  color: #666;
+	}
+	
+	.rating:not(:checked) > label:before {
+	  content: '★';
+	}
+	
+	.rating > input:checked + label:hover,
+	.rating > input:checked + label:hover ~ label,
+	.rating > input:checked ~ label:hover,
+	.rating > input:checked ~ label:hover ~ label,
+	.rating > label:hover ~ input:checked ~ label {
+	  color: #e58e09;
+	}
+	
+	.rating:not(:checked) > label:hover,
+	.rating:not(:checked) > label:hover ~ label {
+	  color: #ff9e0b;
+	}
+	
+	.rating > input:checked ~ label {
+	  color: #ffa723;
+	}
+	.restaurant-info p {
+	  display: inline-block;
+	  margin-right: 15px; 
+	  color: #666;
+	}
+
+    #heart {
+  display: none;
 }
 
+<<<<<<< HEAD
 .review_title {
   width: 600px;
   box-sizing: border-box;
@@ -301,7 +341,6 @@
   font-size: 13px;
   font-family: sans-serif;
   font-weight: bold;
-  
 }
 
 .star_box {
@@ -339,38 +378,119 @@
 
 .rating:not(:checked) > label {
   float: right;
+=======
+.like-button {
+  position: relative;
+>>>>>>> Jimin-718-master
   cursor: pointer;
-  font-size: 30px;
-  color: #666;
+  display: flex;
+  height: 48px;
+  width: 136px;
+  border-radius: 16px;
+  border: none;
+  background-color: white;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.4),
+    -2px -2px 8px rgba(255, 255, 255, 0.1);
 }
 
-.rating:not(:checked) > label:before {
-  content: '★';
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-  color: #e58e09;
+.like-icon {
+  fill: #505050;
+  height: 28px;
+  width: 28px;
 }
 
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-  color: #ff9e0b;
+.like-text {
+  color: black;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.rating > input:checked ~ label {
-  color: #ffa723;
+.like-count {
+  position: absolute;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  font-size: 16px;
+  border-left: 2px solid #4e4e4e;
+  transition: all 0.5s ease-out;
+}
+.review_logout_box {
+	text-align: center;
+	margin: 10px 190px 20px;
+	padding: 20px 180px;
+	background-color:#f2f2f2;
+	border-radius: 12px;
 }
 
+<<<<<<< HEAD
+#moreReviewBtn {
+	width: 600px;
+	background-color: white;
+	font-size: 1em;
+	border-radius: 5px;
+	border: 1px solid #d3d3d3;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	padding: 7px;
+}
+#moreReviewBtn:hover {
+	/* border: 1px solid #f3e2a9; 
+	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
+	cursor: pointer;
+=======
+.like-count.two {
+  transform: translateY(40px);
+}
 
+.on:checked ~ .like .like-icon {
+  fill: #fc4e4e;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+>>>>>>> Jimin-718-master
+}
 
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: black;
+}
+
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+     
   </style>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="css/detailview.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+  const storecode = "${ddto.storecode}";
+</script>
 </head>
 <body>
 
@@ -387,8 +507,9 @@
 
   <div class="container1">
     <div class="restaurant-header" id="home">
-      <img src="${ddto.storeimage}" alt="레스토랑 사진">
+      <img src="image/${ddto.storeimage}" alt="레스토랑 사진">
       <div class="restaurant-info">
+<<<<<<< HEAD
         <div class="title-like">
           <h1>${ddto.storename}</h1>
           <label class="like-wrapper">
@@ -408,21 +529,72 @@
             </div>
           </label>
         </div>
-        <div class="stars">★★★★★ (4.5)</div>
+=======
+        <div class="title"><h1>${ddto.storename}</h1></div>
+        
+>>>>>>> Jimin-718-master
+       <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
+       <c:set var="emptyStars" value="${5 - fullStars}" />
+
+       <div class="stars">
+          <c:forEach var="i" begin="1" end="${fullStars}">
+            ★
+          </c:forEach>
+          <c:forEach var="i" begin="1" end="${emptyStars}">
+            ☆
+          </c:forEach>
+          (${avgStars})
+       </div>
+       
         <div class="location">${ddto.storeaddress}</div>
-        <p>${ddto.storecategory}</p>
+        <p>🍴 ${ddto.storecategory}</p>
+        <p>🕒 ${ddto.storehours}</p>    
       </div>
+      <!-- 좋아요 버튼 영역 -->
+      <input type="hidden" id="storecode" value="${ddto.storecode}" />
+	  <div class="like-button">
+	  <input class="on" id="heart" type="checkbox" />
+	  <label class="like" for="heart">
+		   <svg
+	      class="like-icon"
+	      fill-rule="nonzero"
+	      viewBox="0 0 24 24"
+	      xmlns="http://www.w3.org/2000/svg"
+	    >
+	      <path
+	        d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
+	      ></path>
+	    </svg>
+	    <span class="like-text">Likes</span>
+	  </label>
+	  <span class="like-count one">${ddto.storelikes}</span>
+	  <span class="like-count two">${ddto.storelikes}</span>
+	</div>
+
+<!-- 숨겨진 storecode 값 -->
+<input type="hidden" id="storecode" value="${ddto.storecode}" />
+		
+
+<!-- 숨겨진 storecode 값 -->
+<input type="hidden" id="storecode" value="${ddto.storecode}" />
+		
+		       
     </div>
    </div>
    
    <div class="container2">
     <div class="card">
       <div class="cardWrap">
-        <ul>
-          <li><img src="./image/gab1.jpg" alt="사진 1"></li>
-          <li><img src="./image/gab2.jpg" alt="사진 2"></li>
-          <li><img src="./image/gab3.jpg" alt="사진 3"></li>
-          <li><img src="./image/gab4.jpg" alt="사진 4"></li>
+        <ul id="imageList">
+         <c:forEach var="image" items="${imagelist}">
+           <li>
+<<<<<<< HEAD
+           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
+=======
+           <img src="image/${image.image_filename}" alt="Store Image">
+>>>>>>> Jimin-718-master
+           </li>
+         </c:forEach>
         </ul>
       </div>
       <button class="prev"><i class='bx bxs-chevron-left'></i></button>
@@ -435,24 +607,31 @@
         <div id="map"></div>
         <div class="address-box">
           <h5>${ddto.storeaddress}</h5>
-          <p>주차 가능여부 테이블 넣어줘요</p>
+          <p>
+          <c:choose>
+        <c:when test="${ddto.parking == 1}">
+          🅿️주차 가능✅
+        </c:when>
+       <c:otherwise>
+          🅿️주차 불가🚫
+       </c:otherwise>
+        </c:choose>
+          </p>
         </div>
       </div>
     </div>
    </div>
     
      <!-- 예약 모달 창 -->
-  <div id="bookingModal" style="display:none;" class="modal">
+  <div id="reservationModal" style="display:none;" class="modal">
     <div class="modal-content">
-    <c:if test="${not empty error}">
-    <div class="error-message" style="color: red; margin-bottom: 10px;">
-            ${error}
-        </div></c:if>
       <span class="close">&times;</span>
       <h4>예약하기</h4>
-      <form id="bookingForm" method="post">
-        <label for="saramsu">인원수:</label><br>
-        <select id="saramsu" name="saramsu" required="required">
+      <form id="reservationForm">
+        <label for="name">성함:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="people">인원수:</label><br>
+        <select id="people" name="people">
         <option value="1">1명</option>
         <option value="2">2명</option>
         <option value="3">3명</option>
@@ -465,96 +644,62 @@
         <option value="10">10명 이상</option>
         </select><br><br>
         <label for="date">날짜:</label><br>
-        <input type="date" id="bookingdate" name="bookingdate" pattern="\d{4}-\d{2}-\d{2}" required="required"><br><br>
+        <input type="date" id="date" name="date"><br><br>
         <label for="time">시간:</label><br>
-        <input type="time" id="bookingtime" name="bookingtime" step="60" required="required" ><br><br>
-        <!-- 나중에 join -->
-        <input type="hidden" name="tablenum" value="1">
-		<input type="hidden" name="storecode" value="1001">
-        <input type="hidden" name="state" value="예약중">
-        
+        <input type="time" id="time" name="time"><br><br>
         <button type="submit">예약하기</button>
       </form>
     </div>
   </div>
   
 
- <div class="container3">  
-   <!-- 리뷰 작성 폼 -->
-<div style="margin-top: 30px;">
-  <form action="reviewsave" method="post">
-    <h3>리뷰 작성하기</h3>
+<div class="container3">  
+<!-- 리뷰 작성 폼 -->
+<div class="review-form" style="margin-top: 30px;">
+ <form action="submitReview" method="post" class="review_form">
+  <h3>리뷰 작성하기</h3>
+  <p>식사는 만족스러우셨나요?</p>
+  <c:choose>
+  	<c:when test="${loginstate == false}">
+  		<div class="review_logout_box">
+	    	<p>리뷰 작성은 <a href="loginput" style="color: blue; text-decoration: underline; font-weight: bold;">로그인</a>이 필요합니다.</p>
+	    </div>
+  	</c:when>
+  	<c:otherwise>
+  		<!-- 고정된 사용자 ID -->
+		<input type="hidden" name="id" value="testuser">
+		
+		<!-- storecode는 해당 가게의 코드 -->
+		<input type="hidden" name="storecode" value="${ddto.storecode}">
+		
+		<!-- 별점 선택 -->
+		<div style="text-align: center;">
+		    <div class="rating" style="display: inline-block;">
+		    	<input value="5" name="stars" id="star5" type="radio">
+		    	<label title="5점" for="star5"></label>
+		    	<input value="4" name="stars" id="star4" type="radio">
+		    	<label title="4점" for="star4"></label>
+		    	<input value="3" name="stars" id="star3" type="radio" checked>
+		    	<label title="3점" for="star3"></label>
+		    	<input value="2" name="stars" id="star2" type="radio">
+		    	<label title="2점" for="star2"></label>
+		    	<input value="1" name="stars" id="star1" type="radio">
+		    	<label title="1점" for="star1"></label>
+		    </div>
+		</div>
+		  
+		<!-- 제목 입력칸 -->
+		<input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
+		
+		<!-- 리뷰 내용 입력 -->
+		<textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
+		
+		<!-- 리뷰 등록 버튼 -->
+		<button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 
-
-  <!-- 고정된 사용자 ID -->
-  <input type="hidden" name="id" value="testuser">
-
-  <!-- storecode는 해당 가게의 코드 -->
-  <input type="hidden" name="storecode" value="${ddto.storecode}">
-
-  <!-- 별점 선택 -->
-  <div style="text-align: center;">
-    <div class="rating" style="display: inline-block;">
-      <input value="5" name="stars" id="star5" type="radio">
-      <label title="5점" for="star5"></label>
-      <input value="4" name="stars" id="star4" type="radio">
-      <label title="4점" for="star4"></label>
-      <input value="3" name="stars" id="star3" type="radio" checked>
-      <label title="3점" for="star3"></label>
-      <input value="2" name="stars" id="star2" type="radio">
-      <label title="2점" for="star2"></label>
-      <input value="1" name="stars" id="star1" type="radio">
-      <label title="1점" for="star1"></label>
-    </div>
-<<<<<<< HEAD
-  </div>
+  	</c:otherwise>
+  </c:choose>
   
-  <!-- 제목 입력칸 -->
-  <input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
-
-   </div>
-   
-     <!-- 카카오 맵 임다 --> 
-    <div class="location-section" id="location">
-      <h2>위치</h2>
-      <div class="map-wrapper">
-        <!-- 여기에 지도를 넣습니다 -->
-        <div id="map" style="width: 500px; height: 250px;"></div> <!-- 반드시 너비/높이 지정! -->
-        <div class="address-box">
-          <!-- 주소 텍스트 등 -->
-          <h5>${storeInfo.address}</h5> <!-- 예시: DB에서 가져온 주소 표시 -->
-          <p>주차 시설 완비</p>
-        </div>
-      </div>
-    </div>
-   
-   <!-- detail 로 보내버릴 것 -->
-   <script>
-   const storeLatitude = ${storeInfo.lat};
-   const storeLongitude = ${storeInfo.lon};
-   const storeName = "${storeInfo.storename}"; 
-   
-   function initMap() {}
-// 3. 카카오맵 SDK 비동기 로드 및 initMap 호출
-   const script = document.createElement('script');
-   script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=47eccc1e7f407254053a2b138b0d08f4&autoload=false`; //
-   // 이부분 My APP Key 47eccc1e7f407254053a2b138b0d08f4
-   script.async = true;
-   script.onload = () => {
-       if (window.kakao && window.kakao.maps) {
-           kakao.maps.load(initMap);
-       } else { console.error("Kakao Maps SDK 로드 실패"); }
-   };
-   script.onerror = () => { console.error("Kakao Maps SDK 스크립트 로드 중 에러 발생"); };
-   document.head.appendChild(script);
-</script>
-  
-
-  <!-- 리뷰 내용 입력 -->
-  <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
-
-  <!-- 리뷰 등록 버튼 -->
-  <button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 </form>
  
 </div>
@@ -580,48 +725,149 @@
             <div class="review-content">${r.content}</div>
         </div>
     </c:forEach>
+    
+</div>
+<button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
+<!-- hasMore 플래그를 data 속성으로 -->
+<div id="moreFlag" data-hasmore="${hasMore}"></div>
+
+
 </div>
 
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc847f687b096a45e3012f1089780b4f"></script>
+<script>
+  // JSP에서 전달된 데이터로 좌표 세팅
+  var lat = ${ddto.latitude};
+  var lng = ${ddto.longitude};
 
-
-
-</div>
-
-  
-  
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- 예약 모달 js 임다 -->
-  <script src="js/booking.js"></script>
+<<<<<<< HEAD
   
   <script>
-    $(document).ready(function(){
-      let i = 0,
-          $slides = $('.cardWrap ul'),
-          $items = $('.cardWrap ul li'),
-          slideCount = $items.length;
+  
+	$(document).ready(function(){
+		let i = 0,
+		$slides = $('.cardWrap ul'),
+		$items = $('.cardWrap ul li'),
+		slideCount = $items.length;
 
-      function goToSlide(index) {
-        if (index < 0) index = 0;
-        if (index >= slideCount) index = slideCount - 1;
-        const shift = (800 + 20) * index;
-        $slides.animate({ left: -shift + 'px' }, 300);
-        i = index;
-        updateNav();
-      }
+		function goToSlide(index) {
+	        if (index < 0) index = 0;
+	        if (index >= slideCount) index = slideCount - 1;
+	        const shift = (800 + 20) * index;
+	        $slides.animate({ left: -shift + 'px' }, 300);
+	        i = index;
+	        updateNav();
+		}
+	
+		function updateNav() {
+			$('.prev').toggle(i > 0);
+	        $('.next').toggle(i < slideCount - 1);
+		}
+	
+		$('.prev').click(() => goToSlide(i - 1));
+		$('.next').click(() => goToSlide(i + 1));
+	
+		updateNav();
+	      
+		let reviewOffset = 5;
 
-      function updateNav() {
-        $('.prev').toggle(i > 0);
-        $('.next').toggle(i < slideCount - 1);
-      }
+		$('#moreReviewBtn').click(function () {
+		    const $btn = $(this);
+		    console.log("storecode: ", storecode);
+		    if ($btn.data("state") === "more") {
+		        $.ajax({
+		            url: "loadMoreReviews",
+		            method: "GET",
+		            data: {
+		                storecode: storecode,
+		                offset: reviewOffset,
+		                limit: 6
+		            },
+		            success: function (data) {
+		                const $temp = $('<div>').html(data);
+		                const reviews = $temp.find('.review');
+		                const hasMore = $temp.find('#moreFlag').data("hasmore");
 
-      $('.prev').click(() => goToSlide(i - 1));
-      $('.next').click(() => goToSlide(i + 1));
+		                // 5개만 append
+		                $("#reviews").append(reviews);
+		                reviewOffset += reviews.length;
 
+		                if (!hasMore) {
+		                    $btn.text("접기").data("state", "fold");
+		                    return;
+		                }
+		            },
+		            error: function () {
+		                alert("리뷰를 불러오는 데 실패했습니다.");
+		            }
+		        });
+
+		    } else if ($btn.data("state") === "fold") {
+		        $("#reviews .review").slice(5).remove();
+		        reviewOffset = 5;
+		        $btn.text("리뷰 더 보기").data("state", "more");
+		        
+		        document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
+		    }
+		});
+	});
+=======
+  var mapContainer = document.getElementById('map'),
+      mapOption = { 
+          center: new kakao.maps.LatLng(lat, lng),
+          level: 3 
+      };
+
+  var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+
+  var marker = new kakao.maps.Marker({
+      position: markerPosition
+  });
+
+  marker.setMap(map);
+</script>
+  
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(window).on('load', function() {
+    let i = 0,
+        $slides = $('#imageList'),
+        $items = $('#imageList li'),
+        slideCount = $items.length;
+
+    const slideWidth = 800 + 20; // 이미지 너비 + 여백
+
+    // 슬라이드 전체 너비 계산해서 적용
+    $slides.css('width', slideCount * slideWidth);
+
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slideCount) index = slideCount - 1;
+      const shift = slideWidth * index;
+      $slides.animate({ left: -shift + 'px' }, 300);
+      i = index;
       updateNav();
-    });
-   </script>
+    }
 
+    function updateNav() {
+      $('.prev').toggle(i > 0);
+      $('.next').toggle(i < slideCount - 1);
+    }
+
+    $('.prev').click(() => goToSlide(i - 1));
+    $('.next').click(() => goToSlide(i + 1));
+
+    updateNav();
+  });
+    
+>>>>>>> Jimin-718-master
+    $(function() {
+        const modal = $('#reservationModal');
+        const openBtn = $('#openModalBtn');
+        const closeBtn = $('.close');
 
         openBtn.on('click', function(e) {
           e.preventDefault();
@@ -647,12 +893,65 @@
           });     
       });
     
+    //조아요
+	   $(function() {
+    const storecodeInput = document.getElementById("storecode");
+    const heartInput = document.getElementById("heart");  // checkbox
+
+    if (!storecodeInput || !heartInput) return;
+
+    const storecode = parseInt(storecodeInput.value, 10);
+    const contextPath = "${pageContext.request.contextPath}";
+    const checkUrl = contextPath + "/like/check";
+    const toggleUrl = contextPath + "/like/toggle";
+
+    // ✅ 1. 페이지 진입 시 좋아요 상태 확인
+    fetch(checkUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ storecode })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            heartInput.checked = data.liked;  // 체크박스 상태 반영
+        }
+    });
+
+    // ✅ 2. 체크박스 클릭 시 좋아요 토글 요청
+    heartInput.addEventListener("change", function () {
+        fetch(toggleUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ storecode })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                alert(data.message || "좋아요 처리 중 오류 발생");
+                heartInput.checked = !heartInput.checked; // 실패 시 롤백
+            }
+        })
+        .catch(error => {
+            console.error("❌ 좋아요 토글 실패:", error);
+            alert("서버 오류 발생");
+            heartInput.checked = !heartInput.checked; // 실패 시 롤백
+        });
+    });
+});
+
+
+
+
+
+
+    
+    
 
   
  
 
     
   </script>
-
 </body>
 </html>

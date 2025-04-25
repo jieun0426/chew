@@ -12,15 +12,10 @@
 <title>Insert title here</title>
 <style type="text/css">
 
-body {
-  margin: 0;
-  padding: 0;
-}
-
 .container1 {
   width: 90%;                  /* 전체 너비의 90%로 설정 */
   max-width: 1000px;           /* 최대 너비 지정 */
-  min-height: 85vh;            /* 화면의 85% 높이 */
+  min-height: 40vh;            /* 화면의 85% 높이 */
   margin: 60px auto;           /* 가운데 정렬 + 위아래 여백 */
   background-color: #FFF5E2;
   padding: 60px 40px;          /* 내부 여백 늘리기 */
@@ -382,10 +377,9 @@ body {
   }
 }
 .container2 {
-  padding: 20px 60px;
+  padding: 20px 20% 100px;
   background-color: #fefefe;
   font-family: Arial, sans-serif;
-
 }
 
 .container2 h2 {
@@ -398,8 +392,10 @@ body {
 /* 레스토랑 카드 그리드 */
 .restaurant-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
+  gap: 30px;
+  height: 75vh; /* 화면 높이의 30% */
+  min-height: 30vh; /* 너무 작아지지 않게 */
 }
 
 /* 개별 카드 */
@@ -409,6 +405,7 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  height: 100%;
 }
 
 .restaurant-card:hover {
@@ -419,14 +416,15 @@ body {
 /* 카드 내 이미지 */
 .restaurant-card img {
   width: 100%;
-  height: 160px;
+  height: 70%;
   object-fit: cover;
   display: block;
+  border-radius: 12px;
 }
 
 /* 텍스트 정보 박스 */
 .restaurant-info {
-  padding: 15px;
+  padding: 5px 15px;
 }
 
 .restaurant-name {
@@ -452,7 +450,18 @@ body {
   font-size: 13px;
   color: #999;
 }
-
+#nowPage{
+  color: black;
+  font-weight: bold;
+}
+.pageList{
+  color: #aaaa7a;
+  text-decoration: none; 
+}
+a {
+  color: black;
+  text-decoration: none; 
+}
 </style>
 </head>
 <body>
@@ -499,24 +508,41 @@ body {
 </div>
 </div>
 
-<div class="container2">
+<div id="container2" class="container2">
   <h2>츄토피아 추천 음식점</h2>
   <div class="restaurant-grid">
 
     <c:forEach items="${list}" var="r">
+    <div class="restaurant-card">
     <a href="detailview?storecode=${r.storecode}" class="restaurant-card-link">
-      <div class="restaurant-card">
-        <img src="${r.storeimage}" width="300">
+        <img src="image/${r.storeimage}">
         <div class="restaurant-info">
           <div class="restaurant-name">${r.storename}</div>
           <div class="storecategory">${r.storecategory}</div>
           <div class="storeaddress">${r.storeaddress}</div>
         </div>
-      </div>
      </a>
+     </div>
     </c:forEach>
-
   </div>
+  <br><br>
+  <div>
+	<c:if test="${pdto.startPage>pdto.cntPage}">
+		<a href="detailmain?page=${pdto.startPage-pdto.cntPage}#container2">◀</a>&emsp;
+	</c:if>
+	<c:forEach begin="${pdto.startPage}" end="${pdto.endPage}" var="p">
+		<c:if test="${p==pdto.nowPage}">
+			<span id="nowPage">${p}</span>&emsp;
+		</c:if>
+		<c:if test="${p!=pdto.nowPage}">
+			<a class="pageList" href="detailmain?page=${p}#container2">${p}</a>&emsp;
+		</c:if>
+	</c:forEach>
+	<c:if test="${pdto.endPage<pdto.lastPage}">
+		<a href="detailmain?page=${pdto.startPage+pdto.cntPage}#container2">▶</a>
+	</c:if>
+  </div>
+  
 </div>
 
 
