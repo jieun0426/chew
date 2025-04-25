@@ -147,7 +147,7 @@ button.next {
 button.prev { left: 0; }
 button.next { right: 0; }
     
-   .review-section {
+.review-section {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
@@ -189,15 +189,11 @@ button.next { right: 0; }
   margin-bottom: 10px;
 }
 
-
-   
-   
-
-    .map-wrapper {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
+.map-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
     #map {
       width: 35%;
       height: 250px;
@@ -327,6 +323,7 @@ button.next { right: 0; }
   display: none;
 }
 
+
 .like-button {
   position: relative;
   cursor: pointer;
@@ -343,6 +340,7 @@ button.next { right: 0; }
     4px 4px 10px rgba(0, 0, 0, 0.4),
     -2px -2px 8px rgba(255, 255, 255, 0.1);
 }
+
 .review_title {
   width: 600px;
   box-sizing: border-box;
@@ -393,6 +391,112 @@ button.next { right: 0; }
   transition: all 0.5s ease-out;
 }
 
+
+.like-count.two {
+  transform: translateY(40px);
+}
+
+.on:checked ~ .like .like-icon {
+  fill: #fc4e4e;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+}
+
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: black;
+}
+
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+
+.rating:not(:checked) > label {
+  float: right;
+
+.like-button {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  width: 136px;
+  border-radius: 16px;
+  border: none;
+  background-color: white;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.4),
+    -2px -2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.like-icon {
+  fill: #505050;
+  height: 28px;
+  width: 28px;
+}
+
+.like-text {
+  color: black;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.like-count {
+  position: absolute;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  font-size: 16px;
+  border-left: 2px solid #4e4e4e;
+  transition: all 0.5s ease-out;
+}
+
+.review_logout_box {
+	text-align: center;
+	margin: 10px 190px 20px;
+	padding: 20px 180px;
+	background-color:#f2f2f2;
+	border-radius: 12px;
+}
+
+#moreReviewBtn {
+	width: 600px;
+	background-color: white;
+	font-size: 1em;
+	border-radius: 5px;
+	border: 1px solid #d3d3d3;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	padding: 7px;
+}
+#moreReviewBtn:hover {
+	/* border: 1px solid #f3e2a9; 
+	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
+	cursor: pointer;
+}
 .like-count.two {
   transform: translateY(40px);
 }
@@ -420,31 +524,7 @@ button.next { right: 0; }
     transform: scale(1.2);
   }
 }
-
-.review_logout_box {
-	text-align: center;
-	margin: 10px 190px 20px;
-	padding: 20px 180px;
-	background-color:#f2f2f2;
-	border-radius: 12px;
-}
-
-#moreReviewBtn {
-	width: 600px;
-	background-color: white;
-	font-size: 1em;
-	border-radius: 5px;
-	border: 1px solid #d3d3d3;
-	margin-top: 20px;
-	margin-bottom: 50px;
-	padding: 7px;
-}
-#moreReviewBtn:hover {
-	/* border: 1px solid #f3e2a9; 
-	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
-	cursor: pointer;
-}
-
+     
   </style>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -492,6 +572,8 @@ button.next { right: 0; }
             </div>
           </label>
         </div>
+
+        <div class="title"><h1>${ddto.storename}</h1></div>
 
        <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
        <c:set var="emptyStars" value="${5 - fullStars}" />
@@ -548,6 +630,7 @@ button.next { right: 0; }
         <ul id="imageList">
          <c:forEach var="image" items="${imagelist}">
            <li>
+
 
            <img src="image/${image.image_filename}" alt="Store Image">
 
@@ -752,7 +835,7 @@ button.next { right: 0; }
     updateNav();
   });
     
-  
+  </script>
   <script>
   
 	$(document).ready(function(){
@@ -823,6 +906,57 @@ button.next { right: 0; }
 		});
 	});
 
+  var mapContainer = document.getElementById('map'),
+      mapOption = { 
+          center: new kakao.maps.LatLng(lat, lng),
+          level: 3 
+      };
+
+  var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+
+  var marker = new kakao.maps.Marker({
+      position: markerPosition
+  });
+
+  marker.setMap(map);
+</script>
+  
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(window).on('load', function() {
+    let i = 0,
+        $slides = $('#imageList'),
+        $items = $('#imageList li'),
+        slideCount = $items.length;
+
+    const slideWidth = 800 + 20; // 이미지 너비 + 여백
+
+    // 슬라이드 전체 너비 계산해서 적용
+    $slides.css('width', slideCount * slideWidth);
+
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slideCount) index = slideCount - 1;
+      const shift = slideWidth * index;
+      $slides.animate({ left: -shift + 'px' }, 300);
+      i = index;
+      updateNav();
+    }
+
+    function updateNav() {
+      $('.prev').toggle(i > 0);
+      $('.next').toggle(i < slideCount - 1);
+    }
+
+    $('.prev').click(() => goToSlide(i - 1));
+    $('.next').click(() => goToSlide(i + 1));
+
+    updateNav();
+  });
+    
     $(function() {
         const modal = $('#reservationModal');
         const openBtn = $('#openModalBtn');

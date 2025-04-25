@@ -24,12 +24,13 @@
 
 </select>
 
+
 <select id="getAverageStars" parameterType="int" resultType="double">
 	SELECT NVL(ROUND(AVG(STARS), 1), 0) <!-- nvl->리뷰가 없어도 0반환 -->
 	FROM REVIEW_3 
 	WHERE STORECODE = #{storecode}
 </select>
-  
+
 <select id="getReviews" resultType="com.mbc.chew.review.ReviewDTO">
     select * from (
 	    select rownum rn, A.* from (
@@ -40,7 +41,7 @@
 	    where rownum &lt;= #{param2} + 6
 	)
 	where rn > #{param2}
-</select>
+  </select>
     
 </mapper>
 
