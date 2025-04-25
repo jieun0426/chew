@@ -174,8 +174,8 @@ body {
   <div class="category">
     <h1 style="color:#783403 ">마이페이지</h1>
     <a href="mypinfo" style="color:#ED751C " >회원정보 수정</a><br> 
-    <a href="myinforeview">내가 작성 한 리뷰</a><br>
-    <a href="#">회원 탈퇴</a><br>
+    <a href="mypagereview">내가 작성 한 리뷰</a><br>
+    <a href="mypagedel">회원 탈퇴</a><br>
   </div>
 
     <form name="f" class="form" action="myinfosave" method="post" onsubmit="return send_go()">

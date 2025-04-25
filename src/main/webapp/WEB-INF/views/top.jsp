@@ -80,7 +80,9 @@
       </ul>
     </li>
     
-   <li><a href="mypagePwcheck">마이페이지</a></li>
+   <c:if test="${loginstate == true}">
+      <li><a href="mypagePwcheck">마이페이지</a></li>
+    </c:if>
     
   </ul>
 </nav>

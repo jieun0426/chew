@@ -14,6 +14,11 @@ public interface MyPageService {
 
 	void mymodify042322(String name, String phone, Date birth, String id);
 
+	JoinLogDTO delsave0424(String id);
+
+	void deleteUserById0424(String id);
+
+
 
 
 

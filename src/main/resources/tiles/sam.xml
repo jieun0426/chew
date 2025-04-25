@@ -38,9 +38,14 @@
 		<put-attribute name="body" value="/WEB-INF/views/mypage/mypinfo.jsp"/>
 	</definition>
 	
-	<definition name="myinforeview" extends="baseLayout">
-		<put-attribute name="title" value="회원정보수정"/>
-		<put-attribute name="body" value="/WEB-INF/views/mypage/myinforeview.jsp"/>
+	<definition name="mypagereview" extends="baseLayout">
+		<put-attribute name="title" value="작성리뷰확인"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagereview.jsp"/>
+	</definition>
+	
+	<definition name="mypagedel" extends="baseLayout">
+		<put-attribute name="title" value="회원탈퇴"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagedel.jsp"/>
 	</definition>
 	
 	<definition name="detailview" extends="baseLayout">

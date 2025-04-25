@@ -1,0 +1,13 @@
+.file-delete {
+    margin-left: 10px;
+    color: red;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-weight: bold;
+}
+#uploadimg li {
+    margin-bottom: 5px;
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+}

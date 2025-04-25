@@ -19,7 +19,12 @@
         birth = #{param3}
     where id = #{param4}
 </update>
-
+<select id="delsave0424" resultType="com.mbc.chew.joinlogin.JoinLogDTO">
+    select * from member_3 where id = #{param1}
+</select>
+<delete id="deleteUserById0424">
+  delete from member_3 where id = #{param1}
+</delete>
 
 
 </mapper> 

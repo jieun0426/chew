@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-    
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
+
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -369,6 +370,7 @@
   </style>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="css/detailview.css">
 </head>
 <body>
 
@@ -440,15 +442,17 @@
    </div>
     
      <!-- 예약 모달 창 -->
-  <div id="reservationModal" style="display:none;" class="modal">
+  <div id="bookingModal" style="display:none;" class="modal">
     <div class="modal-content">
+    <c:if test="${not empty error}">
+    <div class="error-message" style="color: red; margin-bottom: 10px;">
+            ${error}
+        </div></c:if>
       <span class="close">&times;</span>
       <h4>예약하기</h4>
-      <form id="reservationForm">
-        <label for="name">성함:</label><br>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="people">인원수:</label><br>
-        <select id="people" name="people">
+      <form id="bookingForm" method="post">
+        <label for="saramsu">인원수:</label><br>
+        <select id="saramsu" name="saramsu" required="required">
         <option value="1">1명</option>
         <option value="2">2명</option>
         <option value="3">3명</option>
@@ -461,9 +465,14 @@
         <option value="10">10명 이상</option>
         </select><br><br>
         <label for="date">날짜:</label><br>
-        <input type="date" id="date" name="date"><br><br>
+        <input type="date" id="bookingdate" name="bookingdate" pattern="\d{4}-\d{2}-\d{2}" required="required"><br><br>
         <label for="time">시간:</label><br>
-        <input type="time" id="time" name="time"><br><br>
+        <input type="time" id="bookingtime" name="bookingtime" step="60" required="required" ><br><br>
+        <!-- 나중에 join -->
+        <input type="hidden" name="tablenum" value="1">
+		<input type="hidden" name="storecode" value="1001">
+        <input type="hidden" name="state" value="예약중">
+        
         <button type="submit">예약하기</button>
       </form>
     </div>
@@ -472,10 +481,10 @@
 
  <div class="container3">  
    <!-- 리뷰 작성 폼 -->
-<div class="review-form" style="margin-top: 30px;">
- <form action="submitReview" method="post" class="review_form">
-  <h3>리뷰 작성하기</h3>
-  <p>식사는 만족스러우셨나요?</p>
+<div style="margin-top: 30px;">
+  <form action="reviewsave" method="post">
+    <h3>리뷰 작성하기</h3>
+
 
   <!-- 고정된 사용자 ID -->
   <input type="hidden" name="id" value="testuser">
@@ -497,10 +506,49 @@
       <input value="1" name="stars" id="star1" type="radio">
       <label title="1점" for="star1"></label>
     </div>
+<<<<<<< HEAD
   </div>
   
   <!-- 제목 입력칸 -->
   <input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
+
+   </div>
+   
+     <!-- 카카오 맵 임다 --> 
+    <div class="location-section" id="location">
+      <h2>위치</h2>
+      <div class="map-wrapper">
+        <!-- 여기에 지도를 넣습니다 -->
+        <div id="map" style="width: 500px; height: 250px;"></div> <!-- 반드시 너비/높이 지정! -->
+        <div class="address-box">
+          <!-- 주소 텍스트 등 -->
+          <h5>${storeInfo.address}</h5> <!-- 예시: DB에서 가져온 주소 표시 -->
+          <p>주차 시설 완비</p>
+        </div>
+      </div>
+    </div>
+   
+   <!-- detail 로 보내버릴 것 -->
+   <script>
+   const storeLatitude = ${storeInfo.lat};
+   const storeLongitude = ${storeInfo.lon};
+   const storeName = "${storeInfo.storename}"; 
+   
+   function initMap() {}
+// 3. 카카오맵 SDK 비동기 로드 및 initMap 호출
+   const script = document.createElement('script');
+   script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=47eccc1e7f407254053a2b138b0d08f4&autoload=false`; //
+   // 이부분 My APP Key 47eccc1e7f407254053a2b138b0d08f4
+   script.async = true;
+   script.onload = () => {
+       if (window.kakao && window.kakao.maps) {
+           kakao.maps.load(initMap);
+       } else { console.error("Kakao Maps SDK 로드 실패"); }
+   };
+   script.onerror = () => { console.error("Kakao Maps SDK 스크립트 로드 중 에러 발생"); };
+   document.head.appendChild(script);
+</script>
+  
 
   <!-- 리뷰 내용 입력 -->
   <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
@@ -539,22 +587,13 @@
 
 </div>
 
-  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc847f687b096a45e3012f1089780b4f"></script>
-  <script>
-    var mapContainer = document.getElementById('map'),
-        mapOption = { 
-            center: new kakao.maps.LatLng(33.450701, 126.570667),
-            level: 3 
-        };
-    var map = new kakao.maps.Map(mapContainer, mapOption); 
-    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
-    var marker = new kakao.maps.Marker({
-        position: markerPosition
-    });
-    marker.setMap(map);
-  </script>
+  
+  
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <script src="js/jquery-3.6.0.min.js"></script>
+  <!-- 예약 모달 js 임다 -->
+  <script src="js/booking.js"></script>
+  
   <script>
     $(document).ready(function(){
       let i = 0,
@@ -581,11 +620,8 @@
 
       updateNav();
     });
-    
-    $(function() {
-        const modal = $('#reservationModal');
-        const openBtn = $('#openModalBtn');
-        const closeBtn = $('.close');
+   </script>
+
 
         openBtn.on('click', function(e) {
           e.preventDefault();
@@ -617,5 +653,6 @@
 
     
   </script>
+
 </body>
 </html>

@@ -36,8 +36,8 @@ body {
 
 .form {
   display: flex;
-  background-color: #fff8e1;
   flex-direction: column;
+  
   gap: 12px;
   padding: 2em;
   border-radius: 25px;
@@ -174,34 +174,12 @@ body {
   <div class="category">
     <h1 style="color:#783403 ">마이페이지</h1>
     <a href="mypinfo"  >회원정보 수정</a><br> 
-    <a href="myinforeview" style="color:#ED751C ">내가 작성한 리뷰</a><br>
-    <a href="#">회원 탈퇴</a><br>
+    <a href="mypagereview" style="color:#ED751C ">내가 작성한 리뷰</a><br>
+    <a href="mypagedel">회원 탈퇴</a><br>
   </div>
 
-    <form name="f" class="form" action="myinfosave" method="post" onsubmit="return send_go()">
-      <div id="heading">내가 작성한 리뷰</div>
-
-      <label class="required-label">ID</label>
-      <div class="field">
-        <input class="input-field" type="text" name="id" value="${dto.id}" readonly="readonly">
-      </div>
-
-      <label class="required-label">이름</label>
-      <div class="field">
-        <input class="input-field" type="text" name="name" value="${dto.name}" >
-      </div>
-
-      <label class="required-label">전화번호</label>
-      <div class="field">
-        <input class="input-field" type="text" name="phone" value="${dto.phone}" >
-      </div>
-
-      <label class="required-label">생년월일</label>
-      <div class="field">
-        <input class="input-field" type="date" name="birth" value="${dto.birth}">
-      </div>
-<br>
-      <button id="loginButton" class="button login-btn" type="submit" >수정완료</button>
+    <form name="f" class="form" action="#" method="post" onsubmit="return send_go()">
+      <h1>할 예정</h1>
     </form>
   </div>
 <br><br><br><br><br><br><br>
