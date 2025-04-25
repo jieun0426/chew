@@ -58,16 +58,12 @@ public class DetailController {
 
 		ReviewService rs = sqlSession.getMapper(ReviewService.class);
 
-	  Double avgStars = rs.getAverageStars(Integer.parseInt(code));
+	    Double avgStars = rs.getAverageStars(Integer.parseInt(code));
 		model.addAttribute("avgStars", avgStars);
 		
 		ImageService is = sqlSession.getMapper(ImageService.class);
 		ArrayList<ImageDTO> imagelist = is.getImage(Integer.parseInt(code));
 		model.addAttribute("imagelist", imagelist);
-
-		
-		
-		ReviewService rs = sqlSession.getMapper(ReviewService.class);
 
 	    ArrayList<ReviewDTO> list = rs.getReviews(Integer.parseInt(code),0);
 	    boolean hasMore = list.size() > 5;
