@@ -5,18 +5,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Main</title>
+<link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/main.css">
 <link rel="stylesheet" href="css/slider.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$(".areaSelectBtn").click(function(){
-		var type=$(this).val()
+		var tp=$(this).val()
 		
 		$.ajax({
 			type: "post",
-			url: "mainSelectType.jsp",
-			data: {"area":type},
+			url: "mainSelectType",
+			data: {"area":tp},
 			success: function(data){
 				$(".areaListView").html(data);
 			},
@@ -38,8 +39,8 @@ $(document).ready(function(){
     </div>
   </div>
 
-<div>
-	<h2>인기 맛집</h2><br><br>
+<div class="ranking_div">
+	<h2>인기 맛집</h2><br>
 
 	<div class="listView clearfix">
 	<c:forEach items="${list}" var="rank" varStatus="status">
@@ -47,23 +48,23 @@ $(document).ready(function(){
 			<a href="detailview?storecode=${rank.storecode}"><img src="image/${rank.storeimage}" class="storeimg"></a>
 			<p><a href="detailview?storecode=${rank.storecode}">${rank.storename}</a></p>
 			<div class="rating" id="rating_${status.index}_rank">
-			  <input type="radio" id="star5" name="rating_${status.index}_rank" value="5" onclick="return(false);" />
-			  <label for="star5"></label>
-			  <input type="radio" id="star4" name="rating_${status.index}_rank" value="4" onclick="return(false);" />
-			  <label for="star4"></label>
-			  <input type="radio" id="star3" name="rating_${status.index}_rank" value="3" onclick="return(false);" />
-			  <label for="star3"></label>
-			  <input type="radio" id="star2" name="rating_${status.index}_rank" value="2" onclick="return(false);" />
-			  <label for="star2"></label>
-			  <input type="radio" id="star1" name="rating_${status.index}_rank" value="1" onclick="return(false);" />
-			  <label for="star1"></label>
+			  <input type="radio" id="star5_${status.index}" name="rating_rank_${status.index}" value="5" onclick="return(false);" />
+			  <label for="star5_${status.index}"></label>
+			  <input type="radio" id="star4_${status.index}" name="rating_rank_${status.index}" value="4" onclick="return(false);" />
+			  <label for="star4_${status.index}"></label>
+			  <input type="radio" id="star3_${status.index}" name="rating_rank_${status.index}" value="3" onclick="return(false);" />
+			  <label for="star3_${status.index}"></label>
+			  <input type="radio" id="star2_${status.index}" name="rating_rank_${status.index}" value="2" onclick="return(false);" />
+			  <label for="star2_${status.index}"></label>
+			  <input type="radio" id="star1_${status.index}" name="rating_rank_${status.index}" value="1" onclick="return(false);" />
+			  <label for="star1_${status.index}"></label>
 			</div><br>${rank.stars}
 		
 			<script>
 			// 별점 셋팅 스크립트
 			(function() {
 				let rstars = Math.round(parseFloat('${rank.stars}'));
-				let radio = document.querySelector('input[name="rating_${status.index}_rank"][value="' + rstars + '"]');
+				let radio = document.querySelector('input[name="rating_rank_${status.index}"][value="' + rstars + '"]');
 				if (radio) radio.checked = true;
 			})();
 			</script>
@@ -76,8 +77,8 @@ $(document).ready(function(){
 
 
 
-<br><br><br><br><br><br><br><br><br>
-<div>
+
+<div class="area_div" style="margin-top: 150px;">
 	<h2>지역별 추천</h2><br><br>
 	<input type="button" class="areaSelectBtn" id="area1" value="서울">&emsp;
 	<input type="button" class="areaSelectBtn" id="area2" value="경기">&emsp;
@@ -88,23 +89,23 @@ $(document).ready(function(){
 			<a href="detailview?storecode=${aa.storecode}"><img src="image/${aa.storeimage}" class="storeimg"></a>
 			<p><a href="detailview?storecode=${aa.storecode}">${aa.storename}</a></p>
 			<div class="rating" id="rating_${status.index}_area">
-			  <input type="radio" id="star5" name="rating_${status.index}_area" value="5" readonly />
-			  <label for="star5"></label>
-			  <input type="radio" id="star4" name="rating_${status.index}_area" value="4" readonly />
-			  <label for="star4"></label>
-			  <input type="radio" id="star3" name="rating_${status.index}_area" value="3" readonly />
-			  <label for="star3"></label>
-			  <input type="radio" id="star2" name="rating_${status.index}_area" value="2" readonly />
-			  <label for="star2"></label>
-			  <input type="radio" id="star1" name="rating_${status.index}_area" value="1" readonly />
-			  <label for="star1"></label>
+			  <input type="radio" id="star5_${status.index}" name="rating_area_${status.index}" value="5" readonly />
+			  <label for="star5_${status.index}"></label>
+			  <input type="radio" id="star4_${status.index}" name="rating_area_${status.index}" value="4" readonly />
+			  <label for="star4_${status.index}"></label>
+			  <input type="radio" id="star3_${status.index}" name="rating_area_${status.index}" value="3" readonly />
+			  <label for="star3_${status.index}"></label>
+			  <input type="radio" id="star2_${status.index}" name="rating_area_${status.index}" value="2" readonly />
+			  <label for="star2_${status.index}"></label>
+			  <input type="radio" id="star1_${status.index}" name="rating_area_${status.index}" value="1" readonly />
+			  <label for="star1_${status.index}"></label>
 			</div>&nbsp;${aa.stars}
 		
 			<script>
 			// 별점 셋팅 스크립트
 			(function() {
 				let stars = Math.round(parseFloat('${aa.stars}'));
-				let radio = document.querySelector('input[name="rating_${status.index}_area"][value="' + stars + '"]');
+				let radio = document.querySelector('input[name="rating_area_${status.index}"][value="' + stars + '"]');
 				if (radio) radio.checked = true;
 			})();
 			</script>
@@ -156,7 +157,7 @@ $(document).ready(function(){
 
 </div>
 -->
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 <script src="js/slider.js"></script>
 </body>
 </html>

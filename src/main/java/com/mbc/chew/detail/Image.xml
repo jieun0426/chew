@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbc.chew.detail.ImageService">
+
+  <select id="getImage" resultType="com.mbc.chew.detail.ImageDTO">
+      SELECT 
+      STORECODE,
+      IMAGE_FILENAME
+      FROM STORE_IMAGE_3
+      WHERE STORECODE = #{storecode}
+  </select>
+  
+
+
+</mapper>
+
+
+
+

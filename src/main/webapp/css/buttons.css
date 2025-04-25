@@ -4,7 +4,7 @@
 	border: 2px solid #ffdb5a;
 	width: 90px;
 	height: 30px;
-	font-size: 1.1em;
+	font-size: 1em; /* 글자 크기 */
 	background-color: #ffe98b;
 	color: black;
 	border-radius: 15px;

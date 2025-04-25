@@ -28,8 +28,15 @@ public interface StoreService {
 	StoreDTO selectOne(int num);
 
 
+	/* 페이징 처리 */
+	ArrayList<StoreDTO> paging(int start, int end);
 
+	int countAllRecords();
+	/* 페이징 처리 끝 */
 
+	/* 검색 */
+	int countSearchRecords(String search);
 
-
+	ArrayList<StoreDTO> searchList(int start, int end, String search);
+	/* 검색 끝 */
 }
