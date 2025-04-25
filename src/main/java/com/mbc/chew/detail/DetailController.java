@@ -80,7 +80,6 @@ public class DetailController {
 
 
 		return "detailview"; 
->>>>>>> Jimin-718-master
 	}
 	
 	@RequestMapping(value="/loadMoreReviews", produces = "text/html; charset=UTF-8")
