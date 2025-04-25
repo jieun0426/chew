@@ -7,6 +7,8 @@ public interface ReviewService {
 	void insertReview(ReviewDTO dto);
 
 	ArrayList<ReviewDTO> reviewout(int storecode);
+	
+	Double getAverageStars(int storecode);
 
 	
 	 

@@ -35,16 +35,26 @@ public class DetailController {
 	
 	@RequestMapping(value ="/detailview")
 	public String dd2(HttpServletRequest request,Model model) {
-		String code=request.getParameter("storecode");
+		String code=request.getParameter("storecode"); 
 		DetailService ds = sqlSession.getMapper(DetailService.class);
 		DetailDTO ddto =ds.dout1(code);
 		model.addAttribute("ddto",ddto);
 		
+		
 		ReviewService rs = sqlSession.getMapper(ReviewService.class);
 	    ArrayList<ReviewDTO> list = rs.reviewout(Integer.parseInt(code));
-	    model.addAttribute("list", list); // 
+	    model.addAttribute("list", list); 
+	    
+	    Double avgStars = rs.getAverageStars(Integer.parseInt(code));
+		model.addAttribute("avgStars", avgStars);
+		
+		ImageService is = sqlSession.getMapper(ImageService.class);
+		ArrayList<ImageDTO> imagelist = is.getImage(Integer.parseInt(code));
+		model.addAttribute("imagelist", imagelist);
 
-		return "detailview";
+
+
+		return "detailview"; 
 	}
 	
 	

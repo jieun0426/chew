@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbc.chew.likes.LikesService">
+
+    <!-- 좋아요 여부 확인 (Oracle 호환) -->
+    <select id="isLiked" parameterType="com.mbc.chew.likes.LikesDTO" resultType="int">
+        SELECT COUNT(*)
+        FROM MBC.MEMBER_LIKES
+        WHERE MEMBER_ID = #{memberId}
+          AND STORECODE = #{storecode}
+    </select>
+
+    <!-- 좋아요 추가 -->
+    <insert id="insertLike" parameterType="com.mbc.chew.likes.LikesDTO">
+        INSERT INTO MBC.MEMBER_LIKES (MEMBER_ID, STORECODE)
+        VALUES (#{memberId}, #{storecode})
+    </insert>
+
+    <!-- 좋아요 취소 -->
+    <delete id="deleteLike" parameterType="com.mbc.chew.likes.LikesDTO">
+        DELETE FROM MBC.MEMBER_LIKES
+        WHERE MEMBER_ID = #{memberId}
+          AND STORECODE = #{storecode}
+    </delete>
+
+</mapper>

@@ -16,13 +16,18 @@
     store_3
   </select>
   
-  <select id="dout1" resultType="com.mbc.chew.detail.DetailDTO">
+  <select id="dout1" parameterType="String" resultType="com.mbc.chew.detail.DetailDTO">
   SELECT 
     storecode,
     storename,
     storeaddress,
     storecategory,
-    storeimage
+    storelikes,
+    storeimage,
+    parking,
+    latitude, 
+    longitude,
+    storehours
   FROM 
     store_3
   WHERE storecode = #{storecode}  
@@ -30,4 +35,7 @@
 
 
 </mapper>
+
+
+
 
