@@ -1,11 +1,20 @@
 @charset "UTF-8";
-
 .clearfix::after {
 	content: "";
 	display: block;
 	clear: both;
 }
-
+.ranking_div {
+	height: 280px;
+	text-align: center;
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+.area_div {
+	height: 280px;
+	text-align: center;
+	margin-bottom: 250px;
+}
 .listView {
 	width: 1200px;
 	margin: 30px auto;
@@ -53,8 +62,8 @@
 }
 
 .main_rankList {
-	width: 33%;
-	height: 200px;
+	width: 30%;
+	height: 280px;
 	padding: 10px;
 	text-align: center;
 	float: left;
@@ -63,8 +72,8 @@
 }
 
 .main_areaList {
-	width: 33%;
-	height: 200px;
+	width: 30%;
+	height: 280px;
 	padding: 10px;
 	text-align: center;
 	float: left;
@@ -114,7 +123,7 @@
   font-size: 20px;
 }
 
-.rating input:checked ~ label,
+.rating input:checked ~ label
  {
   color: #ffd700;
   transition: color 0.3s;

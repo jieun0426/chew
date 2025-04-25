@@ -42,7 +42,7 @@
     .top-nav {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 500;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid #ddd;
@@ -343,6 +343,20 @@ button.next { right: 0; }
     4px 4px 10px rgba(0, 0, 0, 0.4),
     -2px -2px 8px rgba(255, 255, 255, 0.1);
 }
+.review_title {
+  width: 600px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 15px 0 0 0;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  height: 40px;
+  padding: 10px 15px;
+  font-size: 13px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
 
 .like {
   width: 70%;
@@ -406,10 +420,38 @@ button.next { right: 0; }
     transform: scale(1.2);
   }
 }
-     
+
+.review_logout_box {
+	text-align: center;
+	margin: 10px 190px 20px;
+	padding: 20px 180px;
+	background-color:#f2f2f2;
+	border-radius: 12px;
+}
+
+#moreReviewBtn {
+	width: 600px;
+	background-color: white;
+	font-size: 1em;
+	border-radius: 5px;
+	border: 1px solid #d3d3d3;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	padding: 7px;
+}
+#moreReviewBtn:hover {
+	/* border: 1px solid #f3e2a9; 
+	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
+	cursor: pointer;
+}
+
   </style>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+  const storecode = "${ddto.storecode}";
+</script>
 </head>
 <body>
 
@@ -428,8 +470,29 @@ button.next { right: 0; }
     <div class="restaurant-header" id="home">
       <img src="image/${ddto.storeimage}" alt="레스토랑 사진">
       <div class="restaurant-info">
+
         <div class="title"><h1>${ddto.storename}</h1></div>
         
+        <div class="title-like">
+          <h1>${ddto.storename}</h1>
+          <label class="like-wrapper">
+            <input type="checkbox" class="check">
+            <div class="like-btn">
+              <svg class="icon inactive" viewBox="0 0 24 24">
+                <path d="M12.1 8.64l-.1.1-.11-.11C10.14 6.7 7.5 6.7 5.7 8.5c-1.8 1.8-1.8 4.6 0 6.4l6.4 6.4 6.4-6.4c1.8-1.8 1.8-4.6 0-6.4-1.8-1.8-4.6-1.8-6.4 0z"
+                      fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <svg class="icon active" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+                         4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 
+                         14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+                         6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              <span class="like-text">Like</span>
+            </div>
+          </label>
+        </div>
+
        <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
        <c:set var="emptyStars" value="${5 - fullStars}" />
 
@@ -485,7 +548,11 @@ button.next { right: 0; }
         <ul id="imageList">
          <c:forEach var="image" items="${imagelist}">
            <li>
+
            <img src="image/${image.image_filename}" alt="Store Image">
+
+           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
+
            </li>
          </c:forEach>
         </ul>
@@ -546,43 +613,53 @@ button.next { right: 0; }
   </div>
   
 
- <div class="container3">  
-   <!-- 리뷰 작성 폼 -->
+<div class="container3">  
+<!-- 리뷰 작성 폼 -->
 <div class="review-form" style="margin-top: 30px;">
  <form action="submitReview" method="post" class="review_form">
   <h3>리뷰 작성하기</h3>
   <p>식사는 만족스러우셨나요?</p>
+  <c:choose>
+  	<c:when test="${loginstate == false}">
+  		<div class="review_logout_box">
+	    	<p>리뷰 작성은 <a href="loginput" style="color: blue; text-decoration: underline; font-weight: bold;">로그인</a>이 필요합니다.</p>
+	    </div>
+  	</c:when>
+  	<c:otherwise>
+  		<!-- 고정된 사용자 ID -->
+		<input type="hidden" name="id" value="testuser">
+		
+		<!-- storecode는 해당 가게의 코드 -->
+		<input type="hidden" name="storecode" value="${ddto.storecode}">
+		
+		<!-- 별점 선택 -->
+		<div style="text-align: center;">
+		    <div class="rating" style="display: inline-block;">
+		    	<input value="5" name="stars" id="star5" type="radio">
+		    	<label title="5점" for="star5"></label>
+		    	<input value="4" name="stars" id="star4" type="radio">
+		    	<label title="4점" for="star4"></label>
+		    	<input value="3" name="stars" id="star3" type="radio" checked>
+		    	<label title="3점" for="star3"></label>
+		    	<input value="2" name="stars" id="star2" type="radio">
+		    	<label title="2점" for="star2"></label>
+		    	<input value="1" name="stars" id="star1" type="radio">
+		    	<label title="1점" for="star1"></label>
+		    </div>
+		</div>
+		  
+		<!-- 제목 입력칸 -->
+		<input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
+		
+		<!-- 리뷰 내용 입력 -->
+		<textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
+		
+		<!-- 리뷰 등록 버튼 -->
+		<button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 
-  <!-- 고정된 사용자 ID -->
-  <input type="hidden" name="id" value="testuser">
-
-  <!-- storecode는 해당 가게의 코드 -->
-  <input type="hidden" name="storecode" value="${ddto.storecode}">
-
-  <!-- 별점 선택 -->
-  <div style="text-align: center;">
-    <div class="rating" style="display: inline-block;">
-      <input value="5" name="stars" id="star5" type="radio">
-      <label title="5점" for="star5"></label>
-      <input value="4" name="stars" id="star4" type="radio">
-      <label title="4점" for="star4"></label>
-      <input value="3" name="stars" id="star3" type="radio" checked>
-      <label title="3점" for="star3"></label>
-      <input value="2" name="stars" id="star2" type="radio">
-      <label title="2점" for="star2"></label>
-      <input value="1" name="stars" id="star1" type="radio">
-      <label title="1점" for="star1"></label>
-    </div>
-  </div>
+  	</c:otherwise>
+  </c:choose>
   
-  <!-- 제목 입력칸 -->
-  <input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
-
-  <!-- 리뷰 내용 입력 -->
-  <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
-
-  <!-- 리뷰 등록 버튼 -->
-  <button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 </form>
  
 </div>
@@ -608,9 +685,11 @@ button.next { right: 0; }
             <div class="review-content">${r.content}</div>
         </div>
     </c:forEach>
+    
 </div>
-
-
+<button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
+<!-- hasMore 플래그를 data 속성으로 -->
+<div id="moreFlag" data-hasmore="${hasMore}"></div>
 
 
 </div>
@@ -630,6 +709,7 @@ button.next { right: 0; }
   var map = new kakao.maps.Map(mapContainer, mapOption); 
 
   var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+
 
   var marker = new kakao.maps.Marker({
       position: markerPosition
@@ -672,6 +752,77 @@ button.next { right: 0; }
     updateNav();
   });
     
+  
+  <script>
+  
+	$(document).ready(function(){
+		let i = 0,
+		$slides = $('.cardWrap ul'),
+		$items = $('.cardWrap ul li'),
+		slideCount = $items.length;
+
+		function goToSlide(index) {
+	        if (index < 0) index = 0;
+	        if (index >= slideCount) index = slideCount - 1;
+	        const shift = (800 + 20) * index;
+	        $slides.animate({ left: -shift + 'px' }, 300);
+	        i = index;
+	        updateNav();
+		}
+	
+		function updateNav() {
+			$('.prev').toggle(i > 0);
+	        $('.next').toggle(i < slideCount - 1);
+		}
+	
+		$('.prev').click(() => goToSlide(i - 1));
+		$('.next').click(() => goToSlide(i + 1));
+	
+		updateNav();
+	      
+		let reviewOffset = 5;
+
+		$('#moreReviewBtn').click(function () {
+		    const $btn = $(this);
+		    console.log("storecode: ", storecode);
+		    if ($btn.data("state") === "more") {
+		        $.ajax({
+		            url: "loadMoreReviews",
+		            method: "GET",
+		            data: {
+		                storecode: storecode,
+		                offset: reviewOffset,
+		                limit: 6
+		            },
+		            success: function (data) {
+		                const $temp = $('<div>').html(data);
+		                const reviews = $temp.find('.review');
+		                const hasMore = $temp.find('#moreFlag').data("hasmore");
+
+		                // 5개만 append
+		                $("#reviews").append(reviews);
+		                reviewOffset += reviews.length;
+
+		                if (!hasMore) {
+		                    $btn.text("접기").data("state", "fold");
+		                    return;
+		                }
+		            },
+		            error: function () {
+		                alert("리뷰를 불러오는 데 실패했습니다.");
+		            }
+		        });
+
+		    } else if ($btn.data("state") === "fold") {
+		        $("#reviews .review").slice(5).remove();
+		        reviewOffset = 5;
+		        $btn.text("리뷰 더 보기").data("state", "more");
+		        
+		        document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
+		    }
+		});
+	});
+
     $(function() {
         const modal = $('#reservationModal');
         const openBtn = $('#openModalBtn');

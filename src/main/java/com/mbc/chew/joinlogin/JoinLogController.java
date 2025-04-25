@@ -79,7 +79,7 @@ public class JoinLogController {
 			HttpSession hs = request.getSession();
 			hs.setAttribute("loginstate", true);
 			hs.setAttribute("id", id);
-			return "main";
+			return "redirect:/main";
 		}
 		else
 		{

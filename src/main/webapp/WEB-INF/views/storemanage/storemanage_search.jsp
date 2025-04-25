@@ -75,18 +75,18 @@ a {
 <br><br>
 <div>
 	<c:if test="${pdto.startPage>pdto.cntPage}">
-		<a href="sout?page=${pdto.startPage-pdto.cntPage}">◀</a>&emsp;
+		<a href="storemanage_search?search=${search}&page=${pdto.startPage-pdto.cntPage}">◀</a>&emsp;
 	</c:if>
 	<c:forEach begin="${pdto.startPage}" end="${pdto.endPage}" var="p">
 		<c:if test="${p==pdto.nowPage}">
 			<span id="nowPage">${p}</span>&emsp;
 		</c:if>
 		<c:if test="${p!=pdto.nowPage}">
-			<a class="pageList" href="sout?page=${p}">${p}</a>&emsp;
+			<a class="pageList" href="storemanage_search?search=${search}&page=${p}">${p}</a>&emsp;
 		</c:if>
 	</c:forEach>
 	<c:if test="${pdto.endPage<pdto.lastPage}">
-		<a href="sout?page=${pdto.startPage+pdto.cntPage}">▶</a>
+		<a href="storemanage_search?search=${search}&page=${pdto.startPage+pdto.cntPage}">▶</a>
 	</c:if>
 </div>
 </body>

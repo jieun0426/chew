@@ -21,10 +21,22 @@ public interface StoreService {
 	void updatemodi2(int storecode, String storename, String storeaddress, String storecategory, 
 			String storearea, String fname);
 
+	static StoreDTO getstoreInfo(int storecode) {
+		return null;
+	}
+
 	StoreDTO selectOne(int num);
 
 
+	/* 페이징 처리 */
+	ArrayList<StoreDTO> paging(int start, int end);
 
+	int countAllRecords();
+	/* 페이징 처리 끝 */
 
+	/* 검색 */
+	int countSearchRecords(String search);
 
+	ArrayList<StoreDTO> searchList(int start, int end, String search);
+	/* 검색 끝 */
 }
