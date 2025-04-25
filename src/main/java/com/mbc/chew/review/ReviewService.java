@@ -8,6 +8,8 @@ public interface ReviewService {
 
 	ArrayList<ReviewDTO> reviewout(int storecode);
 
+	ArrayList<ReviewDTO> getReviews(int storecode, int offset);
+
 	
 	 
 

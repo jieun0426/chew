@@ -5,9 +5,6 @@
 <head>
 <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script> -->
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/searchinput.css">
   <link rel="stylesheet" href="css/style.css">
@@ -25,7 +22,7 @@
 <button id="toggleSidebarBtn">☰ 메뉴</button>
 
 <!-- 왼쪽 사이드바 -->
-<nav id="sidebar" class="sidebar">
+<nav id="sidebar" class="sidebar hidden">
   <div class="sidebar-header">
     <h3>Chew</h3>
 
@@ -75,8 +72,8 @@
       sidebar.classList.toggle("hidden");
     });
   });
-  </script>
-  <script>
+</script>
+<script>
   document.addEventListener("DOMContentLoaded", function () {
     const toggles = document.querySelectorAll(".menu-toggle");
 

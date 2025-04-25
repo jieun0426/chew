@@ -28,6 +28,18 @@
   WHERE storecode = #{storecode}  
   </select>
 
-
+	<!-- 페이징 처리 -->
+	<select id="paging" resultType="com.mbc.chew.detail.DetailDTO">
+    select * from (
+    	select rownum rn, A.* from (
+    		select storecode, storename, storeaddress, storecategory, storeimage
+			from store_3 order by storecode desc
+    	) A
+    ) where rn between #{param1} and #{param2}
+    </select>
+	<select id="countAllRecords" resultType="int">
+	  select count(*) from store_3
+	</select>
+	<!-- 페이징 처리 끝 -->
 </mapper>
 

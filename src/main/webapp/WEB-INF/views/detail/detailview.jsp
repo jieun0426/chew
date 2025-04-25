@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+    
 <!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
-
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -43,7 +42,7 @@
     .top-nav {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 500;
       background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(4px);
       border-bottom: 1px solid #ddd;
@@ -301,7 +300,6 @@
   font-size: 13px;
   font-family: sans-serif;
   font-weight: bold;
-  
 }
 
 .star_box {
@@ -364,13 +362,37 @@
 .rating > input:checked ~ label {
   color: #ffa723;
 }
+.review_logout_box {
+	text-align: center;
+	margin: 10px 190px 20px;
+	padding: 20px 180px;
+	background-color:#f2f2f2;
+	border-radius: 12px;
+}
 
-
+#moreReviewBtn {
+	width: 600px;
+	background-color: white;
+	font-size: 1em;
+	border-radius: 5px;
+	border: 1px solid #d3d3d3;
+	margin-top: 20px;
+	margin-bottom: 50px;
+	padding: 7px;
+}
+#moreReviewBtn:hover {
+	/* border: 1px solid #f3e2a9; 
+	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
+	cursor: pointer;
+}
 
   </style>
 
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <link rel="stylesheet" href="css/detailview.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+  const storecode = "${ddto.storecode}";
+</script>
 </head>
 <body>
 
@@ -408,7 +430,19 @@
             </div>
           </label>
         </div>
-        <div class="stars">★★★★★ (4.5)</div>
+       <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
+       <c:set var="emptyStars" value="${5 - fullStars}" />
+
+       <div class="stars">
+          <c:forEach var="i" begin="1" end="${fullStars}">
+            ★
+          </c:forEach>
+          <c:forEach var="i" begin="1" end="${emptyStars}">
+            ☆
+          </c:forEach>
+          (${avgStars})
+       </div>
+       
         <div class="location">${ddto.storeaddress}</div>
         <p>${ddto.storecategory}</p>
       </div>
@@ -418,11 +452,12 @@
    <div class="container2">
     <div class="card">
       <div class="cardWrap">
-        <ul>
-          <li><img src="./image/gab1.jpg" alt="사진 1"></li>
-          <li><img src="./image/gab2.jpg" alt="사진 2"></li>
-          <li><img src="./image/gab3.jpg" alt="사진 3"></li>
-          <li><img src="./image/gab4.jpg" alt="사진 4"></li>
+        <ul id="imageList">
+         <c:forEach var="image" items="${imagelist}">
+           <li>
+           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
+           </li>
+         </c:forEach>
         </ul>
       </div>
       <button class="prev"><i class='bx bxs-chevron-left'></i></button>
@@ -442,17 +477,15 @@
    </div>
     
      <!-- 예약 모달 창 -->
-  <div id="bookingModal" style="display:none;" class="modal">
+  <div id="reservationModal" style="display:none;" class="modal">
     <div class="modal-content">
-    <c:if test="${not empty error}">
-    <div class="error-message" style="color: red; margin-bottom: 10px;">
-            ${error}
-        </div></c:if>
       <span class="close">&times;</span>
       <h4>예약하기</h4>
-      <form id="bookingForm" method="post">
-        <label for="saramsu">인원수:</label><br>
-        <select id="saramsu" name="saramsu" required="required">
+      <form id="reservationForm">
+        <label for="name">성함:</label><br>
+        <input type="text" id="name" name="name"><br><br>
+        <label for="people">인원수:</label><br>
+        <select id="people" name="people">
         <option value="1">1명</option>
         <option value="2">2명</option>
         <option value="3">3명</option>
@@ -465,96 +498,62 @@
         <option value="10">10명 이상</option>
         </select><br><br>
         <label for="date">날짜:</label><br>
-        <input type="date" id="bookingdate" name="bookingdate" pattern="\d{4}-\d{2}-\d{2}" required="required"><br><br>
+        <input type="date" id="date" name="date"><br><br>
         <label for="time">시간:</label><br>
-        <input type="time" id="bookingtime" name="bookingtime" step="60" required="required" ><br><br>
-        <!-- 나중에 join -->
-        <input type="hidden" name="tablenum" value="1">
-		<input type="hidden" name="storecode" value="1001">
-        <input type="hidden" name="state" value="예약중">
-        
+        <input type="time" id="time" name="time"><br><br>
         <button type="submit">예약하기</button>
       </form>
     </div>
   </div>
   
 
- <div class="container3">  
-   <!-- 리뷰 작성 폼 -->
-<div style="margin-top: 30px;">
-  <form action="reviewsave" method="post">
-    <h3>리뷰 작성하기</h3>
+<div class="container3">  
+<!-- 리뷰 작성 폼 -->
+<div class="review-form" style="margin-top: 30px;">
+ <form action="submitReview" method="post" class="review_form">
+  <h3>리뷰 작성하기</h3>
+  <p>식사는 만족스러우셨나요?</p>
+  <c:choose>
+  	<c:when test="${loginstate == false}">
+  		<div class="review_logout_box">
+	    	<p>리뷰 작성은 <a href="loginput" style="color: blue; text-decoration: underline; font-weight: bold;">로그인</a>이 필요합니다.</p>
+	    </div>
+  	</c:when>
+  	<c:otherwise>
+  		<!-- 고정된 사용자 ID -->
+		<input type="hidden" name="id" value="testuser">
+		
+		<!-- storecode는 해당 가게의 코드 -->
+		<input type="hidden" name="storecode" value="${ddto.storecode}">
+		
+		<!-- 별점 선택 -->
+		<div style="text-align: center;">
+		    <div class="rating" style="display: inline-block;">
+		    	<input value="5" name="stars" id="star5" type="radio">
+		    	<label title="5점" for="star5"></label>
+		    	<input value="4" name="stars" id="star4" type="radio">
+		    	<label title="4점" for="star4"></label>
+		    	<input value="3" name="stars" id="star3" type="radio" checked>
+		    	<label title="3점" for="star3"></label>
+		    	<input value="2" name="stars" id="star2" type="radio">
+		    	<label title="2점" for="star2"></label>
+		    	<input value="1" name="stars" id="star1" type="radio">
+		    	<label title="1점" for="star1"></label>
+		    </div>
+		</div>
+		  
+		<!-- 제목 입력칸 -->
+		<input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
+		
+		<!-- 리뷰 내용 입력 -->
+		<textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
+		
+		<!-- 리뷰 등록 버튼 -->
+		<button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 
-
-  <!-- 고정된 사용자 ID -->
-  <input type="hidden" name="id" value="testuser">
-
-  <!-- storecode는 해당 가게의 코드 -->
-  <input type="hidden" name="storecode" value="${ddto.storecode}">
-
-  <!-- 별점 선택 -->
-  <div style="text-align: center;">
-    <div class="rating" style="display: inline-block;">
-      <input value="5" name="stars" id="star5" type="radio">
-      <label title="5점" for="star5"></label>
-      <input value="4" name="stars" id="star4" type="radio">
-      <label title="4점" for="star4"></label>
-      <input value="3" name="stars" id="star3" type="radio" checked>
-      <label title="3점" for="star3"></label>
-      <input value="2" name="stars" id="star2" type="radio">
-      <label title="2점" for="star2"></label>
-      <input value="1" name="stars" id="star1" type="radio">
-      <label title="1점" for="star1"></label>
-    </div>
-<<<<<<< HEAD
-  </div>
+  	</c:otherwise>
+  </c:choose>
   
-  <!-- 제목 입력칸 -->
-  <input type="text" name="title" class="review_title" placeholder="리뷰 제목을 입력해주세요" required>
-
-   </div>
-   
-     <!-- 카카오 맵 임다 --> 
-    <div class="location-section" id="location">
-      <h2>위치</h2>
-      <div class="map-wrapper">
-        <!-- 여기에 지도를 넣습니다 -->
-        <div id="map" style="width: 500px; height: 250px;"></div> <!-- 반드시 너비/높이 지정! -->
-        <div class="address-box">
-          <!-- 주소 텍스트 등 -->
-          <h5>${storeInfo.address}</h5> <!-- 예시: DB에서 가져온 주소 표시 -->
-          <p>주차 시설 완비</p>
-        </div>
-      </div>
-    </div>
-   
-   <!-- detail 로 보내버릴 것 -->
-   <script>
-   const storeLatitude = ${storeInfo.lat};
-   const storeLongitude = ${storeInfo.lon};
-   const storeName = "${storeInfo.storename}"; 
-   
-   function initMap() {}
-// 3. 카카오맵 SDK 비동기 로드 및 initMap 호출
-   const script = document.createElement('script');
-   script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=47eccc1e7f407254053a2b138b0d08f4&autoload=false`; //
-   // 이부분 My APP Key 47eccc1e7f407254053a2b138b0d08f4
-   script.async = true;
-   script.onload = () => {
-       if (window.kakao && window.kakao.maps) {
-           kakao.maps.load(initMap);
-       } else { console.error("Kakao Maps SDK 로드 실패"); }
-   };
-   script.onerror = () => { console.error("Kakao Maps SDK 스크립트 로드 중 에러 발생"); };
-   document.head.appendChild(script);
-</script>
-  
-
-  <!-- 리뷰 내용 입력 -->
-  <textarea class="star_box" name="content" placeholder="리뷰를 작성해주세요" required></textarea>
-
-  <!-- 리뷰 등록 버튼 -->
-  <button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 </form>
  
 </div>
@@ -580,48 +579,104 @@
             <div class="review-content">${r.content}</div>
         </div>
     </c:forEach>
+    
+</div>
+<button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
+<!-- hasMore 플래그를 data 속성으로 -->
+<div id="moreFlag" data-hasmore="${hasMore}"></div>
+
+
 </div>
 
+  <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cc847f687b096a45e3012f1089780b4f"></script>
+  <script>
+    var mapContainer = document.getElementById('map'),
+        mapOption = { 
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3 
+        };
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
+    var markerPosition  = new kakao.maps.LatLng(33.450701, 126.570667); 
+    var marker = new kakao.maps.Marker({
+        position: markerPosition
+    });
+    marker.setMap(map);
+  </script>
 
-
-
-</div>
-
-  
-  
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- 예약 모달 js 임다 -->
-  <script src="js/booking.js"></script>
   
   <script>
-    $(document).ready(function(){
-      let i = 0,
-          $slides = $('.cardWrap ul'),
-          $items = $('.cardWrap ul li'),
-          slideCount = $items.length;
+  
+	$(document).ready(function(){
+		let i = 0,
+		$slides = $('.cardWrap ul'),
+		$items = $('.cardWrap ul li'),
+		slideCount = $items.length;
 
-      function goToSlide(index) {
-        if (index < 0) index = 0;
-        if (index >= slideCount) index = slideCount - 1;
-        const shift = (800 + 20) * index;
-        $slides.animate({ left: -shift + 'px' }, 300);
-        i = index;
-        updateNav();
-      }
+		function goToSlide(index) {
+	        if (index < 0) index = 0;
+	        if (index >= slideCount) index = slideCount - 1;
+	        const shift = (800 + 20) * index;
+	        $slides.animate({ left: -shift + 'px' }, 300);
+	        i = index;
+	        updateNav();
+		}
+	
+		function updateNav() {
+			$('.prev').toggle(i > 0);
+	        $('.next').toggle(i < slideCount - 1);
+		}
+	
+		$('.prev').click(() => goToSlide(i - 1));
+		$('.next').click(() => goToSlide(i + 1));
+	
+		updateNav();
+	      
+		let reviewOffset = 5;
 
-      function updateNav() {
-        $('.prev').toggle(i > 0);
-        $('.next').toggle(i < slideCount - 1);
-      }
+		$('#moreReviewBtn').click(function () {
+		    const $btn = $(this);
+		    console.log("storecode: ", storecode);
+		    if ($btn.data("state") === "more") {
+		        $.ajax({
+		            url: "loadMoreReviews",
+		            method: "GET",
+		            data: {
+		                storecode: storecode,
+		                offset: reviewOffset,
+		                limit: 6
+		            },
+		            success: function (data) {
+		                const $temp = $('<div>').html(data);
+		                const reviews = $temp.find('.review');
+		                const hasMore = $temp.find('#moreFlag').data("hasmore");
 
-      $('.prev').click(() => goToSlide(i - 1));
-      $('.next').click(() => goToSlide(i + 1));
+		                // 5개만 append
+		                $("#reviews").append(reviews);
+		                reviewOffset += reviews.length;
 
-      updateNav();
-    });
-   </script>
+		                if (!hasMore) {
+		                    $btn.text("접기").data("state", "fold");
+		                    return;
+		                }
+		            },
+		            error: function () {
+		                alert("리뷰를 불러오는 데 실패했습니다.");
+		            }
+		        });
 
+		    } else if ($btn.data("state") === "fold") {
+		        $("#reviews .review").slice(5).remove();
+		        reviewOffset = 5;
+		        $btn.text("리뷰 더 보기").data("state", "more");
+		        
+		        document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
+		    }
+		});
+	});
+    $(function() {
+        const modal = $('#reservationModal');
+        const openBtn = $('#openModalBtn');
+        const closeBtn = $('.close');
 
         openBtn.on('click', function(e) {
           e.preventDefault();
@@ -653,6 +708,5 @@
 
     
   </script>
-
 </body>
 </html>

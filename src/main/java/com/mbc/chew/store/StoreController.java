@@ -65,9 +65,22 @@ public class StoreController {
 	@RequestMapping(value ="/sout")
 	public String storeout(HttpServletRequest request,Model m)
 	{
+		int nowPage;
+		try {
+			nowPage=Integer.parseInt(request.getParameter("page"));
+		} catch (Exception e) {
+			nowPage=1;
+		}
+		int cntPerPage=10; //한 페이지에 나타낼 레코드 수
 		StoreService ss = sqls.getMapper(StoreService.class);
-		ArrayList<StoreDTO>list = ss.outstore();
+		int total=ss.countAllRecords();
+		PageDTO pdto=new PageDTO(total, nowPage, cntPerPage);
+		
+		//ArrayList<StoreDTO>list = ss.outstore();
+		
+		ArrayList<StoreDTO> list = ss.paging(pdto.getStart(), pdto.getEnd());
 		m.addAttribute("list",list);
+		m.addAttribute("pdto", pdto);
 		return "storeout";
 	}
 	@RequestMapping(value ="/sdelete")
@@ -133,5 +146,27 @@ public class StoreController {
 		StoreDTO dto= ss.selectOne(num);
 		m.addAttribute("dto", dto);
 		return "storemanage_detail";
+	}
+	
+	@RequestMapping(value="storemanage_search")
+	public String hh2(HttpServletRequest request,Model m) {
+		int nowPage;
+		try {
+			nowPage=Integer.parseInt(request.getParameter("page"));
+		} catch (Exception e) {
+			nowPage=1;
+		}
+		int cntPerPage=5; //한 페이지에 나타낼 레코드 수
+		
+		String search=request.getParameter("search");
+		StoreService ss = sqls.getMapper(StoreService.class);
+		int total=ss.countSearchRecords(search);
+		PageDTO pdto=new PageDTO(total, nowPage, cntPerPage);
+		
+		ArrayList<StoreDTO> list = ss.searchList(pdto.getStart(), pdto.getEnd(),search);
+		m.addAttribute("list",list);
+		m.addAttribute("pdto", pdto);
+		m.addAttribute("search", search);
+		return "storemanage_search";
 	}
 }
