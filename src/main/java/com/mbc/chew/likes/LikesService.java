@@ -10,6 +10,10 @@ public interface LikesService {
 
 	int insertLike(LikesDTO ldto);
 
+	void decreaseLikes(Integer storecode);
+
+	void increaseLikes(Integer storecode);
+
 	
 
 }

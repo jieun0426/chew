@@ -331,17 +331,16 @@ button.next { right: 0; }
   position: relative;
   cursor: pointer;
   display: flex;
-  height: 48px;
-  width: 136px;
+  height: 38px;
+  width: 126px;
   border-radius: 16px;
-  border: none;
+  border: 1px solid #e0e0e0;  /* 여기에 미세한 테두리를 추가 (선택 사항) */
   background-color: white;
   overflow: hidden;
-  box-shadow:
-    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
-    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
-    4px 4px 10px rgba(0, 0, 0, 0.4),
-    -2px -2px 8px rgba(255, 255, 255, 0.1);
+  margin-top: 0;
+  margin-bottom: 100px;
+  margin-left: 390px;
+  
 }
 
 .like {
@@ -361,7 +360,7 @@ button.next { right: 0; }
 
 .like-text {
   color: black;
-  font-size: 16px;
+  font-size: 13px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -447,29 +446,26 @@ button.next { right: 0; }
         <p>🍴 ${ddto.storecategory}</p>
         <p>🕒 ${ddto.storehours}</p>    
       </div>
-      <!-- 좋아요 버튼 영역 -->
-      <input type="hidden" id="storecode" value="${ddto.storecode}" />
-	  <div class="like-button">
+      
+	      <input type="hidden" id="storecode" value="${ddto.storecode}" />
+	<div class="like-button">
 	  <input class="on" id="heart" type="checkbox" />
 	  <label class="like" for="heart">
-		   <svg
-	      class="like-icon"
-	      fill-rule="nonzero"
-	      viewBox="0 0 24 24"
-	      xmlns="http://www.w3.org/2000/svg"
-	    >
+	    <!-- 좋아요 아이콘 -->
+	    <svg class="like-icon" fill-rule="nonzero" viewBox="0 0 24 24">
 	      <path
 	        d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
 	      ></path>
 	    </svg>
-	    <span class="like-text">Likes</span>
+	    <!-- 좋아요 텍스트 -->
+	    <span class="like-text">좋아요</span>
 	  </label>
-	  <span class="like-count one">${ddto.storelikes}</span>
-	  <span class="like-count two">${ddto.storelikes}</span>
+	  <!-- 좋아요 카운트 -->
+	  <span class="like-count" id="likeCount">${ddto.storelikes}</span>
 	</div>
+      
+     
 
-<!-- 숨겨진 storecode 값 -->
-<input type="hidden" id="storecode" value="${ddto.storecode}" />
 		
 
 <!-- 숨겨진 storecode 값 -->
@@ -701,52 +697,57 @@ button.next { right: 0; }
           });     
       });
     
-    //조아요
-	   $(function() {
-    const storecodeInput = document.getElementById("storecode");
-    const heartInput = document.getElementById("heart");  // checkbox
+    //좋아요
+    $(function () {
+        const storecodeInput = document.getElementById("storecode");
+        const heartInput = document.getElementById("heart");
+        const likeCountSpan = document.getElementById("likeCount");
 
-    if (!storecodeInput || !heartInput) return;
+        if (!storecodeInput || !heartInput) return;
 
-    const storecode = parseInt(storecodeInput.value, 10);
-    const contextPath = "${pageContext.request.contextPath}";
-    const checkUrl = contextPath + "/like/check";
-    const toggleUrl = contextPath + "/like/toggle";
+        const storecode = parseInt(storecodeInput.value, 10);
+        const contextPath = "${pageContext.request.contextPath}";
+        const checkUrl = contextPath + "/like/check";
+        const toggleUrl = contextPath + "/like/toggle";
 
-    // ✅ 1. 페이지 진입 시 좋아요 상태 확인
-    fetch(checkUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ storecode })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            heartInput.checked = data.liked;  // 체크박스 상태 반영
-        }
-    });
-
-    // ✅ 2. 체크박스 클릭 시 좋아요 토글 요청
-    heartInput.addEventListener("change", function () {
-        fetch(toggleUrl, {
+        // ✅ 초기 좋아요 여부 확인
+        fetch(checkUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ storecode })
         })
-        .then(response => response.json())
+        .then(res => res.json())
         .then(data => {
-            if (!data.success) {
-                alert(data.message || "좋아요 처리 중 오류 발생");
-                heartInput.checked = !heartInput.checked; // 실패 시 롤백
+            if (data.success) {
+                heartInput.checked = data.liked;
             }
-        })
-        .catch(error => {
-            console.error("❌ 좋아요 토글 실패:", error);
-            alert("서버 오류 발생");
-            heartInput.checked = !heartInput.checked; // 실패 시 롤백
+        });
+
+        // ✅ 토글 클릭 시 서버 전송 + 좋아요 수 반영
+        heartInput.addEventListener("change", function () {
+            fetch(toggleUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ storecode })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    // 좋아요 수 UI 반영
+                    let currentCount = parseInt(likeCountSpan.innerText, 10);
+                    likeCountSpan.innerText = data.liked ? currentCount + 1 : currentCount - 1;
+                } else {
+                    alert(data.message || "처리 중 오류");
+                    heartInput.checked = !heartInput.checked;
+                }
+            })
+            .catch(error => {
+                console.error("❌ 서버 오류:", error);
+                alert("서버 오류 발생");
+                heartInput.checked = !heartInput.checked;
+            });
         });
     });
-});
 
 
 

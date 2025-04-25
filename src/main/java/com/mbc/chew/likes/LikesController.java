@@ -38,12 +38,15 @@ public class LikesController {
 
         boolean liked;
         try {
-            // ✅ 여기 수정됨! boolean → int → boolean 비교
             if (ls.isLiked(ldto) > 0) {
-                ls.deleteLike(ldto);  // 좋아요 취소
+                // 이미 좋아요 했으면 취소
+                ls.deleteLike(ldto);              // 좋아요 기록 삭제
+                ls.decreaseLikes(storecode);      // 좋아요 수 -1
                 liked = false;
             } else {
-                ls.insertLike(ldto);  // 좋아요 추가
+                // 좋아요 안한 상태면 추가
+                ls.insertLike(ldto);              // 좋아요 기록 추가
+                ls.increaseLikes(storecode);      // 좋아요 수 +1
                 liked = true;
             }
             result.put("success", true);
@@ -55,7 +58,7 @@ public class LikesController {
 
         return result;
     }
-    
+
     @RequestMapping(value = "/check", method = RequestMethod.POST, produces = "application/json")
     @ResponseBody
     public Map<String, Object> checkLike(@RequestBody Map<String, Integer> request, HttpSession session) {
@@ -82,8 +85,4 @@ public class LikesController {
 
         return result;
     }
-
-    
-    
-    
 }
