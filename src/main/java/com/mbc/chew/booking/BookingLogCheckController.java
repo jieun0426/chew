@@ -10,16 +10,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class BookingLogCheckController {
 	 
-@RequestMapping("/logincheck")
-@ResponseBody
-public String logincheck(HttpServletRequest request) {
-        HttpSession hs = request.getSession(false);
-        Boolean loginstate = (hs != null) ? (Boolean) hs.getAttribute("loginstate") : null;
-        if (loginstate != null && loginstate) {
-            return "ok";
-        } 
-        else {
-	        return "no";
-	         }
+	     
+	    @RequestMapping("/logincheck")
+	    @ResponseBody
+	    public String logincheck(HttpServletRequest request) {
+	        HttpSession session = request.getSession(false);
+	        if (session != null && session.getAttribute("id") != null) {
+	            return "ok";
+	        } else {
+	            return "no";
+	        }
 	    }
-}
+	}

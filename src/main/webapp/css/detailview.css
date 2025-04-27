@@ -1,294 +1,64 @@
-  <style>
-  body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #FBF8EF;
-    }
-    .container1 {
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    
-    .container2 {
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-    }
-    
-    .container3 {
-      max-width: 1000px;
-      margin: 30px auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      background-color: #FFFFFF;
-    }
-
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(4px);
-      border-bottom: 1px solid #ddd;
-      padding: 10px 20px;
-    }
-    .top-nav ul {
-      list-style: none;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      margin: 0;
-      padding: 0;
-    }
-    .top-nav a {
-      text-decoration: none;
-      font-weight: bold;
-      color: #333;
-    }
-    .top-nav a:hover {
-      color: #f52121;
-    }
-
-    .restaurant-header {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-    }
-    .restaurant-header img {
-      width: 200px;
-      height: 150px;
-      border-radius: 10px;
-      object-fit: cover;
-    }
-    .restaurant-info h1 {
-      margin: 0;
-    }
-    .stars {
-      color: #ffc107;
-      font-size: 20px;
-    }
-    .location {
-      color: #666;
-    }
-
-    .title-like {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .like-wrapper {
-      font-size: 12px;
-      background: none;
-      box-shadow: none;
-      display: inline-flex;
-      align-items: center;
-      padding: 0.2em 0.4em;
-      border: 0.1em solid #313131;
-      border-radius: 0.35em;
-      cursor: pointer;
-      gap: 0.3em;
-    }
-    .like-wrapper .check { display: none; }
-    .like-wrapper .like-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.3em;
-    }
-    .like-wrapper .icon {
-      width: 1em;
-      height: 1em;
-      fill: white;
-      transition: transform 0.2s ease-in-out;
-    }
-    .like-wrapper .icon.active {
-      display: none;
-      fill: #f52121;
-    }
-    .like-wrapper .check:checked + .like-btn .icon.active {
-      display: inline-block;
-      animation: wiggle 0.5s ease-in-out;
-    }
-    .like-wrapper .check:checked + .like-btn .icon.inactive {
-      display: none;
-    }
-    .like-wrapper .like-text {
-      font-weight: bold;
-      color: black;
-      line-height: 1;
-    }
-    @keyframes wiggle {
-      0%,100% { transform: rotate(0deg); }
-      25%     { transform: rotate(-10deg); }
-      50%     { transform: rotate(10deg); }
-      75%     { transform: rotate(-10deg); }
-    }
-
-    .card {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      max-width: 1000px;
-      height: 500px;
-      margin: 30px auto;
-    }
-    .cardWrap {
-      position: relative;
-      width: 800px;
-      height: 500px;
-      overflow: hidden;
-    }
-    .cardWrap ul {
-      position: absolute;
-      display: flex;
-      width: calc((800px + 20px) * 4);
-      height: 500px;
-      left: 0;
-      margin: 0;
-      padding: 0;
-      list-style: none;
-    }
-    .cardWrap ul li {
-      width: 800px;
-      height: 500px;
-      margin: 0 10px;
-      flex-shrink: 0;
-    }
-    .cardWrap ul li img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    button.prev, button.next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 50px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      color: #333;
-    }
-    button.prev { left: 0; }
-    button.next { right: 0; }
-
-    .review-section {
-      margin-top: 30px;
-    }
-    .review {
-      border-top: 1px solid #ddd;
-      padding: 10px 0;
-    }
-
-    .map-wrapper {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
-    #map {
-      width: 35%;
-      height: 250px;
-      margin-left: 70px;
-    }
-    .address-box {
-      flex: 1;
-    }
-    .modal {
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 10px;
-      width: 400px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      cursor: pointer;
-    }
-    .close:hover {
-      color: black;
-    }
-    
-    
-.star_box {
-  width: 400px;
-  box-sizing: border-box;
-  display: inline-block;
-  margin: 15px 0;
-  background: #F3F4F8;
-  border: 0;
-  border-radius: 10px;
-  height: 100px;
-  resize: none;
-  padding: 15px;
-  font-size: 13px;
-  font-family: sans-serif;
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #FBF8EF;
 }
-.btn02 {
-  display:block;
-  width: 400px;
-  font-weight: bold;
-  border: 0;
-  border-radius: 10px;
-  max-height: 50px;
-  padding: 15px 0;
-  font-size: 1.1em;
-  text-align: center;
-  background:bisque;
-}
-.rating:not(:checked) > input {
-  position: absolute;
-  appearance: none;
+.container1 {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.rating:not(:checked) > label {
-  float: right;
-  cursor: pointer;
-  font-size: 30px;
-  color: #666;
+.container2 {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
 }
 
-.rating:not(:checked) > label:before {
-  content: '¡Ú';
+.container3 {
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
 }
 
-.rating > input:checked + label:hover,
-.rating > input:checked + label:hover ~ label,
-.rating > input:checked ~ label:hover,
-.rating > input:checked ~ label:hover ~ label,
-.rating > label:hover ~ input:checked ~ label {
-  color: #e58e09;
+.top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(4px);
+    border-bottom: 1px solid #ddd;
+    padding: 10px 20px;
+}
+.top-nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
+}
+.top-nav a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+.top-nav a:hover {
+    color: #f52121;
 }
 
-.rating:not(:checked) > label:hover,
-.rating:not(:checked) > label:hover ~ label {
-  color: #ff9e0b;
+.restaurant-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
-
-.rating > input:checked ~ label {
-  color: #ffa723;
-}
-
-</style>
+.restaurant-header img {
+    widt
