@@ -10,11 +10,6 @@ public class MemberDTO {
     private String name;        
     private String phone;    
     private Date birth;         
-    private Timestamp memberdate;
-    private int membercount;
-    private String membergrade;
-    private String role;
-    private String accountstatus;
 
     public MemberDTO() {
     }
@@ -59,44 +54,5 @@ public class MemberDTO {
 		this.birth = birth;
 	}
 
-	public Timestamp getMemberdate() {
-		return memberdate;
-	}
-
-	public void setMemberdate(Timestamp memberdate) {
-		this.memberdate = memberdate;
-	}
-
-	public int getMembercount() {
-		return membercount;
-	}
-
-	public void setMembercount(int membercount) {
-		this.membercount = membercount;
-	}
-
-	public String getMembergrade() {
-		return membergrade;
-	}
-
-	public void setMembergrade(String membergrade) {
-		this.membergrade = membergrade;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	public String getAccountstatus() {
-		return accountstatus;
-	}
-
-	public void setAccountstatus(String accountstatus) {
-		this.accountstatus = accountstatus;
-	}
-
+	
 }

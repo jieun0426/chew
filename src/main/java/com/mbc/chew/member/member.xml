@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbc.chew.member.MemberService">
+<select id="allmembers" resultType="com.mbc.chew.member.MemberDTO">
+select id,pw,name,phone,birth from member_3 order by id asc
+</select>
+	
+</mapper>
+

@@ -57,7 +57,8 @@
 		<put-attribute name="title" value="상세메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/detail/detailmain.jsp"/>
 	</definition>
-
+						
+						<!-- store 부분 -->
    <definition name="storeinput" extends="baseLayout">
       <put-attribute name="title" value="메인화면"/>
       <put-attribute name="body" value="/WEB-INF/views/storemanage/storeinput.jsp"/>
@@ -73,6 +74,22 @@
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storedeleteview.jsp"/>
 	</definition> 
    
+   <definition name="storemanage_detail" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_detail.jsp"/>
+	</definition> 
+   
+   <definition name="storemodifyview" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemodifyview.jsp"/>
+	</definition> 
+   
+   	<definition name="storemanage_search" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_search.jsp"/>
+	</definition>
+	
+  						 <!-- store 끝 -->
     <definition name="login_Idfind" extends="baseLayout">
       <put-attribute name="title" value="아이디찾기"/>
       <put-attribute name="body" value="/WEB-INF/views/joinlogin/login_Idfind.jsp"/>
@@ -98,18 +115,14 @@
       <put-attribute name="body" value="/WEB-INF/views/errorpage.jsp"/>
    </definition>
    
-	<definition name="storemodifyview" extends="baseLayout">
-		<put-attribute name="title" value="메인화면"/>
-		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemodifyview.jsp"/>
-	</definition> 
+								<!-- 회원관리 부분 -->
+   <definition name="memberlist" extends="baseLayout">
+      <put-attribute name="title" value="페이지오류"/>
+      <put-attribute name="body" value="/WEB-INF/views/member/memberlist.jsp"/>
+   </definition>							
+								<!-- 회원관리 끝 -->
 
-	<definition name="storemanage_detail" extends="baseLayout">
-		<put-attribute name="title" value="메인화면"/>
-		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_detail.jsp"/>
-	</definition> 
 
-	<definition name="storemanage_search" extends="baseLayout">
-		<put-attribute name="title" value="메인화면"/>
-		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_search.jsp"/>
-	</definition>
+	
+	
 </tiles-definitions>

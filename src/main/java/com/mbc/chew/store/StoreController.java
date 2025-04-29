@@ -71,7 +71,7 @@ public class StoreController {
 		} catch (Exception e) {
 			nowPage=1;
 		}
-		int cntPerPage=10; //한 페이지에 나타낼 레코드 수
+		int cntPerPage=10; 
 		StoreService ss = sqls.getMapper(StoreService.class);
 		int total=ss.countAllRecords();
 		PageDTO pdto=new PageDTO(total, nowPage, cntPerPage);
@@ -156,7 +156,7 @@ public class StoreController {
 		} catch (Exception e) {
 			nowPage=1;
 		}
-		int cntPerPage=5; //한 페이지에 나타낼 레코드 수
+		int cntPerPage=5; //�븳 �럹�씠吏��뿉 �굹���궪 �젅肄붾뱶 �닔
 		
 		String search=request.getParameter("search");
 		StoreService ss = sqls.getMapper(StoreService.class);
