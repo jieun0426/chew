@@ -3,10 +3,22 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.mbc.chew.member.MemberService">
+<mapper namespace="com.mbc.chew.member.member">
 <select id="allmembers" resultType="com.mbc.chew.member.MemberDTO">
 select id,pw,name,phone,birth from member_3 order by id asc
 </select>
-	
+
+<select id="findmembers" parameterType="string" resultType="com.mbc.chew.member.MemberDTO">
+select id,pw,name,phone,birth from member_3 where id=#{id}
+</select>
+
+<update id="memberupdate" parameterType="com.mbc.chew.member.MemberDTO">
+update member_3 set name=#{name},phone=#{phone},birth=#{birth} where id=#{id}
+</update>
+
+<delete id="memberdelete" parameterType="string">
+delete from member_3 where id =#{id}
+</delete>
+
 </mapper>
 

@@ -119,7 +119,13 @@
    <definition name="memberlist" extends="baseLayout">
       <put-attribute name="title" value="페이지오류"/>
       <put-attribute name="body" value="/WEB-INF/views/member/memberlist.jsp"/>
-   </definition>							
+   </definition>					
+   
+   <definition name="memberedit" extends="baseLayout">
+      <put-attribute name="title" value="페이지오류"/>
+      <put-attribute name="body" value="/WEB-INF/views/member/memberedit.jsp"/>
+   </definition>
+   		
 								<!-- 회원관리 끝 -->
 
 

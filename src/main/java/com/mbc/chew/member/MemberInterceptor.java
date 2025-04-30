@@ -4,8 +4,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+@Component
 public class MemberInterceptor extends HandlerInterceptorAdapter{
 //검문소 느낌 ,Controller 실행전에 로그인된지,관리자 인지 판별.
 	@Override
@@ -19,6 +21,8 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
         response.sendRedirect(request.getContextPath() + "/loginput"); // 로그인 폼 URL로 변경
         return false;
     }
+	
+	
 	String loginId = (String) hs.getAttribute("id");
     if (!"admin".equals(loginId)) {
         // 로그인은 했지만 ID가 "admin"이 아님
