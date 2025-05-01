@@ -134,7 +134,7 @@ public class StoreController {
 			fname		 = uu.toString()+"_"+fname;
 	
 			mf.transferTo(new File(path+"\\"+fname));
-			ss.insertstore(storecode,storename,storeaddress,storecategory,storearea,fname);
+			ss.updatemodi2(storecode,storename,storeaddress,storecategory,storearea,fname);
 		}
 		return "redirect:/sout";
 	}

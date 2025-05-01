@@ -35,8 +35,8 @@ public class MemberController {
 				return "memberlist";
 			}//////////////////////
 
-		@RequestMapping(value="/memberedit",method = RequestMethod.GET)
-		public String memberedit(@RequestParam("id")String id,Model m) {
+		@RequestMapping(value="/memberupdate",method = RequestMethod.GET)
+		public String memberGetForm(@RequestParam("id")String id,Model m) {
 			try {    //수정할 회원 정보 조회
 				MemberDTO dto = sqls.selectOne("com.mbc.chew.member.member.findmembers",id);
 				 if (dto == null) {
@@ -54,11 +54,10 @@ public class MemberController {
 			}	
 				return "redirect:/members";
 			}
-		////////////////////
 		
 		
 		 @RequestMapping(value = "/memberupdate", method = RequestMethod.POST)
-		    public String memberUpdate(MemberDTO dto, RedirectAttributes redirectAttributes) {
+		    public String memberPostForm(MemberDTO dto, RedirectAttributes redirectAttributes) {
 		        try {
 		            int result = sqls.update("com.mbc.chew.member.member.memberupdate", dto);
 		            if (result > 0) {

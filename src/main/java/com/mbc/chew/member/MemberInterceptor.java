@@ -18,7 +18,12 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 	if (hs == null || hs.getAttribute("id") == null) {
         // 세션이 없거나, 세션에 "id" 속성이 없으면 로그인되지 않은 상태
         System.out.println("[Interceptor] 비로그인 사용자 접근 시도: " + request.getRequestURI());
-        response.sendRedirect(request.getContextPath() + "/loginput"); // 로그인 폼 URL로 변경
+        response.setContentType("text/html; charset=UTF-8");
+        response.getWriter().println("<script>");
+        response.getWriter().println("alert('로그인이 필요합니다.');");
+        response.getWriter().println("location.href='" + request.getContextPath() + "/loginput';");
+        response.getWriter().println("</script>");
+        response.getWriter().flush();
         return false;
     }
 	

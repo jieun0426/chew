@@ -71,7 +71,7 @@
       <button class="menu-toggle">관리자페이지 ▼</button>
       <ul class="submenu">
         <li><a href="sout">매장관리</a></li>
-        <li><a href="/members">회원관리</a></li>
+        <li><a href="${pageContext.request.contextPath}/members">회원관리</a></li>
         <li><a href="#">리뷰관리</a></li>
         <li><a href="#">예약관리</a></li>
       </ul>

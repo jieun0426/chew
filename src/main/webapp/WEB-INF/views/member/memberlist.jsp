@@ -69,23 +69,29 @@ th { background-color: #f2f2f2; }
 	        <th colspan="2">회원관리</th>
 	    </tr>
 	</thead>
- <tbody></tbody>
-		<c:choose>>
+ <tbody>
+		<c:choose>
 	     	<c:when test="${not empty memberList}"> 
 					<c:forEach items="${memberList}" var="member">
 					     <tr>
-					         <td class="align_center">${member.id}</td> 
+				            <td class="align_center">
+						    <a href="${pageContext.request.contextPath}/mypinfo?id=${member.id}">${member.id}</a>
+					      	</td>
+					         
 					         <td class="align_center">${member.name}</td>
 					         <td class="align_center">${member.phone}</td> 
 					         <td class="align_center">
 					         	<fmt:formatDate value="${member.birth}" pattern="yyyy-MM-dd"/> 
 					         </td>
+					         
 					         <td class="align_center">
-					             <a href="${pageContext.request.contextPath}memberdelete?id=${member.id}">삭제</a>
+					             <a href="${pageContext.request.contextPath}/memberupdate?id=${member.id}">수정</a>
 					         </td>
+					         
 					         <td class="align_center">
-					             <a href="${pageContext.request.contextPath}memberedit?id=${member.id}">수정</a>
+					             <a href="${pageContext.request.contextPath}/memberdelete?id=${member.id}">삭제</a>
 					         </td>
+					         
 					     </tr>
 					</c:forEach>
 				</c:when>
@@ -95,6 +101,7 @@ th { background-color: #f2f2f2; }
 					</tr>
 			</c:otherwise>
 		</c:choose>
+	  </tbody>	
 	</table>
 </div>
 <br><br>
