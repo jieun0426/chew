@@ -40,7 +40,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
         response.getWriter().flush(); // 응답 즉시 전송
         return false; 
     }
-    System.out.println("관리자(" + loginId + ")님 안녕하세요:" + request.getRequestURI());
+    System.out.println("관리자(" + loginId + ")로 로그인 성공:" + request.getRequestURI());
     return true;
 		
 		

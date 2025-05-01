@@ -29,33 +29,85 @@ th { background-color: #f2f2f2; }
     }
 </style>
 
-<script>
-    // 삭제 확인 JavaScript 함수
-    function confirmDelete() {
-        return confirm('정말로 이 회원을 삭제하시겠습니까?');
-    }
-</script>
 
 </head>
-<!-- ---------------------------- -->
+
+
+       <!-- -----------회원검색창----------------- -->
 <body>
 <h1>회원목록창</h1>
 <div class="input_div" style="text-align: center; margin-bottom: 20px;">
-	<form action="membersearch" method="get">
+	<form action="${pageContext.request.contextPath}/membersearch" method="get">
 		<div class="group">
-			<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g><path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path></g></svg>
+			<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g>
+			<path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
 			</path></g></svg>
-			<input placeholder="회원 검색" type="search" class="input" name="search">
 		<button type="submit" class="button">회원검색 </button>
 		</div>
 	</form>
 </div>
 
+                  <!-- 검색 모달창 -->
 
-<!-- 성공오류메시지 표시 -->
+		<div id="searchModal" style="display:none; position:fixed; top:20%; left:40%; background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
+    <form id="memberSearchForm" onsubmit="return false;">
+        <select name="searchKey" id="searchKey">
+            <option value="id">아이디</option>
+            <option value="name">이름</option>
+            <option value="phone">연락처</option>
+            <option value="birth">생년월일</option>
+        </select>
+        <input type="text" name="searchValue" id="searchValue" placeholder="검색어 입력">
+        <button type="button" onclick="doMemberSearch()">검색</button>
+        <button type="button" onclick="closeSearchModal()">닫기</button>
+    </form>
+    <div id="searchResult"></div>
+</div>
+
+                  <!--삭제기능부분 ContextPath 선언  -->
+                  
+                  
+<script>   var contextPath = "${pageContext.request.contextPath}";  </script>
+<script src="${pageContext.request.contextPath}/js/memberDeleteModal.js"></script>
+                  
+                  
+                  
+                  
+                  <!-- 검색 모달 여닫 -->
+
+	<script type="text/javascript">
+	function openSearchModal() {
+	    document.getElementById('searchModal').style.display = 'block';
+	}
+	function closeSearchModal() {
+	    document.getElementById('searchModal').style.display = 'none';
+	    document.getElementById('searchResult').innerHTML = '';
+	}
+	</script>
+	
+	
+                   <!--  삭제 모달 창  -->   
+                    
+ <div id="deleteModal" style="display:none; position:fixed; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); z-index:9999;">
+ <div style="background:#fff; width:300px; margin:200px auto; padding:20px; border-radius:8px; text-align:center;">
+    <p>정말 삭제하시겠습니까?</p>
+    <button id="deleteYesBtn">예</button>
+    <button id="deleteNoBtn">취소</button>
+  </div>
+</div>	
+
+
+<!--  -->
+<script src="${pageContext.request.contextPath}/js/member.js"></script>
+<!--  -->
+
+
+               <!--   성공오류메시지 표시   -->
 <c:if test="${not empty errorMessage}">
 	<p style="color: red; text-align: center;">${errorMessage}</p>
 </c:if>
+
+
 
 
 <div>
@@ -74,9 +126,7 @@ th { background-color: #f2f2f2; }
 	     	<c:when test="${not empty memberList}"> 
 					<c:forEach items="${memberList}" var="member">
 					     <tr>
-				            <td class="align_center">
-						    <a href="${pageContext.request.contextPath}/mypinfo?id=${member.id}">${member.id}</a>
-					      	</td>
+				            <td class="align_center">${member.id}</td>
 					         
 					         <td class="align_center">${member.name}</td>
 					         <td class="align_center">${member.phone}</td> 
@@ -85,14 +135,17 @@ th { background-color: #f2f2f2; }
 					         </td>
 					         
 					         <td class="align_center">
-					             <a href="${pageContext.request.contextPath}/memberupdate?id=${member.id}">수정</a>
+					         <a href="${pageContext.request.contextPath}/mypinfo?id=${member.id}">수정</a>
 					         </td>
 					         
 					         <td class="align_center">
-					             <a href="${pageContext.request.contextPath}/memberdelete?id=${member.id}">삭제</a>
-					         </td>
-					         
-					     </tr>
+						    <form action="${pageContext.request.contextPath}/memberdelete" method="post" class="deleteForm" style="display:inline;">
+						        <input type="hidden" name="id" value="${member.id}">
+						        <button type="button" class="deleteBtn">삭제</button>
+						    </form>
+						</td>
+					 </tr>  
+					      
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -111,7 +164,7 @@ th { background-color: #f2f2f2; }
 <div style="text-align: center;">
     <c:if test="${pdto != null}"> 
         <c:if test="${pdto.startPage > pdto.cntPage}">
-            <a href="members?page=${pdto.startPage - pdto.cntPage}">◀</a>&emsp;
+            <a href="${pageContext.request.contextPath}/members?page=${pdto.startPage - pdto.cntPage}">◀</a>&emsp;
         </c:if>
 
         <c:forEach begin="${pdto.startPage}" end="${pdto.endPage}" var="p">

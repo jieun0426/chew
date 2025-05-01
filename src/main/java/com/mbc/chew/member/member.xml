@@ -12,13 +12,15 @@ select id,pw,name,phone,birth from member_3 order by id asc
 select id,pw,name,phone,birth from member_3 where id=#{id}
 </select>
 
-<update id="memberupdate" parameterType="com.mbc.chew.member.MemberDTO">
+<!-- <update id="memberupdate" parameterType="com.mbc.chew.member.MemberDTO">
 update member_3 set name=#{name},phone=#{phone},birth=#{birth} where id=#{id}
-</update>
+</update> -->
 
 <delete id="memberdelete" parameterType="string">
 delete from member_3 where id =#{id}
 </delete>
+
+
 
 </mapper>
 

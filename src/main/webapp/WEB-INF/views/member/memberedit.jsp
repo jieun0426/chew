@@ -50,7 +50,7 @@
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="button">수정 완료</button>
+            <button type="submit" class="button">수정</button>
             <a href="/members" class="button gray">취소</a>
         </div>
 
