@@ -79,7 +79,11 @@
     opacity: 0.8;
 }
 
+<<<<<<< HEAD
 /* 공통된 맛집 카드 스타일 */
+=======
+/* ����� ���� ī�� ��Ÿ�� */
+>>>>>>> Jimin-718-master
 .main_rankList, .main_areaList { 
     width: 30%;
     padding: 5px;
@@ -98,7 +102,11 @@
     box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
 }
 
+<<<<<<< HEAD
 /* 이미지 스타일 */
+=======
+/* �̹��� ��Ÿ�� */
+>>>>>>> Jimin-718-master
 .storeimg {
     width: 100%;
     height: 250px;
@@ -108,7 +116,11 @@
     margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
 /* 링크 스타일 */
+=======
+/* ��ũ ��Ÿ�� */
+>>>>>>> Jimin-718-master
 .main_rankList a, .main_areaList a {
     color: #333;
     text-decoration: none;
@@ -123,7 +135,11 @@
     color: #ffdb5a;
 }
 
+<<<<<<< HEAD
 /* 별점 스타일 */
+=======
+/* ���� ��Ÿ�� */
+>>>>>>> Jimin-718-master
 .rating {
     display: flex;
     flex-direction: column;
@@ -162,8 +178,6 @@
 .rating input:checked:hover ~ label {
     color: #f1c40f;
 }
-
-
 
 
 /* 지역별 스타일과 랭킹별 스타일 구분 (특정 요소만 다르게) */

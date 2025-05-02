@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 <body>
 <form action="modify" method="post">
 <input type="hidden" name="storeimage" value="${dto.storeimage}">
-<table border="1" width="400px" align="center">
+<table border="1" width="600px" align="center">
 	<tr>
 		<th>매장코드</th><td>${dto.storecode}</td>
 	</tr>
@@ -32,7 +33,8 @@
 	<tr>	
 		<th>매장이미지</th>
 		<td>
-			<img src="./image/${dto.storeimage}" width="200px" height="150px">
+			<img src="./image/${dto.storeimage}" width="200px" height="150px"
+			     style="border: 1px solid #ccc; border-radius: 8px;">
 		</td>
 	</tr>
 	<tr>    
@@ -54,6 +56,7 @@
 <br>
 <input type="button" value ="편집" class="buttons1" onclick="location.href='smodify?storecode=${dto.storecode}';">&emsp;
 <input type="button" value ="삭제" class="buttons1" onclick="location.href='sdelete?storecode=${dto.storecode}';"> 
+
 
 </form>
 </body>

@@ -34,9 +34,7 @@ public interface StoreService {
 	ArrayList<StoreDTO> paging(int start, int end);
 
 	int countAllRecords();
-	/* 페이징 처리 끝 */
 
-	/* 검색 */
 	int countSearchRecords(String search);
 
 	ArrayList<StoreDTO> searchList(int start, int end, String search);
@@ -71,4 +69,5 @@ public interface StoreService {
    void deleteReservationsByStorecode(int storecode);
 
    void deletelikesByStorecode(int storecode);
+
 }

@@ -14,7 +14,7 @@ $(document).ready(function(){
 	$(".areaSelectBtn").click(function(){
 		var tp=$(this).val()
 		
-		$.ajax({
+		$.ajax({ 
 			type: "post",
 			url: "mainSelectType",
 			data: {"area":tp},
@@ -27,9 +27,10 @@ $(document).ready(function(){
 		});
 	});
 });
+
 </script>
 </head>
-<body>
+<body> 
 
 <div class="slider-container" id="slider-container">
     <div class="slider" id="slider">
@@ -46,7 +47,8 @@ $(document).ready(function(){
           <div class="slide-text"></div>
       </div>
     </div>
-  </div>
+</div>
+
 
 <div class="ranking_div">
    <h2>맛집/음식점 추천 순위 Best 3</h2>
@@ -84,6 +86,7 @@ $(document).ready(function(){
    </c:forEach>
    </div>   
    
+
 </div>
 
 

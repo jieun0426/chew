@@ -326,9 +326,8 @@ button.next { right: 0; }
   display: none;
 }
 
-
 .like-button {
-  position: relative;
+   position: relative;
   cursor: pointer;
   display: flex;
   height: 38px;
@@ -391,13 +390,12 @@ button.next { right: 0; }
   font-size: 16px;
   border-left: 2px solid #4e4e4e;
   transition: all 0.5s ease-out;
-  
+
   /* ✅ 기본 위치에서 보이도록 설정 */
   transform: translateY(0);
 }
 
 /* ✅ 좋아요 눌렀을 때 아이콘 색과 애니메이션 */
-
 .on:checked ~ .like .like-icon {
   fill: #fc4e4e;
   animation: enlarge 0.2s ease-out 1;
@@ -457,7 +455,6 @@ button.next { right: 0; }
 </script>
 </head>
 <body>
-
   <header class="top-nav">
     <nav>
       <ul>
@@ -475,10 +472,10 @@ button.next { right: 0; }
       <div class="restaurant-info">
         <div class="title"><h1>${ddto.storename}</h1></div>
 
-       <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
-       <c:set var="emptyStars" value="${5 - fullStars}" />
+        <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
+        <c:set var="emptyStars" value="${5 - fullStars}" />
 
-       <div class="stars">
+        <div class="stars">
           <c:forEach var="i" begin="1" end="${fullStars}">
             ★
           </c:forEach>
@@ -486,40 +483,37 @@ button.next { right: 0; }
             ☆
           </c:forEach>
           (${avgStars})
-       </div>
+        </div>
        
         <div class="location">${ddto.storeaddress}</div>
-        <p>🍴 ${ddto.storecategory}</p>
-        <p>🕒 ${ddto.storehours}</p>    
-      </div>
-      <!-- 좋아요 버튼 영역 -->
-      <input type="hidden" id="storecode" value="${ddto.storecode}" />
-	  <div class="like-button">
-     <input class="on" id="heart" type="checkbox"/>
-     <label class="like" for="heart">
-       <svg
-         class="like-icon"
-         fill-rule="nonzero"
-         viewBox="0 0 24 24"
-         xmlns="http://www.w3.org/2000/svg"
-       >
-         <path
-           d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
-         ></path>
-       </svg>
-       <span class="like-text">좋아요</span>
-     </label>
-     <span class="like-count" id="likeCount">${ddto.storelikes}</span> <!-- 좋아요 수 표시 -->
-   </div>
+          <p>🍴 ${ddto.storecategory}</p>
+          <p>🕒 ${ddto.storehours}</p>    
+        </div>
 
-<!-- 숨겨진 storecode 값 -->
-<input type="hidden" id="storecode" value="${ddto.storecode}" />
-		
+		<!-- 좋아요 버튼 영역 -->
+		<input type="hidden" id="storecode" value="${ddto.storecode}" />
+		<div class="like-button">
+	  	  <input class="on" id="heart" type="checkbox"/>
+	  	  <label class="like" for="heart">
+	      <svg
+	        class="like-icon"
+	        fill-rule="nonzero"
+	        viewBox="0 0 24 24"
+	        xmlns="http://www.w3.org/2000/svg"
+	      >
+	        <path
+	          d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
+	        ></path>
+	      </svg>
+	    <span class="like-text">좋아요</span>
+	  </label>
+	  <span class="like-count" id="likeCount">${ddto.storelikes}</span> <!-- 좋아요 수 표시 -->
+	</div>
+     
+	<!-- 숨겨진 storecode 값 -->
+	<input type="hidden" id="storecode" value="${ddto.storecode}" />
+      
 
-<!-- 숨겨진 storecode 값 -->
-<input type="hidden" id="storecode" value="${ddto.storecode}" />
-		
-		       
     </div>
    </div>
    
@@ -529,7 +523,6 @@ button.next { right: 0; }
         <ul id="imageList">
          <c:forEach var="image" items="${imagelist}">
            <li>
-
 
            <img src="image/${image.image_filename}" alt="Store Image">
 
@@ -727,7 +720,8 @@ button.next { right: 0; }
 		<!-- 리뷰 등록 버튼 -->
 		<button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 
-  	</c:otherwise>
+
+     </c:otherwise>
   </c:choose>
   
 </form>
@@ -821,10 +815,8 @@ button.next { right: 0; }
 
     updateNav();
   });
-    
-  </script>
-  <script>
   
+
 	$(document).ready(function(){
 	      
 		let reviewOffset = 5;
@@ -850,29 +842,30 @@ button.next { right: 0; }
 		                const reviews = $temp.find('.review');
 		                const hasMore = $temp.find('#moreFlag').data("hasmore");
 
-		                // 5개만 append
-		                $("#reviews").append(reviews);
-		                reviewOffset += reviews.length;
 
-		                if (!hasMore) {
-		                    $btn.text("접기").data("state", "fold");
-		                    return;
-		                }
-		            },
-		            error: function () {
-		                alert("리뷰를 불러오는 데 실패했습니다.");
-		            }
-		        });
+                      // 5개만 append
+                      $("#reviews").append(reviews);
+                      reviewOffset += reviews.length;
 
-		    } else if ($btn.data("state") === "fold") {
-		        $("#reviews .review").slice(5).remove();
-		        reviewOffset = 5;
-		        $btn.text("리뷰 더 보기").data("state", "more");
-		        
-		        document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
-		    }
-		});
-	});
+                      if (!hasMore) {
+                          $btn.text("접기").data("state", "fold");
+                          return;
+                      }
+                  },
+                  error: function () {
+                      alert("리뷰를 불러오는 데 실패했습니다.");
+                  }
+              });
+
+          } else if ($btn.data("state") === "fold") {
+              $("#reviews .review").slice(5).remove();
+              reviewOffset = 5;
+              $btn.text("리뷰 더 보기").data("state", "more");
+              
+              document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
+          }
+      });
+   });
 
   var mapContainer = document.getElementById('map'),
       mapOption = { 
@@ -889,6 +882,7 @@ button.next { right: 0; }
   });
 
   marker.setMap(map);
+
     
     $(function() {
         const modal = $('#bookingModal');
@@ -919,12 +913,13 @@ button.next { right: 0; }
           });     
       });
     
-    //조아요
-	   $(function() {
+    //좋아요
+    
+  $(function() {
     const storecodeInput = document.getElementById("storecode");
     const heartInput = document.getElementById("heart");  // checkbox
     const likeCountElement = document.getElementById("likeCount");  // 좋아요 수 표시 요소
-    
+
     if (!storecodeInput || !heartInput || !likeCountElement) return;
 
     const storecode = parseInt(storecodeInput.value, 10);

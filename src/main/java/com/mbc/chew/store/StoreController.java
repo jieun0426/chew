@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class StoreController {
 	@Autowired
 	SqlSession sqls;
-	String path="C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image";
+	String path="C:\\MBC12AI\\spring\\chew\\src\\main\\webapp\\image";
 
 	
 	@RequestMapping(value="/storein")
@@ -75,7 +75,7 @@ public class StoreController {
 		} catch (Exception e) {
 			nowPage=1;
 		}
-		int cntPerPage=10; //한 페이지에 나타낼 레코드 수
+		int cntPerPage=10; //�븳 �럹�씠吏��뿉 �굹���궪 �젅肄붾뱶 �닔
 		StoreService ss = sqls.getMapper(StoreService.class);
 		int total=ss.countAllRecords();
 		PageDTO pdto=new PageDTO(total, nowPage, cntPerPage);
@@ -130,7 +130,10 @@ public class StoreController {
 	       ss.delete(storecode);
 
 	       return "redirect:/sout";
+
 	}
+
+	
 	@RequestMapping(value ="/smodify")
 	public String ff(HttpServletRequest request,Model m)
 	{
@@ -140,9 +143,9 @@ public class StoreController {
 		List<StoreImageDTO> images = ss.detailImages(storecode);
 	    m.addAttribute("dto",dto);
 	    m.addAttribute("images", images);
+
 		return "storemodifyview";
 	}
-	
 	
 	@RequestMapping(value="modify")
 	public String gg(MultipartHttpServletRequest mul) throws IllegalStateException, IOException
@@ -190,18 +193,21 @@ public class StoreController {
          
        return "redirect:/sout";
 	}
+
 	
 	@RequestMapping(value="storemanage_detail")
 	public String hh(HttpServletRequest request,Model m) {
 		int num=Integer.parseInt(request.getParameter("num"));
+		
 		StoreService ss = sqls.getMapper(StoreService.class);
 		StoreDTO dto= ss.selectOne(num);
 		List<StoreImageDTO> images = ss.detailImages(num);
-	      
-        m.addAttribute("dto", dto);
-        m.addAttribute("images", images);
-      
-        return "storemanage_detail";
+		
+		m.addAttribute("dto", dto);
+		m.addAttribute("images", images);
+		
+		return "storemanage_detail";
+
 	}
 	
 	@RequestMapping(value="storemanage_search")
@@ -212,7 +218,7 @@ public class StoreController {
 		} catch (Exception e) {
 			nowPage=1;
 		}
-		int cntPerPage=5; //한 페이지에 나타낼 레코드 수
+		int cntPerPage=5; //�븳 �럹�씠吏��뿉 �굹���궪 �젅肄붾뱶 �닔
 		
 		String search=request.getParameter("search");
 		StoreService ss = sqls.getMapper(StoreService.class);
