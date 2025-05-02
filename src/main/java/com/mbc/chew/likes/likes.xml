@@ -41,6 +41,12 @@
     WHERE STORECODE = #{storecode}
     </update>
     
+    <select id="getLikesCountFromStore3" resultType="int">
+        SELECT storelikes
+        FROM store_3
+        WHERE storecode = #{storecode}
+    </select>
+    
     
     
 

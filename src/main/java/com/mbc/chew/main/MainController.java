@@ -23,7 +23,9 @@ public class MainController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model,HttpServletRequest request) {
-		/*
+		HttpSession hs=request.getSession();
+		hs.setAttribute("loginstate", false);
+		
 		String area,category;
 		if(request.getParameter("area")==null) {
 			area="서울";
@@ -35,10 +37,10 @@ public class MainController {
 		}else {
 			category=request.getParameter("category");
 		}
-		*/
+		
 		MainService ms=sqlSession.getMapper(MainService.class);
 		ArrayList<MainDTO> list=ms.ranking3();
-		ArrayList<MainDTO> list1=ms.show3nostars_area("서울");
+		ArrayList<MainDTO> list1=ms.show3nostars_area(area);
 		
 		for(int i=0; i<list1.size(); i++) {
 			int storecode=list1.get(i).getStorecode();
@@ -66,7 +68,7 @@ public class MainController {
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String home2(HttpServletRequest request, Model model) {
-		/*
+		
 		String area,category;
 		if(request.getParameter("area")==null) {
 			area="서울";
@@ -78,10 +80,10 @@ public class MainController {
 		}else {
 			category=request.getParameter("category");
 		}
-		*/
+		
 		MainService ms=sqlSession.getMapper(MainService.class);
 		ArrayList<MainDTO> list=ms.ranking3();
-		ArrayList<MainDTO> list1=ms.show3nostars_area("서울");
+		ArrayList<MainDTO> list1=ms.show3nostars_area(area);
 		
 		for(int i=0; i<list1.size(); i++) {
 			int storecode=list1.get(i).getStorecode();
@@ -106,7 +108,6 @@ public class MainController {
 		return "main";
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/mainSelectType")
 	public String ajax(String area, Model model) {
 		MainService ms=sqlSession.getMapper(MainService.class);
@@ -121,6 +122,6 @@ public class MainController {
 	
 		model.addAttribute("area", list);
 		
-		return "mainStoreList";
+		return "main/mainStoreList";
 	}
 }

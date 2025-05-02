@@ -10,6 +10,8 @@ public interface ReviewService {
 	
 	Double getAverageStars(int storecode);
 
+	ArrayList<ReviewDTO> getReviews(int storecode, int offset);
+
 	
 	 
 

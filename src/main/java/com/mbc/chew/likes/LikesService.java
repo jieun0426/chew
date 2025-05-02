@@ -14,6 +14,8 @@ public interface LikesService {
 
 	void increaseLikes(Integer storecode);
 
+	int getLikesCountFromStore3(Integer storecode);
+
 	
 
 }

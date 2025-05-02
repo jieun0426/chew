@@ -5,36 +5,119 @@
 
 <mapper namespace="com.mbc.chew.store.StoreService">
 
-<insert id="insertstore">
-insert into store_3 values(#{param1},#{param2},#{param3},#{param4},0,#{param5},#{param6})
-</insert>
-
-<select id="outstore" resultType="com.mbc.chew.store.StoreDTO">
-select * from store_3
-</select>
-
-<select id="storedelete" resultType="com.mbc.chew.store.StoreDTO">
-select * from store_3 where storecode=#{param}
-</select>
-
-<delete id="delete">
-delete from store_3 where storecode=#{param}
-</delete>
-
-<select id="modify" resultType="com.mbc.chew.store.StoreDTO">
-select * from store_3 where storecode=#{param}
-</select>
-
-<update id="updatemodi1">
-update store_3 set storename=#{param2},storeaddress=#{param3},storecategory=#{param4},storearea=#{param5} where storecode=#{param1}
-</update>
-
-<update id="updatemodi2">
-update store_3 set storename=#{param2},storeaddress=#{param3},storecategory=#{param4},storearea=#{param5},storeimage=#{param6} where storecode=#{param1}
-</update>
-
-<select id="selectOne" resultType="com.mbc.chew.store.StoreDTO">
-select * from store_3 where storecode=#{param}
-</select>
+	<insert id="insertstore">
+	insert into store_3 values(#{param1},#{param2},#{param3},#{param4},0,#{param5},#{param6})
+	</insert>
+	
+	<select id="outstore" resultType="com.mbc.chew.store.StoreDTO">
+	select * from store_3
+	</select>
+	
+	<select id="storedelete" resultType="com.mbc.chew.store.StoreDTO">
+	select * from store_3 where storecode=#{param}
+	</select>
+	
+	<delete id="delete">
+	delete from store_3 where storecode=#{param}
+	</delete>
+	
+	<select id="modify" resultType="com.mbc.chew.store.StoreDTO">
+	select * from store_3 where storecode=#{param}
+	</select>
+	
+	<update id="updatemodi1">
+	update store_3 set storename=#{param2},storeaddress=#{param3},storecategory=#{param4},storearea=#{param5} where storecode=#{param1}
+	</update>
+	
+	<update id="updatemodi2">
+	update store_3 set storename=#{param2},storeaddress=#{param3},storecategory=#{param4},storearea=#{param5},storeimage=#{param6} where storecode=#{param1}
+	</update>
+	
+	<select id="selectOne" resultType="com.mbc.chew.store.StoreDTO">
+	select * from store_3 where storecode=#{param}
+	</select>
+	<!-- 페이징 처리 -->
+	<select id="paging" resultType="com.mbc.chew.store.StoreDTO">
+	    select * from (
+	    	select rownum rn, A.* from (
+	    		select storecode, storename, storeaddress, storecategory, storeimage, storearea
+				from store_3 order by storecode desc
+	    	) A
+	    ) where rn between #{param1} and #{param2}
+	</select>
+	<select id="countAllRecords" resultType="int">
+		select count(*) from store_3
+	</select>
+	<!-- 페이징 처리 끝 -->
+	
+	<!-- 검색 -->
+	<select id="countSearchRecords" resultType="int">
+		  select count(*) from store_3 where storename like '%'||#{param1}||'%'
+	</select>
+	<select id="searchList" resultType="com.mbc.chew.store.StoreDTO">
+	    select * from (
+	    	select rownum rn, A.* from (
+	    		select storecode, storename, storeaddress, storecategory, storeimage, storearea
+				from store_3 where storename like '%'||#{param3}||'%' order by storecode desc
+	    	) A
+	    ) where rn between #{param1} and #{param2}
+	</select>
+	<!-- 검색 끝 -->
+	
+	<!-- 이미지 처리 -->
+	<select id="detailImages" resultType="com.mbc.chew.store.StoreImageDTO" parameterType="int">
+    SELECT STORECODE, IMAGE_FILENAME
+    FROM STORE_IMAGE_3
+    WHERE STORECODE = #{storecode}
+    </select>
+    
+    <update id="updateDetailImage">
+    UPDATE STORE_IMAGE_3
+    SET IMAGE_FILENAME = #{newFilename, jdbcType=VARCHAR}
+    WHERE STORECODE = #{storecode} AND IMAGE_FILENAME = #{oldFilename, jdbcType=VARCHAR}
+	</update>
+	
+	<insert id="insertDetailImage">
+    INSERT INTO STORE_IMAGE_3 (STORECODE, IMAGE_FILENAME)
+    VALUES (#{storecode}, #{filename, jdbcType=VARCHAR})
+	</insert>
+	
+	<select id="selectOneDetailImage" resultType="com.mbc.chew.store.StoreImageDTO">
+    SELECT * FROM STORE_IMAGE_3
+    WHERE STORECODE = #{storecode}
+    AND ROWNUM = 1
+	</select>
+	
+	<delete id="deleteDetailImages">
+    DELETE FROM STORE_IMAGE_3 WHERE STORECODE = #{storecode}
+	</delete>
+	
+	<delete id="deleteReviewsByStorecode">
+    DELETE FROM REVIEW_3 WHERE STORECODE = #{storecode}
+	</delete>
+	
+	
+	<delete id="deleteReservationsByStorecode">
+	  DELETE FROM BOOKING_3 WHERE STORECODE = #{storecode}
+	</delete>
+	
+	<delete id="deletelikesByStorecode">
+	  DELETE FROM Member_likes WHERE STORECODE = #{storecode}
+	</delete>
+		
+	
+	
+    
+    
+    
+   
+	    
+   
+    
+   
+    
+	
+	
+	
 </mapper>
 
