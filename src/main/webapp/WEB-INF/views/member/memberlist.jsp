@@ -49,15 +49,11 @@ th { background-color: #f2f2f2; }
             <!-- -----------회원검색창----------------- -->
 <body>
 <h1>회원목록창</h1>
+
+
+                       <!-- 검색버튼 수정 -->
 <div class="input_div" style="text-align: center; margin-bottom: 20px;">
-	<form action="${pageContext.request.contextPath}/membersearch" method="get">
-		<div class="group">
-			<svg class="icon" aria-hidden="true" viewBox="0 0 24 24"><g>
-			<path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z">
-			</path></g></svg>
-		<button type="submit" class="button">회원검색 </button>
-		</div>
-	</form>
+    <button type="button" class="button" onclick="openSearchModal()">회원검색</button>
 </div>
 
                   <!-- 검색 모달창 -->

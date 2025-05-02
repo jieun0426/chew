@@ -124,10 +124,9 @@
 <mvc:interceptors>
     <mvc:interceptor>
         <mvc:mapping path="/members"/>
-        <mvc:mapping path="/memberedit"/>
+        <mvc:mapping path="/membersearch"/>
         <mvc:mapping path="/memberupdate"/>
         <mvc:mapping path="/memberdelete"/>
-        <mvc:mapping path="/memberwithdraw"/>
         <beans:bean class="com.mbc.chew.member.MemberInterceptor"/>
     </mvc:interceptor>
 </mvc:interceptors>
