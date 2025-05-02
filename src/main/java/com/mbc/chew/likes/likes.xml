@@ -25,5 +25,29 @@
         WHERE MEMBER_ID = #{memberId}
           AND STORECODE = #{storecode}
     </delete>
+    
+    <update id="increaseLikes">
+    UPDATE STORE_3
+    SET STORELIKES = NVL(STORELIKES, 0) + 1
+    WHERE STORECODE = #{storecode}
+    </update>
+
+    <update id="decreaseLikes">
+    UPDATE STORE_3
+    SET STORELIKES = CASE 
+        WHEN STORELIKES > 0 THEN STORELIKES - 1 
+        ELSE 0 
+    END
+    WHERE STORECODE = #{storecode}
+    </update>
+    
+    <select id="getLikesCountFromStore3" resultType="int">
+        SELECT storelikes
+        FROM store_3
+        WHERE storecode = #{storecode}
+    </select>
+    
+    
+    
 
 </mapper>

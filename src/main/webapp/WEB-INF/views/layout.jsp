@@ -33,6 +33,7 @@ nav
    width: 100%;
    flex: 1;
    margin-bottom: 50px;
+   background-color: #FBF8EF;
 }
 #footer
 {

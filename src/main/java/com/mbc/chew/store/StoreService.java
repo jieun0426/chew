@@ -1,6 +1,7 @@
 package com.mbc.chew.store;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -33,9 +34,7 @@ public interface StoreService {
 	ArrayList<StoreDTO> paging(int start, int end);
 
 	int countAllRecords();
-	/* 페이징 처리 끝 */
 
-	/* 검색 */
 	int countSearchRecords(String search);
 
 	ArrayList<StoreDTO> searchList(int start, int end, String search);
@@ -50,4 +49,27 @@ public interface StoreService {
 	void deleteFromImage(@Param("code") int code);
 
 	void deleteFromStore(@Param("code") int code);
+
+	/* 寃��깋 �걹 */
+
+	List<StoreImageDTO> detailImages(int storecode);
+
+	/*void deleteDetailImages(@Param("storecode") int storecode);
+    
+	void insertDetailImage(@Param("storecode") int storecode, @Param("filename") String filename);*/
+
+	void updateDetailImage(@Param("storecode") int storecode, @Param("newFilename") String newFilename, @Param("oldFilename") String oldFilename);
+
+	void insertDetailImage(@Param("storecode") int storecode, @Param("filename") String filename);
+
+	StoreImageDTO selectOneDetailImage(int storecode);
+
+	void deleteReviewsByStorecode(int storecode);
+
+	void deleteDetailImages(int storecode);
+
+	void deleteReservationsByStorecode(int storecode);
+
+	void deletelikesByStorecode(int storecode);
+
 }

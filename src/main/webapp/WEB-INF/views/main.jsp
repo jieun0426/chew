@@ -14,7 +14,7 @@ $(document).ready(function(){
 	$(".areaSelectBtn").click(function(){
 		var tp=$(this).val()
 		
-		$.ajax({
+		$.ajax({ 
 			type: "post",
 			url: "mainSelectType",
 			data: {"area":tp},
@@ -27,26 +27,38 @@ $(document).ready(function(){
 		});
 	});
 });
+
 </script>
 </head>
-<body>
+<body> 
 
 <div class="slider-container" id="slider-container">
     <div class="slider" id="slider">
-      <div class="slide"><a href="#"><img alt="" src="image/banner1.JPG"></a></div>
-      <div class="slide"><a href="#"><img alt="" src="image/food1.JPG"></a></div>
-      <div class="slide"><a href="#"><img alt="" src="image/food2.JPG"></a></div>
+      <div class="slide">      
+          <img alt="" src="image/ban(1).png">
+          <div class="slide-text"></div>      
+      </div>  
+      <div class="slide">     
+          <img alt="" src="image/ban(2).png">
+          <div class="slide-text"></div>  
+      </div>
+      <div class="slide">   
+          <img alt="" src="image/ban(3).png">
+          <div class="slide-text"></div>
+      </div>
     </div>
-  </div>
+</div>
+
 
 <div class="ranking_div">
-	<h2>인기 맛집</h2><br>
+	<h2>맛집/음식점 추천 순위 Best 3</h2>
+	<p>사용자 리뷰를 기반으로 한 랭킹입니다.</p>
 
 	<div class="listView clearfix">
 	<c:forEach items="${list}" var="rank" varStatus="status">
 		<div class="main_rankList">
 			<a href="detailview?storecode=${rank.storecode}"><img src="image/${rank.storeimage}" class="storeimg"></a>
-			<p><a href="detailview?storecode=${rank.storecode}">${rank.storename}</a></p>
+			<h1><a href="detailview?storecode=${rank.storecode}">${rank.storename}</a></h1>
 			<div class="rating" id="rating_${status.index}_rank">
 			  <input type="radio" id="star5_${status.index}" name="rating_rank_${status.index}" value="5" onclick="return(false);" />
 			  <label for="star5_${status.index}"></label>
@@ -58,8 +70,9 @@ $(document).ready(function(){
 			  <label for="star2_${status.index}"></label>
 			  <input type="radio" id="star1_${status.index}" name="rating_rank_${status.index}" value="1" onclick="return(false);" />
 			  <label for="star1_${status.index}"></label>
-			</div><br>${rank.stars}
-		
+			<p>평균 별점 ${rank.stars}</p> 
+			</div>   
+		 
 			<script>
 			// 별점 셋팅 스크립트
 			(function() {
@@ -77,44 +90,50 @@ $(document).ready(function(){
 
 
 
+ 
+<div class="area_div" style="margin-top: 100px;">
+    <h2>지역별 추천</h2>
+    <p>해당 지역에서 인기 있는 맛집을 소개합니다.</p>
+    <div class="areaSelectContainer">
+        <input type="button" class="areaSelectBtn" id="area1" value="서울" style="background-image: url('image/seoul.jpg');">
+        <input type="button" class="areaSelectBtn" id="area2" value="경기" style="background-image: url('image/gyeonggi.jpg');">
+        <input type="button" class="areaSelectBtn" id="area3" value="인천" style="background-image: url('image/incheon.jpg');">
+    </div>
+    
+    <h3 id="selectedAreaText" style="font-size: 40px; color: #333; padding: 50px;"></h3>
 
-<div class="area_div" style="margin-top: 150px;">
-	<h2>지역별 추천</h2><br><br>
-	<input type="button" class="areaSelectBtn" id="area1" value="서울">&emsp;
-	<input type="button" class="areaSelectBtn" id="area2" value="경기">&emsp;
-	<input type="button" class="areaSelectBtn" id="area3" value="인천">&emsp;
-	<div class="areaListView clearfix">
-	<c:forEach items="${area}" var="aa" varStatus="status">
-		<div class="main_areaList">
-			<a href="detailview?storecode=${aa.storecode}"><img src="image/${aa.storeimage}" class="storeimg"></a>
-			<p><a href="detailview?storecode=${aa.storecode}">${aa.storename}</a></p>
-			<div class="rating" id="rating_${status.index}_area">
-			  <input type="radio" id="star5_${status.index}" name="rating_area_${status.index}" value="5" readonly />
-			  <label for="star5_${status.index}"></label>
-			  <input type="radio" id="star4_${status.index}" name="rating_area_${status.index}" value="4" readonly />
-			  <label for="star4_${status.index}"></label>
-			  <input type="radio" id="star3_${status.index}" name="rating_area_${status.index}" value="3" readonly />
-			  <label for="star3_${status.index}"></label>
-			  <input type="radio" id="star2_${status.index}" name="rating_area_${status.index}" value="2" readonly />
-			  <label for="star2_${status.index}"></label>
-			  <input type="radio" id="star1_${status.index}" name="rating_area_${status.index}" value="1" readonly />
-			  <label for="star1_${status.index}"></label>
-			</div>&nbsp;${aa.stars}
-		
-			<script>
-			// 별점 셋팅 스크립트
-			(function() {
-				let stars = Math.round(parseFloat('${aa.stars}'));
-				let radio = document.querySelector('input[name="rating_area_${status.index}"][value="' + stars + '"]');
-				if (radio) radio.checked = true;
-			})();
-			</script>
-			
-		</div>
-	</c:forEach>
-	</div>	
-	
+    <div class="areaListView clearfix">
+       <c:forEach items="${area}" var="aa" varStatus="status">
+    <div class="main_areaList">
+        <a href="detailview?storecode=${aa.storecode}">
+            <img src="image/${aa.storeimage}" class="storeimg">
+        </a>
+        <p><a href="detailview?storecode=${aa.storecode}">${aa.storename}</a></p>
+
+       <div class="rating" id="rating_${status.index}">
+    <div class="stars" id="stars_${status.index}" data-stars="${aa.stars}">
+        <!-- 왼쪽부터 1~5 순서로 별 -->
+        <input type="radio" id="star1_${status.index}" name="rating_area_${status.index}" value="1" readonly />
+        <label for="star1_${status.index}"></label>
+        <input type="radio" id="star2_${status.index}" name="rating_area_${status.index}" value="2" readonly />
+        <label for="star2_${status.index}"></label>
+        <input type="radio" id="star3_${status.index}" name="rating_area_${status.index}" value="3" readonly />
+        <label for="star3_${status.index}"></label>
+        <input type="radio" id="star4_${status.index}" name="rating_area_${status.index}" value="4" readonly />
+        <label for="star4_${status.index}"></label>
+        <input type="radio" id="star5_${status.index}" name="rating_area_${status.index}" value="5" readonly />
+        <label for="star5_${status.index}"></label>
+    </div>
+    <p class="star-score">평균 별점 ${aa.stars}</p>
 </div>
+       
+    </div>
+</c:forEach>
+       
+       
+    </div>  
+</div>
+
 <br><br><br>
 <!-- 
 <div>
@@ -159,5 +178,34 @@ $(document).ready(function(){
 -->
 
 <script src="js/slider.js"></script>
+<script>
+  // 지역 버튼에 이벤트 추가
+  document.addEventListener('DOMContentLoaded', function () {
+    const areaButtons = document.querySelectorAll('.areaSelectBtn');
+    const selectedAreaText = document.getElementById('selectedAreaText');
+
+    areaButtons.forEach(btn => {
+      btn.addEventListener('click', function () {
+        const areaName = this.value;
+        selectedAreaText.textContent = areaName + ' 추천 맛집';
+      });
+    });
+  });
+</script>
+
+<script>
+    window.addEventListener('load', function () {
+        const ratings = document.querySelectorAll('.rating');
+        ratings.forEach(rating => {
+            const score = Math.round(parseFloat(rating.dataset.stars));
+            const stars = rating.querySelectorAll('.star');
+            for (let i = 0; i < stars.length; i++) {
+                stars[i].style.color = i < score ? '#FFD700' : '#ccc';
+            }
+        });
+    });
+</script>
+
+
 </body>
 </html>
