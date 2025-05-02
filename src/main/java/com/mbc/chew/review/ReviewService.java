@@ -12,6 +12,10 @@ public interface ReviewService {
 
 	ArrayList<ReviewDTO> getReviews(int storecode, int offset);
 
+	void deleteReview(String id, int storecode);
+
+	void updateReview(ReviewDTO dto);
+
 	
 	 
 

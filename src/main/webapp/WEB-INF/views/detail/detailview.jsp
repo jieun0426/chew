@@ -7,6 +7,35 @@
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
+<script>
+// 수정 폼 보이기
+function showEdit(storecode) {
+  const reviewDisplay = document.getElementById('review-display-' + storecode);
+  const editBox = document.getElementById('edit-' + storecode);
+
+  if (reviewDisplay && editBox) {
+    reviewDisplay.style.display = 'none';
+    editBox.style.display = 'block';
+  }
+}
+
+// 수정 폼 닫기
+function cancelEdit(storecode) {
+  const reviewDisplay = document.getElementById('review-display-' + storecode);
+  const editBox = document.getElementById('edit-' + storecode);
+
+  if (reviewDisplay && editBox) {
+    reviewDisplay.style.display = 'block';
+    editBox.style.display = 'none';
+  }
+}
+
+
+</script>
+
+
+
+  
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -154,6 +183,8 @@ button.next { right: 0; }
 }
 
 .review {
+padding: 20px;
+  text-align: left;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -181,12 +212,14 @@ button.next { right: 0; }
   font-weight: bold;
   color: #333;
   margin-bottom: 6px;
+  text-align: left;
 }
 
 .review-content {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .map-wrapper {
@@ -326,6 +359,7 @@ button.next { right: 0; }
   display: none;
 }
 
+
 .like-button {
    position: relative;
   cursor: pointer;
@@ -445,6 +479,150 @@ button.next { right: 0; }
 	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
 	cursor: pointer;
 }
+
+/* 리뷰 수정 삭제 버튼 */
+
+/* 부모 요소에 상대 위치 설정 */
+.review {
+  position: relative;
+}
+
+/* 버튼 박스를 오른쪽 위로 이동 */
+.review-buttons {
+  position: absolute;
+  top: 10px;       /* 위쪽 여백 */
+  right: 10px;     /* 오른쪽 여백 */
+  display: flex;
+  gap: 10px;
+}
+
+.review-btn-form {
+  display: inline-block;
+}
+
+.review-buttons .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.review-buttons .btn:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
+}
+
+.review-edit {
+  border-radius: 12px;
+  height: 220px; /* 고정 높이 유지 */
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden; /* 넘치는 요소 숨기기 */
+}
+
+.review-edit .edit-group {
+  margin-bottom: 16px;
+}
+
+.review-edit label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.review-edit input[type="text"],
+.review-edit textarea {
+  width: 100%;
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.review-edit input[type="text"]:focus,
+.review-edit textarea:focus {
+  background-color: #fff;
+  outline: none;
+}
+
+.review-edit textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+
+
+
+.edit-buttons {
+  position: absolute;
+  bottom: 25px;
+  right: 26px; /* ← 원래 6px이었던 값을 더 크게 조정 (왼쪽으로 이동) */
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
+.edit-buttons .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-buttons .btn:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
+}
+
+.edit-buttons .cancel {
+  color: #b00;
+  border-color: #b00;
+}
+
+.btn.cancel {
+  color: #b00 !important;
+  border-color: #b00 !important;
+}
+.btn.cancel:hover {
+  background-color: #ffe5e5;
+  border-color: #a00;
+}
+
+/* 리뷰 안 텍스트 정렬 통일 */
+
+.review-header,
+.review-stars
+{
+  padding-left: -10px;  /* 왼쪽 여백을 동일하게 맞춤 */
+}
+
+
+/* 아바타 아이콘과 아이디 나란히 정렬 */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.review-avatar-emoji {
+  font-size: 18px;
+}
+
      
   </style>
 
@@ -470,7 +648,28 @@ button.next { right: 0; }
     <div class="restaurant-header" id="home">
       <img src="image/${ddto.storeimage}" alt="레스토랑 사진">
       <div class="restaurant-info">
+
         <div class="title"><h1>${ddto.storename}</h1></div>
+        
+        <div class="title-like">
+          <h1>${ddto.storename}</h1>
+          <label class="like-wrapper">
+            <input type="checkbox" class="check">
+            <div class="like-btn">
+              <svg class="icon inactive" viewBox="0 0 24 24">
+                <path d="M12.1 8.64l-.1.1-.11-.11C10.14 6.7 7.5 6.7 5.7 8.5c-1.8 1.8-1.8 4.6 0 6.4l6.4 6.4 6.4-6.4c1.8-1.8 1.8-4.6 0-6.4-1.8-1.8-4.6-1.8-6.4 0z"
+                      fill="none" stroke="currentColor" stroke-width="2"/>
+              </svg>
+              <svg class="icon active" viewBox="0 0 24 24">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
+                         4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 
+                         14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
+                         6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              <span class="like-text">Like</span>
+            </div>
+          </label>
+        </div>
 
         <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
         <c:set var="emptyStars" value="${5 - fullStars}" />
@@ -523,7 +722,6 @@ button.next { right: 0; }
         <ul id="imageList">
          <c:forEach var="image" items="${imagelist}">
            <li>
-
            <img src="image/${image.image_filename}" alt="Store Image">
 
            <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
@@ -729,28 +927,63 @@ button.next { right: 0; }
 </div>
    
 <div class="review-section" id="reviews">
-    <h2>리뷰</h2>
+  <h2>리뷰</h2>
 
-    <c:forEach var="r" items="${list}">
-        <div class="review">
-            <div class="review-header">
-                <span class="review-avatar-emoji">👤</span>
-                <span class="review-id">${r.id}</span>
-            </div>
-            <div class="review-stars">
-                <c:forEach var="i" begin="1" end="${r.stars}">
-                    ★
-                </c:forEach>
-                <c:forEach var="i" begin="${r.stars + 1}" end="5">
-                    ☆
-                </c:forEach>
-            </div>
-            <div class="review-title">${r.title}</div>
-            <div class="review-content">${r.content}</div>
+  <c:forEach var="r" items="${list}">
+    <div class="review" id="review-${r.storecode}">
+
+      <!-- ✅ 기존 리뷰 표시 부분 감싸기 -->
+      <div id="review-display-${r.storecode}">
+        <div class="review-header">
+          <span class="review-avatar-emoji">👤</span>
+          <span class="review-id">${r.id}</span>
         </div>
-    </c:forEach>
-    
+
+        <div class="review-stars">
+          <c:forEach var="i" begin="1" end="${r.stars}">★</c:forEach>
+          <c:forEach var="i" begin="${r.stars + 1}" end="5">☆</c:forEach>
+        </div>
+
+        <div class="review-title">${r.title}</div>
+        <div class="review-content">${r.content}</div>
+
+        <c:if test="${loginstate == true && r.id == id}">
+          <div class="review-buttons">
+            <button type="button" class="btn" onclick="showEdit(${r.storecode})">수정</button>
+            <form action="deleteReview" method="post" class="review-btn-form">
+              <input type="hidden" name="id" value="${r.id}">
+              <input type="hidden" name="storecode" value="${r.storecode}">
+              <button type="submit" class="btn cancel">삭제</button>
+            </form>
+          </div>
+        </c:if>
+      </div>
+
+     <div class="review-edit" id="edit-${r.storecode}" style="display: none;">
+  <form action="editReview" method="post">
+    <input type="hidden" name="id" value="${r.id}">
+    <input type="hidden" name="storecode" value="${r.storecode}">
+
+    <div class="edit-group">
+      <input type="text" id="title-${r.storecode}" name="title" value="${r.title}">
+    </div>
+
+    <div class="edit-group">
+      <textarea id="content-${r.storecode}" name="content">${r.content}</textarea>
+    </div>
+
+    <div class="edit-buttons">
+      <button type="submit" class="btn">수정완료</button>
+      <button type="button" class="btn cancel" onclick="cancelEdit(${r.storecode})">취소</button>
+    </div>
+  </form>
 </div>
+
+
+    </div>
+  </c:forEach>
+</div>
+
 <button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
 <!-- hasMore 플래그를 data 속성으로 -->
 <div id="moreFlag" data-hasmore="${hasMore}"></div>
@@ -764,27 +997,6 @@ button.next { right: 0; }
   var lat = ${ddto.latitude};
   var lng = ${ddto.longitude};
 
-  var mapContainer = document.getElementById('map'),
-      mapOption = { 
-          center: new kakao.maps.LatLng(lat, lng),
-          level: 3 
-      };
-
-  var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-
-
-  var marker = new kakao.maps.Marker({
-      position: markerPosition
-  });
-
-  marker.setMap(map);
-</script>
-  
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
   $(window).on('load', function() {
     let i = 0,
         $slides = $('#imageList'),
@@ -815,16 +1027,37 @@ button.next { right: 0; }
 
     updateNav();
   });
+    
+  </script>
+  <script>
   
-
 	$(document).ready(function(){
+		let i = 0,
+		$slides = $('.cardWrap ul'),
+		$items = $('.cardWrap ul li'),
+		slideCount = $items.length;
+
+		function goToSlide(index) {
+	        if (index < 0) index = 0;
+	        if (index >= slideCount) index = slideCount - 1;
+	        const shift = (800 + 20) * index;
+	        $slides.animate({ left: -shift + 'px' }, 300);
+	        i = index;
+	        updateNav();
+		}
+	
+		function updateNav() {
+			$('.prev').toggle(i > 0);
+	        $('.next').toggle(i < slideCount - 1);
+		}
+	
+		$('.prev').click(() => goToSlide(i - 1));
+		$('.next').click(() => goToSlide(i + 1));
+	
+		updateNav();
 	      
 		let reviewOffset = 5;
-		
-		if(${listsize}<=5){
-			$('#moreReviewBtn').hide();
-		}
-		
+
 		$('#moreReviewBtn').click(function () {
 		    const $btn = $(this);
 		    console.log("storecode: ", storecode);
@@ -842,31 +1075,31 @@ button.next { right: 0; }
 		                const reviews = $temp.find('.review');
 		                const hasMore = $temp.find('#moreFlag').data("hasmore");
 
+		                // 5개만 append
+		                $("#reviews").append(reviews);
+		                reviewOffset += reviews.length;
 
-                      // 5개만 append
-                      $("#reviews").append(reviews);
-                      reviewOffset += reviews.length;
+		                if (!hasMore) {
+		                    $btn.text("접기").data("state", "fold");
+		                    return;
+		                }
+		            },
+		            error: function () {
+		                alert("리뷰를 불러오는 데 실패했습니다.");
+		            }
+		        });
 
-                      if (!hasMore) {
-                          $btn.text("접기").data("state", "fold");
-                          return;
-                      }
-                  },
-                  error: function () {
-                      alert("리뷰를 불러오는 데 실패했습니다.");
-                  }
-              });
+		    } else if ($btn.data("state") === "fold") {
+		        $("#reviews .review").slice(5).remove();
+		        reviewOffset = 5;
+		        $btn.text("리뷰 더 보기").data("state", "more");
+		        
+		        document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
+		    }
+		});
+	});
 
-          } else if ($btn.data("state") === "fold") {
-              $("#reviews .review").slice(5).remove();
-              reviewOffset = 5;
-              $btn.text("리뷰 더 보기").data("state", "more");
-              
-              document.getElementById("reviews").scrollIntoView({ behavior: 'smooth' });
-          }
-      });
-   });
-
+>>>>>>> eunlee529-master
   var mapContainer = document.getElementById('map'),
       mapOption = { 
           center: new kakao.maps.LatLng(lat, lng),
@@ -876,6 +1109,7 @@ button.next { right: 0; }
   var map = new kakao.maps.Map(mapContainer, mapOption); 
 
   var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+
 
   var marker = new kakao.maps.Marker({
       position: markerPosition
@@ -976,18 +1210,6 @@ button.next { right: 0; }
     });
 });
 
-
-
-
-
-
-    
-    
-
-  
- 
-
-    
   </script>
 </body>
 </html>

@@ -1,187 +1,258 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <html>
 <head>
-<meta charset="UTF-8">
-<title>회원정보</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-
-function send_go(){
-    var name = document.f.name.value.trim();
-
-    if(name.length > 4){
-        alert("이름을 4자 이내로 입력해주세요.");
-        document.f.name.focus();
-        return false;
-    }
-    if(!isNaN(name.substr(0,1))){
-        alert("이름은 숫자로 시작할 수 없습니다!");
-        document.f.name.focus();
-        return false;
-    }
-
-    alert("회원 정보가 정상적으로 수정되었습니다.");
-    return true;
-}
-</script>
-
+<title>내가 작성한 리뷰</title>
 <style>
-body {
-  text-align: center;
-}
-
-.form {
-  display: flex;
-  flex-direction: column;
-  
-  gap: 12px;
-  padding: 2em;
-  border-radius: 25px;
-  width: 480px;
-  margin: 50px auto;
-  margin-left: 50px;
-  border: none;
-  background-image: none;
-  filter: none;
-  box-shadow: none;
-  align-items: center; /* 가운데 정렬 */
-}
-
-#heading {
-  text-align: center;
-  margin-bottom: 1em;
-  color: #333;
-  font-size: 1.6em;
-  font-weight: bold;
-}
-
-.required-label {
-  font-size: 0.95em;
-  color: #333;
-  font-weight: 500;
-  margin: 5px 0 2px 5px;
-  text-align: center;
-  width: 100%;
-}
-
-.required {
-  color: red;
-  font-weight: bold;
-  margin-left: 3px;
-}
-
-.field {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  gap: 10px;
-}
-
-.input-field {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 1em;
-  text-align: center; /* 텍스트 가운데 정렬 */
-  box-sizing: border-box;
-}
-
-
-.btn {
-  width: 100%;
-  display: flex;
-  max-width: 400px;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 1em;
-  box-shadow: none !important;
-  filter: none !important;
-  background-image: none !important;
-}
-
-* {
-  box-shadow: none !important;
-  outline: none !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-}
-
-.button {
-  width: 100%;
-  padding: 12px;
-  max-width: 400px;
-  border-radius: 10px;
-  border: none;
-  text-align: center;
-  font-size: 1em;
-  font-weight: bold;
-  color: #000;
-  background-color: #FFD732;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.button:hover {
-  background-color: #ffc400;
-}
-
-.login-btn {
-            background-color: #FFD700;
-            color: #333;
-        }
-
-
 .div-container {
 	margin-top: 30px;
 	display: flex;
 	width: 90%;
-	justify-content: space-evenly;
 }
 
-.category {
-	margin-top: 70px;
-	width: 30%;
-	
-	margin-left: 40px;
-	text-align: left;
+h2 {
+	margin-top: 50px;
+	text-align: center;
 }
 
-.category a {
-	line-height: 40px;
-	font-size: 20px;
-	color: black;
+.no-review {
+	text-align: center;
+	color: gray;
+	padding: 50px;
+}
+
+.container {
+	width: 70%;
+	padding: 30px;
+	margin-left: 20px;
+	margin-bottom: 10px;
+	border-radius: 10px;
+	margin-top: -70px;
+}
+
+table {
+	width: 90%;
+	margin-left:90px;
+	border-collapse: collapse;
+	font-size: 15px;
+}
+
+thead {
+	border-bottom: 2px solid #ED751C;
+	background-color: #fff4ea;
+}
+
+th {
+	padding: 15px 10px;
+	text-align: center;
+	color: #ED751C;
+	font-weight: bold;
+	background-color: white;
+	font-size: 16px;
+}
+
+td {
+	padding: 14px 10px;
+	text-align: center;
+	color: #333;
+	border-bottom: 1px solid #eee;
+	background-color: white;
+}
+
+.stars {
+	color: #ED751C;
+	font-size: 17px;
+}
+
+.store-name a {
+  color: #ED751C;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+}
+
+
+.review-title {
+  font-weight: bold;
+  padding-left: 10px;
+}
+
+
+.review-title a {
+	color: #0056cc;
 	text-decoration: none;
 }
 
-.category a:hover {
-	color: #ED751C;
+.review-title a:hover {
+	text-decoration: underline;
 }
 
-        
+
+.slink {
+    text-decoration: none;
+    cursor: pointer; /* 클릭 가능 표시 */
+    font-weight: bold; /* 살짝 강조 */
+}
+
+.slink:hover {
+    color: #ED751C; /* 호버 시 색상 변경 */
+    text-decoration: underline; /* 호버 시 밑줄 */
+}
+.container2 {
+  padding: 20px 20% 100px;
+  background-color: #fefefe;
+  font-family: Arial, sans-serif;
+}
+
+.container2 h2 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  
+  color: #222;
+  margin-top: 0;
+}
+#nowPage{
+  color: black;
+  font-weight: bold;
+  margin-left: 40px;
+}
+.pageList{
+  color: #aaaa7a;
+  text-decoration: none; 
+}
+.category {
+  margin-top: 30px;
+  width: 200px;
+  padding: 30px 20px;
+  background-color: #fff3e0;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 350px;
+}
+
+.category h1 {
+  color: #783403;
+  font-size: 1.8em;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.category nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category nav li {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.menulink {
+  font-size: 18px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 15px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.menulink:hover {
+  background-color: #ffe0b2;
+  color: #ED751C;
+}
+
+.menulink.active {
+  background-color: #ffd180;
+  color: #783403;
+  font-weight: bold;
+}
 </style>
 </head>
-
 <body>
 
-<div class="div-container">
+	<div class="div-container">
   <div class="category">
-    <h1 style="color:#783403 ">마이페이지</h1>
-    <a href="mypinfo"  >회원정보 수정</a><br> 
-    <a href="mypagereview" style="color:#ED751C ">내가 작성한 리뷰</a><br>
-    <a href="mypagedel">회원 탈퇴</a><br>
+    <h1>마이페이지</h1>
+    <nav>
+      <ul>
+        <li><a href="mypinfo" class="menulink">회원정보 수정</a></li>
+        <li><a href="mypagebook" class="menulink">예약내역</a></li>
+        <li><a href="mypagereview" class="menulink active">작성한 리뷰</a></li>
+        <li><a href="mypagedel" class="menulink">회원탈퇴</a></li>
+      </ul>
+    </nav>
   </div>
 
-    <form name="f" class="form" action="#" method="post" onsubmit="return send_go()">
-      <h1>할 예정</h1>
-    </form>
-  </div>
-<br><br><br><br><br><br><br>
+		<div class="container">
+			<h2>내가 작성한 리뷰</h2>
+
+			<c:if test="${empty myreviews}">
+				<div class="no-review">작성한 리뷰가 없습니다.</div>
+			</c:if>
+
+			<c:if test="${not empty myreviews}">
+				<table>
+					<thead>
+						<tr>
+							<th>매장명</th>
+							<th>제목</th>
+							<th>내용</th>
+							<th>별점</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="review" items="${myreviews}">
+							<tr>
+								<td class="store-name">
+								  <a href="detailview?storecode=${review.STORECODE}" class="slink">
+								    ${review.STORENAME}
+								  </a>
+								</td>
+								
+								<td class="review-title">
+								  ${review.TITLE}
+								</td>
+
+								<td>${review.CONTENT}</td>
+								<td>
+									<div class="stars">
+										<c:forEach var="i" begin="1" end="5">
+											<c:choose>
+												<c:when test="${i <= review.STARS}">★</c:when>
+												<c:otherwise>☆</c:otherwise>
+											</c:choose>
+										</c:forEach>
+									</div>
+								</td>
+							</tr>
+						</c:forEach>
+
+					</tbody>
+				</table>
+			</c:if>
+		<br><br>
+	<c:if test="${pdto.startPage>pdto.cntPage}">
+		<a href="mypagereview?page=${pdto.startPage-pdto.cntPage}#container2">◀</a>&emsp;
+	</c:if>
+	<c:forEach begin="${pdto.startPage}" end="${pdto.endPage}" var="p">
+		<c:if test="${p==pdto.nowPage}">
+			<span id="nowPage">${p}</span>&emsp;
+		</c:if>
+		<c:if test="${p!=pdto.nowPage}">
+			<a class="pageList" href="mypagereview?page=${p}#container2">${p}</a>&emsp;
+		</c:if>
+	</c:forEach>
+	<c:if test="${pdto.endPage<pdto.lastPage}">
+		<a href="mypagereview?page=${pdto.startPage+pdto.cntPage}#container2">▶</a>
+	</c:if>
+</div>
+	</div>
+
 </body>
 </html>

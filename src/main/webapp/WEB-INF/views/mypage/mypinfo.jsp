@@ -6,10 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>회원정보</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-
 function send_go(){
     var name = document.f.name.value.trim();
 
@@ -42,13 +40,12 @@ body {
   padding: 2em;
   border-radius: 25px;
   width: 480px;
-  margin: 50px auto;
-  margin-left: 50px;
+  margin:  auto;
+  margin-top: -10px;
+  margin-left: 250px;
   border: none;
-  background-image: none;
-  filter: none;
   box-shadow: none;
-  align-items: center; /* 가운데 정렬 */
+  align-items: center;
 }
 
 #heading {
@@ -89,10 +86,9 @@ body {
   border: 1px solid #ccc;
   outline: none;
   font-size: 1em;
-  text-align: center; /* 텍스트 가운데 정렬 */
+  text-align: center;
   box-sizing: border-box;
 }
-
 
 .btn {
   width: 100%;
@@ -102,15 +98,6 @@ body {
   gap: 10px;
   margin-top: 1em;
   box-shadow: none !important;
-  filter: none !important;
-  background-image: none !important;
-}
-
-* {
-  box-shadow: none !important;
-  outline: none !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
 }
 
 .button {
@@ -133,38 +120,75 @@ body {
 }
 
 .login-btn {
-            background-color: #FFD700;
-            color: #333;
-        }
-
+  background-color: #FFD700;
+  color: #333;
+}
 
 .div-container {
-	margin-top: 30px;
-	display: flex;
-	width: 90%;
-	justify-content: space-evenly;
+  margin-top: 30px;
+  display: flex;
+  width: 90%;
+  justify-content: space-evenly;
 }
 
+/* 개선된 왼쪽 메뉴바 디자인 */
 .category {
-	margin-top: 70px;
-	width: 30%;
-	
-	margin-left: 40px;
-	text-align: left;
+  margin-top: 10px;
+  width: 200px;
+  padding: 30px 20px;
+  background-color: #fff3e0;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  height: 350px;
 }
 
-.category a {
-	line-height: 40px;
-	font-size: 20px;
-	color: black;
-	text-decoration: none;
+.category h1 {
+  color: #783403;
+  font-size: 1.8em;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
-.category a:hover {
-	color: #ED751C;
+.category nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-        
+.category nav li {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.menulink {
+  font-size: 18px;
+  color: #333;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 10px 15px;
+  display: inline-block;
+  width: 100%;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.menulink:hover {
+  background-color: #ffe0b2;
+  color: #ED751C;
+}
+
+.menulink.active {
+  background-color: #ffd180;
+  color: #783403;
+  font-weight: bold;
+}
+
+* {
+  outline: none !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
 </style>
 </head>
 
@@ -172,38 +196,45 @@ body {
 
 <div class="div-container">
   <div class="category">
-    <h1 style="color:#783403 ">마이페이지</h1>
-    <a href="mypinfo" style="color:#ED751C " >회원정보 수정</a><br> 
-    <a href="mypagereview">내가 작성 한 리뷰</a><br>
-    <a href="mypagedel">회원 탈퇴</a><br>
+    <h1>마이페이지</h1>
+    <nav>
+      <ul>
+        <li><a href="mypinfo" class="menulink active">회원정보 수정</a></li>
+        <li><a href="mypagebook" class="menulink">예약내역</a></li>
+        <li><a href="mypagereview" class="menulink">작성한 리뷰</a></li>
+        <li><a href="mypagedel" class="menulink">회원탈퇴</a></li>
+      </ul>
+    </nav>
   </div>
 
-    <form name="f" class="form" action="myinfosave" method="post" onsubmit="return send_go()">
-      <div id="heading">회원정보 수정</div>
+  <form name="f" class="form" action="myinfosave" method="post" onsubmit="return send_go()">
+    <div id="heading">회원정보 수정</div>
 
-      <label class="required-label">ID</label>
-      <div class="field">
-        <input class="input-field" type="text" name="id" value="${dto.id}" readonly="readonly">
-      </div>
+    <label class="required-label">ID</label>
+    <div class="field">
+      <input class="input-field" type="text" name="id" value="${dto.id}" readonly="readonly">
+    </div>
 
-      <label class="required-label">이름</label>
-      <div class="field">
-        <input class="input-field" type="text" name="name" value="${dto.name}" >
-      </div>
+    <label class="required-label">이름</label>
+    <div class="field">
+      <input class="input-field" type="text" name="name" value="${dto.name}">
+    </div>
 
-      <label class="required-label">전화번호</label>
-      <div class="field">
-        <input class="input-field" type="text" name="phone" value="${dto.phone}" >
-      </div>
+    <label class="required-label">전화번호</label>
+    <div class="field">
+      <input class="input-field" type="text" name="phone" value="${dto.phone}">
+    </div>
 
-      <label class="required-label">생년월일</label>
-      <div class="field">
-        <input class="input-field" type="date" name="birth" value="${dto.birth}">
-      </div>
-<br>
-      <button id="loginButton" class="button login-btn" type="submit" >수정완료</button>
-    </form>
-  </div>
-<br><br><br><br><br><br><br>
+    <label class="required-label">생년월일</label>
+    <div class="field">
+      <input class="input-field" type="date" name="birth" value="${dto.birth}">
+    </div>
+
+    <br>
+    <button id="loginButton" class="button login-btn" type="submit">수정완료</button>
+  </form>
+</div>
+
+<br><br>
 </body>
 </html>

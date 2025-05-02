@@ -73,7 +73,6 @@ public class DetailController {
 	    model.addAttribute("hasMore", hasMore);
 	    model.addAttribute("listsize", listsize);
 		return "detailview"; 
-
 	}
 	
 	@RequestMapping(value="/loadMoreReviews", produces = "text/html; charset=UTF-8")
