@@ -81,6 +81,45 @@
 		delete from store_3 where storecode=#{code}
 	</delete>
 	<!-- 매장 삭제 시 연관 테이블 전부 삭제 -->
-	
+	 <!-- 이미지 처리 -->
+   <select id="detailImages" resultType="com.mbc.chew.store.StoreImageDTO" parameterType="int">
+    SELECT STORECODE, IMAGE_FILENAME
+    FROM STORE_IMAGE_3
+    WHERE STORECODE = #{storecode}
+    </select>
+    
+    <update id="updateDetailImage">
+    UPDATE STORE_IMAGE_3
+    SET IMAGE_FILENAME = #{newFilename, jdbcType=VARCHAR}
+    WHERE STORECODE = #{storecode} AND IMAGE_FILENAME = #{oldFilename, jdbcType=VARCHAR}
+   </update>
+   
+   <insert id="insertDetailImage">
+    INSERT INTO STORE_IMAGE_3 (STORECODE, IMAGE_FILENAME)
+    VALUES (#{storecode}, #{filename, jdbcType=VARCHAR})
+   </insert>
+   
+   <select id="selectOneDetailImage" resultType="com.mbc.chew.store.StoreImageDTO">
+    SELECT * FROM STORE_IMAGE_3
+    WHERE STORECODE = #{storecode}
+    AND ROWNUM = 1
+   </select>
+   
+   <delete id="deleteDetailImages">
+    DELETE FROM STORE_IMAGE_3 WHERE STORECODE = #{storecode}
+   </delete>
+   
+   <delete id="deleteReviewsByStorecode">
+    DELETE FROM REVIEW_3 WHERE STORECODE = #{storecode}
+   </delete>
+   
+   
+   <delete id="deleteReservationsByStorecode">
+     DELETE FROM BOOKING_3 WHERE STORECODE = #{storecode}
+   </delete>
+   
+   <delete id="deletelikesByStorecode">
+     DELETE FROM Member_likes WHERE STORECODE = #{storecode}
+   </delete>
 </mapper>
 

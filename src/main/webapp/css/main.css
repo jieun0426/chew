@@ -1,135 +1,195 @@
-@charset "UTF-8";
+/* Clear floats */
 .clearfix::after {
-	content: "";
-	display: block;
-	clear: both;
+    content: "";
+    display: block;
+    clear: both;
 }
+
+/* Main sections */
+.ranking_div, .area_div {
+    text-align: center;
+    margin-bottom: 50px;
+} 
+
+/* Adjust top margins */
 .ranking_div {
-	height: 280px;
-	text-align: center;
-	margin-top: 50px;
-	margin-bottom: 50px;
+    margin-top: 50px;
 }
+.ranking_div h2{
+    margin-top: 80px;
+    
+}
+.ranking_div p{
+    margin-bottom: 50px;
+    padding-top: 0px;
+}
+
 .area_div {
-	height: 280px;
-	text-align: center;
-	margin-bottom: 250px;
-}
-.listView {
-	width: 1200px;
-	margin: 30px auto;
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: space-between;
+    margin-top: 100px;
 }
 
+/* Flex container for list items */
+.listView, .areaListView {
+    width: 1200px;
+    margin: 30px auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    text-align: center;
+}
 
+/* Buttons for area selection */
+.areaSelectContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+}
 .areaSelectBtn {
-	border: 2px solid #ffdb5a;
-	width: 90px;
-	height: 30px;
-	font-size: 1.1em;
-	background-color: #ffe98b;
-	border-radius: 15px;
-	font-weight: bold;
+    width: 250px;
+    height: 250px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #2b2b2b;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 15px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, opacity 0.3s ease;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 80px;
+    padding-bottom: 0;
+ 
 }
-
 .areaSelectBtn:hover {
-	cursor: pointer;
-	border: 2px solid #ffdb5a;
-	background-color: #ffe98b;
+    transform: scale(1.08);
+    opacity: 0.9;
 }
-
 .areaSelectBtn:active, .areaSelectBtn:focus {
-	outline: none;
-	border-color: rgba(255,219,90,0.4);
-	background-color: #fff;
-	box-shadow: 0 0 0 4px rgb(255 233 139 / 10%);
+    outline: none;
+    opacity: 0.8;
 }
 
-.listView {
-	width: 1200px;
-	height: 200px;
-	text-align: center;
-	margin: 30px auto;
+/* 공통된 맛집 카드 스타일 */
+.main_rankList, .main_areaList { 
+    width: 30%;
+    padding: 5px;
+    font-size: 15px;
+    line-height: 1.4em;
+    text-align: center;
+    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.areaListView {
-	width: 1200px;
-	height: 200px;
-	text-align: center;
-	margin: 30px auto;
+.main_rankList:hover, .main_areaList:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
 }
 
-.main_rankList {
-	width: 30%;
-	height: 280px;
-	padding: 10px;
-	text-align: center;
-	float: left;
-	font-size: 18px;
-	line-height: 1.2em;
-}
-
-.main_areaList {
-	width: 30%;
-	height: 280px;
-	padding: 10px;
-	text-align: center;
-	float: left;
-	font-size: 18px;
-	line-height: 1.2em;
-}
+/* 이미지 스타일 */
 .storeimg {
-	width: 250px;
-	height: 160px;
-}
-.main_rankList>p {
-	margin-top: 10px;
-}
-.main_areaList>p {
-	margin-top: 10px;
-}
-.main_rankList a {
-	color: black;
-}
-.main_areaList a {
-	color: black;
-}
-.main_rankList a:hover {
-	color: black;
-	text-decoration: none;
-}
-.main_areaList a:hover {
-	color: black;
-	text-decoration: none;
-}
-.rating {
-  display: inline-block;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
 }
 
-.rating input {
-  display: none;
+/* 링크 스타일 */
+.main_rankList a, .main_areaList a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+    font-size: 25px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
+.main_rankList a:hover, .main_areaList a:hover {
+    color: #ffdb5a;
+}
+
+/* 별점 스타일 */
+.rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+.rating .star-score {
+    margin-top: 8px;
+    font-size: 16px;
+    color: #444;
+}
+.rating .stars {
+    display: inline-flex;
+    justify-content: center;
 }
 
 .rating label {
-  float: right;
-  cursor: pointer;
-  transition: color 0.3s;
+    font-size: 22px;
+    color: #ccc;
+}
+
+.rating input {
+    display: none;
 }
 
 .rating label:before {
-  content: "\2605";
-  font-size: 20px;
+    content: "\2605";
 }
 
-.rating input:checked ~ label
- {
-  color: #ffd700;
-  transition: color 0.3s;
+.rating input:checked ~ label {
+    color: #FFD700;
 }
 
+/* 마우스 오버 색상 */
+.rating input:hover ~ label,
+.rating input:checked:hover ~ label {
+    color: #f1c40f;
+}
+
+
+
+
+/* 지역별 스타일과 랭킹별 스타일 구분 (특정 요소만 다르게) */
+
+/* 지역별 맛집 카드 - 추가 스타일 (필요시) */
+.main_areaList {
+    /* 별도의 스타일이 필요할 경우 추가 */
+}
+
+/* 스타일링 for h2 titles */
 h2 {
-	display: inline-block;
-	clear: both;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+    position: relative;
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 4px;
+    background-color: #ffdb5a;
+    border-radius: 2px;
+    margin-top: 5px;
 }
