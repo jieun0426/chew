@@ -645,37 +645,125 @@ button.next { right: 0; }
     </div>
    </div>
     
-     <!-- 예약 모달 창 -->
-  <div id="reservationModal" style="display:none;" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h4>예약하기</h4>
-      <form id="reservationForm">
-        <label for="name">성함:</label><br>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="people">인원수:</label><br>
-        <select id="people" name="people">
+     <!-- //////////예약 모달 창/////////// -->
+     
+<!-- 예약 버튼 -->
+<button id="openModalBtn">예약하기</button>
+
+<div id="bookingModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h4>예약하기</h4>
+    <form id="bookingForm">
+      <input type="hidden" name="storecode" value="${ddto.storecode}">
+      <label for="saramsu">인원수:</label><br>
+      <select id="saramsu" name="saramsu">
+        <option value="">선택</option>
         <option value="1">1명</option>
         <option value="2">2명</option>
-        <option value="3">3명</option>
-        <option value="4">4명</option>
-        <option value="5">5명</option>
-        <option value="6">6명</option>
-        <option value="7">7명</option>
-        <option value="8">8명</option>
-        <option value="9">9명</option>
-        <option value="10">10명 이상</option>
-        </select><br><br>
-        <label for="date">날짜:</label><br>
-        <input type="date" id="date" name="date"><br><br>
-        <label for="time">시간:</label><br>
-        <input type="time" id="time" name="time"><br><br>
-        <button type="submit">예약하기</button>
-      </form>
-    </div>
+      </select><br><br>
+      <label for="bookingdate">날짜:</label><br>
+      <input type="date" id="bookingdate" name="bookingdate"><br><br>
+      <label for="bookingtime">시간:</label><br>
+      <input type="time" id="bookingtime" name="bookingtime"><br><br>
+      <button type="submit">예약하기</button>
+    </form>
   </div>
-  
+</div>
 
+
+ <script type="text/javascript">
+ $(function() {
+	    const modal = $('#bookingModal');
+	    const openBtn = $('#openModalBtn');
+	    const closeBtn = $('.close');
+
+	    // 1. 예약하기 버튼 클릭 시 로그인 체크 후 모달 오픈
+	    openBtn.on('click', function(e) {
+	        e.preventDefault();
+	        $.ajax({
+	            url: '/chew/logincheck',
+	            type: 'GET',
+	            success: function(result) {
+	                if (result === 'ok') {
+	                    modal.fadeIn();
+	                    
+	                 $('.modal-content').on('click', function(e) {
+	                        e.stopPropagation();
+	                    });    
+	                    
+	                } else {
+	                    alert('로그인이 필요합니다.');
+	                    window.location.href = '/chew/loginput';
+	                }
+	            },
+	            error: function() {
+	                alert('로그인 체크 오류');
+	            }
+	        });
+	    });
+
+	    // 2. 모달 닫기 (X 버튼)
+	    closeBtn.on('click', function() {
+	        modal.fadeOut();
+	    });
+
+	    // 3. 모달 외부 클릭 시 닫기
+	    $(window).on('click', function(e) {
+	        if ($(e.target).is(modal)) {
+	            modal.fadeOut();
+	        }
+	    });
+
+	    // 4. 예약 폼 제출 시 AJAX로 예약 요청
+	    $('#bookingForm').on('submit', function(e) {
+	        e.preventDefault();
+	        
+	        // 필수 입력값 체크
+	        const saramsu = $('#saramsu').val();
+	        const bookingdate = $('#bookingdate').val();
+	        const bookingtime = $('#bookingtime').val();
+
+	        if (!saramsu || !bookingdate || !bookingtime) {
+	            alert('입력을 완료해주세요.');
+	            return;
+	        }
+
+	        // 시간 형식 체크 (HH:mm)
+	        const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+	        if (!timePattern.test(bookingtime)) {
+	            alert('시간을 HH:mm 형식으로 입력해주세요.');
+	            return;
+	        }
+
+	        $.ajax({
+	            url: 'bookingsave',
+	            type: 'POST',
+	            data: $('#bookingForm').serialize(),
+	            success: function(result) {
+	                if (result === 'success') {
+	                    alert('예약 성공!');
+	                    modal.fadeOut();
+	                } 
+	                else if (result === 'login_required') {
+	                    alert('로그인이 필요합니다.');
+	                    window.location.href = '/chew/loginput';
+	                }
+	                else if (result.startsWith("error:")) {
+	                    alert("서버 오류: " + result.split(":")[1]);
+	                }
+	                else {
+	                    alert('예약에 실패했습니다. 다시 시도해주세요.');
+	                }
+	            },
+	            error: function(xhr) {
+	                alert('예약 요청 실패: ' + xhr.status);
+	            }
+	        });
+	    });
+	});
+ </script>
+<!-- 예약모달 끝 -->
 <div class="container3">  
 <!-- 리뷰 작성 폼 -->
 <div class="review-form" style="margin-top: 30px;">
@@ -908,7 +996,6 @@ button.next { right: 0; }
 </script>
   
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(window).on('load', function() {
     let i = 0,
@@ -942,7 +1029,7 @@ button.next { right: 0; }
   });
     
     $(function() {
-        const modal = $('#reservationModal');
+        const modal = $('#bookingModal');
         const openBtn = $('#openModalBtn');
         const closeBtn = $('.close');
 
