@@ -34,13 +34,27 @@
 	    where rownum &lt;= #{param2} + 6
 	)
 	where rn > #{param2}
+	</select>
 <select id="getAverageStars" parameterType="int" resultType="double">
 	SELECT NVL(ROUND(AVG(STARS), 1), 0) <!-- nvl->리뷰가 없어도 0반환 -->
 	FROM REVIEW_3 
 	WHERE STORECODE = #{storecode}
 </select>
     
+<update id="updateReview" parameterType="com.mbc.chew.review.ReviewDTO">
+    UPDATE REVIEW_3
+    SET TITLE = #{title},   
+        CONTENT = #{content}  
+    WHERE ID = #{id}     
+      AND STORECODE = #{storecode} 
+</update>
+
+
     
+<delete id="deleteReview">
+  DELETE FROM REVIEW_3 
+  WHERE ID = #{param1} AND STORECODE = #{param2}
+</delete>
     
     
 

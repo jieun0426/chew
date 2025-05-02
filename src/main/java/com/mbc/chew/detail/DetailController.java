@@ -52,34 +52,29 @@ public class DetailController {
 	@RequestMapping(value ="/detailview")
 	public String dd2(HttpServletRequest request,Model model) {
 		String code=request.getParameter("storecode"); 
-		DetailService ds = sqlSession.getMapper(DetailService.class);
-		DetailDTO ddto =ds.dout1(code);
-		model.addAttribute("ddto",ddto);
-		
-		
-		ReviewService rs = sqlSession.getMapper(ReviewService.class);
-	    ArrayList<ReviewDTO> list = rs.getReviews(Integer.parseInt(code),0);
-	    boolean hasMore = list.size() > 5;
+	      DetailService ds = sqlSession.getMapper(DetailService.class);
+	      DetailDTO ddto =ds.dout1(code);
+	      model.addAttribute("ddto",ddto);
 
-	    if (hasMore) {
-	    	list.remove(5);  // 6번째는 보여주지 않음
-	    }
-	    model.addAttribute("list", list); // 
-	    model.addAttribute("hasMore", hasMore);
-		return "detailview";
-	    ArrayList<ReviewDTO> list = rs.reviewout(Integer.parseInt(code));
-	    model.addAttribute("list", list); 
-	    
-	    Double avgStars = rs.getAverageStars(Integer.parseInt(code));
-		model.addAttribute("avgStars", avgStars);
-		
-		ImageService is = sqlSession.getMapper(ImageService.class);
-		ArrayList<ImageDTO> imagelist = is.getImage(Integer.parseInt(code));
-		model.addAttribute("imagelist", imagelist);
+	      ReviewService rs = sqlSession.getMapper(ReviewService.class);
 
+	       Double avgStars = rs.getAverageStars(Integer.parseInt(code));
+	      model.addAttribute("avgStars", avgStars);
+	      
+	      ImageService is = sqlSession.getMapper(ImageService.class);
+	      ArrayList<ImageDTO> imagelist = is.getImage(Integer.parseInt(code));
+	      model.addAttribute("imagelist", imagelist);
 
+	       ArrayList<ReviewDTO> list = rs.getReviews(Integer.parseInt(code),0);
+	       boolean hasMore = list.size() > 5;
 
-		return "detailview"; 
+	       if (hasMore) {
+	          list.remove(5);  // 6번째는 보여주지 않음
+	       }
+	       model.addAttribute("list", list); // 
+	       model.addAttribute("hasMore", hasMore);
+
+	      return "detailview"; 
 	}
 	
 	@RequestMapping(value="/loadMoreReviews", produces = "text/html; charset=UTF-8")

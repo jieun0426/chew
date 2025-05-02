@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -22,30 +23,36 @@ public class BookingController {
 	@Autowired
 	SqlSession sqls;
 	
-@Transactional
-@ResponseBody
-@RequestMapping(value="/bookingsave")
-public String booking(HttpServletRequest request,HttpSession hs)
-{
-	String result = "fail";
-	
-try {
-	   HttpSession session = request.getSession(false);
-       String id = (session != null) ? (String) session.getAttribute("id"):"test_user";
-		int tablenum        = Integer.parseInt(request.getParameter("tablenum"));
-		int storecode	    = Integer.parseInt(request.getParameter("storecode"));
-		int saramsu		    = Integer.parseInt(request.getParameter("s"));
-		String state	    = request.getParameter("state");
-		Date bookingdate    = java.sql.Date.valueOf(request.getParameter("bookingdate"));
-		String bookingtime  = request.getParameter("bookingtime"); 
-		
-		BookingService bs = sqls.getMapper(BookingService.class);
-		bs.insertbook(tablenum,storecode,id,saramsu,state,bookingdate,bookingtime);
-		result ="success";
-}catch (Exception e) {
-	e.printStackTrace();
-	 System.err.println("¿À·ù¹ß»ý:" + e.getMessage()); 
-		}	
-		return result;
-}
+	@Transactional
+	@ResponseBody
+	@RequestMapping(value="/bookingsave", method = RequestMethod.POST)
+	public String booking(HttpServletRequest request, HttpSession session) {
+	    String result = "fail";
+	    
+	    try {
+	        String id = (String) session.getAttribute("id");
+	        if (id == null) return "login_required";
+
+	        int storecode = Integer.parseInt(request.getParameter("storecode"));
+	        int saramsu = Integer.parseInt(request.getParameter("saramsu"));
+	        Date bookingdate = java.sql.Date.valueOf(request.getParameter("bookingdate"));
+	        String bookingtime = request.getParameter("bookingtime");
+
+	        BookingService bs = sqls.getMapper(BookingService.class);
+	        bs.insertbook(
+	            0, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹Ç·ï¿½ 0 ï¿½ï¿½ï¿½ï¿½
+	            storecode,
+	            id,
+	            saramsu,
+	            "ëŒ€ê¸°", // ï¿½âº» ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	            bookingdate,
+	            bookingtime
+	        );
+	        result = "success";
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        result = "error: " + e.getMessage(); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
+	    }
+	    return result;
+	}
 }

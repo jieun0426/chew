@@ -38,6 +38,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/mypage/mypinfo.jsp"/>
 	</definition>
 	
+	<definition name="mypagebook" extends="baseLayout">
+		<put-attribute name="title" value="예약현황"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagebook.jsp"/>
+	</definition>
+	
 	<definition name="mypagereview" extends="baseLayout">
 		<put-attribute name="title" value="작성리뷰확인"/>
 		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagereview.jsp"/>

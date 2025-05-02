@@ -7,6 +7,35 @@
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
+<script>
+// 수정 폼 보이기
+function showEdit(storecode) {
+  const reviewDisplay = document.getElementById('review-display-' + storecode);
+  const editBox = document.getElementById('edit-' + storecode);
+
+  if (reviewDisplay && editBox) {
+    reviewDisplay.style.display = 'none';
+    editBox.style.display = 'block';
+  }
+}
+
+// 수정 폼 닫기
+function cancelEdit(storecode) {
+  const reviewDisplay = document.getElementById('review-display-' + storecode);
+  const editBox = document.getElementById('edit-' + storecode);
+
+  if (reviewDisplay && editBox) {
+    reviewDisplay.style.display = 'block';
+    editBox.style.display = 'none';
+  }
+}
+
+
+</script>
+
+
+
+  
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -147,13 +176,15 @@ button.next {
 button.prev { left: 0; }
 button.next { right: 0; }
     
-   .review-section {
+.review-section {
   padding: 20px;
   max-width: 600px;
   margin: 0 auto;
 }
 
 .review {
+padding: 20px;
+  text-align: left;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -181,23 +212,22 @@ button.next { right: 0; }
   font-weight: bold;
   color: #333;
   margin-bottom: 6px;
+  text-align: left;
 }
 
 .review-content {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 
-   
-   
-
-    .map-wrapper {
-      display: flex;
-      gap: 20px;
-      align-items: center;
-    }
+.map-wrapper {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
     #map {
       width: 35%;
       height: 250px;
@@ -327,7 +357,24 @@ button.next { right: 0; }
   display: none;
 }
 
-<<<<<<< HEAD
+
+.like-button {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  width: 136px;
+  border-radius: 16px;
+  border: none;
+  background-color: white;
+  overflow: hidden;
+  box-shadow:
+    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
+    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
+    4px 4px 10px rgba(0, 0, 0, 0.4),
+    -2px -2px 8px rgba(255, 255, 255, 0.1);
+}
+
 .review_title {
   width: 600px;
   box-sizing: border-box;
@@ -343,45 +390,74 @@ button.next { right: 0; }
   font-weight: bold;
 }
 
-.star_box {
-  width: 600px;
-  box-sizing: border-box;
-  display: inline-block;
-  margin: 15px 0;
-  background: #F3F4F8;
-  border: 0;
-  border-radius: 10px;
-  height: 100px;
-  resize: none;
-  padding: 15px;
-  font-size: 13px;
-  font-family: sans-serif;
+.like {
+  width: 70%;
+  height: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
-
-.btn02 {
-  display:block;
-  width: 600px;
-  font-weight: bold;
-  border: 0;
-  border-radius: 10px;
-  max-height: 50px;
-  padding: 15px 0;
-  font-size: 1.1em;
-  text-align: center;
-  background:bisque;
+.like-icon {
+  fill: #505050;
+  height: 28px;
+  width: 28px;
 }
-.rating:not(:checked) > input {
+
+.like-text {
+  color: black;
+  font-size: 16px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.like-count {
   position: absolute;
-  appearance: none;
+  right: 0;
+  width: 30%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: gray;
+  font-size: 16px;
+  border-left: 2px solid #4e4e4e;
+  transition: all 0.5s ease-out;
 }
 
+
+.like-count.two {
+  transform: translateY(40px);
+}
+
+.on:checked ~ .like .like-icon {
+  fill: #fc4e4e;
+  animation: enlarge 0.2s ease-out 1;
+  transition: all 0.2s ease-out;
+}
+
+.on:checked ~ .like-count.two {
+  transform: translateX(0);
+  color: black;
+}
+
+.on:checked ~ .like-count.one {
+  transform: translateY(-40px);
+}
+
+@keyframes enlarge {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
 .rating:not(:checked) > label {
   float: right;
-=======
+}
 .like-button {
   position: relative;
->>>>>>> Jimin-718-master
   cursor: pointer;
   display: flex;
   height: 48px;
@@ -431,6 +507,7 @@ button.next { right: 0; }
   border-left: 2px solid #4e4e4e;
   transition: all 0.5s ease-out;
 }
+
 .review_logout_box {
 	text-align: center;
 	margin: 10px 190px 20px;
@@ -439,7 +516,6 @@ button.next { right: 0; }
 	border-radius: 12px;
 }
 
-<<<<<<< HEAD
 #moreReviewBtn {
 	width: 600px;
 	background-color: white;
@@ -454,7 +530,7 @@ button.next { right: 0; }
 	/* border: 1px solid #f3e2a9; 
 	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
 	cursor: pointer;
-=======
+}
 .like-count.two {
   transform: translateY(40px);
 }
@@ -463,7 +539,6 @@ button.next { right: 0; }
   fill: #fc4e4e;
   animation: enlarge 0.2s ease-out 1;
   transition: all 0.2s ease-out;
->>>>>>> Jimin-718-master
 }
 
 .on:checked ~ .like-count.two {
@@ -483,6 +558,150 @@ button.next { right: 0; }
     transform: scale(1.2);
   }
 }
+
+/* 리뷰 수정 삭제 버튼 */
+
+/* 부모 요소에 상대 위치 설정 */
+.review {
+  position: relative;
+}
+
+/* 버튼 박스를 오른쪽 위로 이동 */
+.review-buttons {
+  position: absolute;
+  top: 10px;       /* 위쪽 여백 */
+  right: 10px;     /* 오른쪽 여백 */
+  display: flex;
+  gap: 10px;
+}
+
+.review-btn-form {
+  display: inline-block;
+}
+
+.review-buttons .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+}
+
+.review-buttons .btn:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
+}
+
+.review-edit {
+  border-radius: 12px;
+  height: 220px; /* 고정 높이 유지 */
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden; /* 넘치는 요소 숨기기 */
+}
+
+.review-edit .edit-group {
+  margin-bottom: 16px;
+}
+
+.review-edit label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.review-edit input[type="text"],
+.review-edit textarea {
+  width: 100%;
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.review-edit input[type="text"]:focus,
+.review-edit textarea:focus {
+  background-color: #fff;
+  outline: none;
+}
+
+.review-edit textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+
+
+
+.edit-buttons {
+  position: absolute;
+  bottom: 25px;
+  right: 26px; /* ← 원래 6px이었던 값을 더 크게 조정 (왼쪽으로 이동) */
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
+.edit-buttons .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-buttons .btn:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
+}
+
+.edit-buttons .cancel {
+  color: #b00;
+  border-color: #b00;
+}
+
+.btn.cancel {
+  color: #b00 !important;
+  border-color: #b00 !important;
+}
+.btn.cancel:hover {
+  background-color: #ffe5e5;
+  border-color: #a00;
+}
+
+/* 리뷰 안 텍스트 정렬 통일 */
+
+.review-header,
+.review-stars
+{
+  padding-left: -10px;  /* 왼쪽 여백을 동일하게 맞춤 */
+}
+
+
+/* 아바타 아이콘과 아이디 나란히 정렬 */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.review-avatar-emoji {
+  font-size: 18px;
+}
+
      
   </style>
 
@@ -509,7 +728,9 @@ button.next { right: 0; }
     <div class="restaurant-header" id="home">
       <img src="image/${ddto.storeimage}" alt="레스토랑 사진">
       <div class="restaurant-info">
-<<<<<<< HEAD
+
+        <div class="title"><h1>${ddto.storename}</h1></div>
+        
         <div class="title-like">
           <h1>${ddto.storename}</h1>
           <label class="like-wrapper">
@@ -529,10 +750,9 @@ button.next { right: 0; }
             </div>
           </label>
         </div>
-=======
+
         <div class="title"><h1>${ddto.storename}</h1></div>
-        
->>>>>>> Jimin-718-master
+
        <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
        <c:set var="emptyStars" value="${5 - fullStars}" />
 
@@ -588,11 +808,12 @@ button.next { right: 0; }
         <ul id="imageList">
          <c:forEach var="image" items="${imagelist}">
            <li>
-<<<<<<< HEAD
-           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
-=======
+
+
            <img src="image/${image.image_filename}" alt="Store Image">
->>>>>>> Jimin-718-master
+
+           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
+
            </li>
          </c:forEach>
         </ul>
@@ -622,37 +843,125 @@ button.next { right: 0; }
     </div>
    </div>
     
-     <!-- 예약 모달 창 -->
-  <div id="reservationModal" style="display:none;" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h4>예약하기</h4>
-      <form id="reservationForm">
-        <label for="name">성함:</label><br>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="people">인원수:</label><br>
-        <select id="people" name="people">
+     <!-- //////////예약 모달 창/////////// -->
+     
+<!-- 예약 버튼 -->
+<button id="openModalBtn">예약하기</button>
+
+<div id="bookingModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h4>예약하기</h4>
+    <form id="bookingForm">
+      <input type="hidden" name="storecode" value="${ddto.storecode}">
+      <label for="saramsu">인원수:</label><br>
+      <select id="saramsu" name="saramsu">
+        <option value="">선택</option>
         <option value="1">1명</option>
         <option value="2">2명</option>
-        <option value="3">3명</option>
-        <option value="4">4명</option>
-        <option value="5">5명</option>
-        <option value="6">6명</option>
-        <option value="7">7명</option>
-        <option value="8">8명</option>
-        <option value="9">9명</option>
-        <option value="10">10명 이상</option>
-        </select><br><br>
-        <label for="date">날짜:</label><br>
-        <input type="date" id="date" name="date"><br><br>
-        <label for="time">시간:</label><br>
-        <input type="time" id="time" name="time"><br><br>
-        <button type="submit">예약하기</button>
-      </form>
-    </div>
+      </select><br><br>
+      <label for="bookingdate">날짜:</label><br>
+      <input type="date" id="bookingdate" name="bookingdate"><br><br>
+      <label for="bookingtime">시간:</label><br>
+      <input type="time" id="bookingtime" name="bookingtime"><br><br>
+      <button type="submit">예약하기</button>
+    </form>
   </div>
-  
+</div>
 
+
+ <script type="text/javascript">
+ $(function() {
+	    const modal = $('#bookingModal');
+	    const openBtn = $('#openModalBtn');
+	    const closeBtn = $('.close');
+
+	    // 1. 예약하기 버튼 클릭 시 로그인 체크 후 모달 오픈
+	    openBtn.on('click', function(e) {
+	        e.preventDefault();
+	        $.ajax({
+	            url: '/chew/logincheck',
+	            type: 'GET',
+	            success: function(result) {
+	                if (result === 'ok') {
+	                    modal.fadeIn();
+	                    
+	                 $('.modal-content').on('click', function(e) {
+	                        e.stopPropagation();
+	                    });    
+	                    
+	                } else {
+	                    alert('로그인이 필요합니다.');
+	                    window.location.href = '/chew/loginput';
+	                }
+	            },
+	            error: function() {
+	                alert('로그인 체크 오류');
+	            }
+	        });
+	    });
+
+	    // 2. 모달 닫기 (X 버튼)
+	    closeBtn.on('click', function() {
+	        modal.fadeOut();
+	    });
+
+	    // 3. 모달 외부 클릭 시 닫기
+	    $(window).on('click', function(e) {
+	        if ($(e.target).is(modal)) {
+	            modal.fadeOut();
+	        }
+	    });
+
+	    // 4. 예약 폼 제출 시 AJAX로 예약 요청
+	    $('#bookingForm').on('submit', function(e) {
+	        e.preventDefault();
+	        
+	        // 필수 입력값 체크
+	        const saramsu = $('#saramsu').val();
+	        const bookingdate = $('#bookingdate').val();
+	        const bookingtime = $('#bookingtime').val();
+
+	        if (!saramsu || !bookingdate || !bookingtime) {
+	            alert('입력을 완료해주세요.');
+	            return;
+	        }
+
+	        // 시간 형식 체크 (HH:mm)
+	        const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+	        if (!timePattern.test(bookingtime)) {
+	            alert('시간을 HH:mm 형식으로 입력해주세요.');
+	            return;
+	        }
+
+	        $.ajax({
+	            url: 'bookingsave',
+	            type: 'POST',
+	            data: $('#bookingForm').serialize(),
+	            success: function(result) {
+	                if (result === 'success') {
+	                    alert('예약 성공!');
+	                    modal.fadeOut();
+	                } 
+	                else if (result === 'login_required') {
+	                    alert('로그인이 필요합니다.');
+	                    window.location.href = '/chew/loginput';
+	                }
+	                else if (result.startsWith("error:")) {
+	                    alert("서버 오류: " + result.split(":")[1]);
+	                }
+	                else {
+	                    alert('예약에 실패했습니다. 다시 시도해주세요.');
+	                }
+	            },
+	            error: function(xhr) {
+	                alert('예약 요청 실패: ' + xhr.status);
+	            }
+	        });
+	    });
+	});
+ </script>
+<!-- 예약모달 끝 -->
 <div class="container3">  
 <!-- 리뷰 작성 폼 -->
 <div class="review-form" style="margin-top: 30px;">
@@ -705,28 +1014,63 @@ button.next { right: 0; }
 </div>
    
 <div class="review-section" id="reviews">
-    <h2>리뷰</h2>
+  <h2>리뷰</h2>
 
-    <c:forEach var="r" items="${list}">
-        <div class="review">
-            <div class="review-header">
-                <span class="review-avatar-emoji">👤</span>
-                <span class="review-id">${r.id}</span>
-            </div>
-            <div class="review-stars">
-                <c:forEach var="i" begin="1" end="${r.stars}">
-                    ★
-                </c:forEach>
-                <c:forEach var="i" begin="${r.stars + 1}" end="5">
-                    ☆
-                </c:forEach>
-            </div>
-            <div class="review-title">${r.title}</div>
-            <div class="review-content">${r.content}</div>
+  <c:forEach var="r" items="${list}">
+    <div class="review" id="review-${r.storecode}">
+
+      <!-- ✅ 기존 리뷰 표시 부분 감싸기 -->
+      <div id="review-display-${r.storecode}">
+        <div class="review-header">
+          <span class="review-avatar-emoji">👤</span>
+          <span class="review-id">${r.id}</span>
         </div>
-    </c:forEach>
-    
+
+        <div class="review-stars">
+          <c:forEach var="i" begin="1" end="${r.stars}">★</c:forEach>
+          <c:forEach var="i" begin="${r.stars + 1}" end="5">☆</c:forEach>
+        </div>
+
+        <div class="review-title">${r.title}</div>
+        <div class="review-content">${r.content}</div>
+
+        <c:if test="${loginstate == true && r.id == id}">
+          <div class="review-buttons">
+            <button type="button" class="btn" onclick="showEdit(${r.storecode})">수정</button>
+            <form action="deleteReview" method="post" class="review-btn-form">
+              <input type="hidden" name="id" value="${r.id}">
+              <input type="hidden" name="storecode" value="${r.storecode}">
+              <button type="submit" class="btn cancel">삭제</button>
+            </form>
+          </div>
+        </c:if>
+      </div>
+
+     <div class="review-edit" id="edit-${r.storecode}" style="display: none;">
+  <form action="editReview" method="post">
+    <input type="hidden" name="id" value="${r.id}">
+    <input type="hidden" name="storecode" value="${r.storecode}">
+
+    <div class="edit-group">
+      <input type="text" id="title-${r.storecode}" name="title" value="${r.title}">
+    </div>
+
+    <div class="edit-group">
+      <textarea id="content-${r.storecode}" name="content">${r.content}</textarea>
+    </div>
+
+    <div class="edit-buttons">
+      <button type="submit" class="btn">수정완료</button>
+      <button type="button" class="btn cancel" onclick="cancelEdit(${r.storecode})">취소</button>
+    </div>
+  </form>
 </div>
+
+
+    </div>
+  </c:forEach>
+</div>
+
 <button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
 <!-- hasMore 플래그를 data 속성으로 -->
 <div id="moreFlag" data-hasmore="${hasMore}"></div>
@@ -740,8 +1084,59 @@ button.next { right: 0; }
   var lat = ${ddto.latitude};
   var lng = ${ddto.longitude};
 
-<<<<<<< HEAD
+  var mapContainer = document.getElementById('map'),
+      mapOption = { 
+          center: new kakao.maps.LatLng(lat, lng),
+          level: 3 
+      };
+
+  var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+
+
+  var marker = new kakao.maps.Marker({
+      position: markerPosition
+  });
+
+  marker.setMap(map);
+</script>
   
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(window).on('load', function() {
+    let i = 0,
+        $slides = $('#imageList'),
+        $items = $('#imageList li'),
+        slideCount = $items.length;
+
+    const slideWidth = 800 + 20; // 이미지 너비 + 여백
+
+    // 슬라이드 전체 너비 계산해서 적용
+    $slides.css('width', slideCount * slideWidth);
+
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= slideCount) index = slideCount - 1;
+      const shift = slideWidth * index;
+      $slides.animate({ left: -shift + 'px' }, 300);
+      i = index;
+      updateNav();
+    }
+
+    function updateNav() {
+      $('.prev').toggle(i > 0);
+      $('.next').toggle(i < slideCount - 1);
+    }
+
+    $('.prev').click(() => goToSlide(i - 1));
+    $('.next').click(() => goToSlide(i + 1));
+
+    updateNav();
+  });
+    
+  </script>
   <script>
   
 	$(document).ready(function(){
@@ -811,7 +1206,7 @@ button.next { right: 0; }
 		    }
 		});
 	});
-=======
+
   var mapContainer = document.getElementById('map'),
       mapOption = { 
           center: new kakao.maps.LatLng(lat, lng),
@@ -829,8 +1224,8 @@ button.next { right: 0; }
   marker.setMap(map);
 </script>
   
+  
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(window).on('load', function() {
     let i = 0,
@@ -863,9 +1258,8 @@ button.next { right: 0; }
     updateNav();
   });
     
->>>>>>> Jimin-718-master
     $(function() {
-        const modal = $('#reservationModal');
+        const modal = $('#bookingModal');
         const openBtn = $('#openModalBtn');
         const closeBtn = $('.close');
 
@@ -940,18 +1334,6 @@ button.next { right: 0; }
     });
 });
 
-
-
-
-
-
-    
-    
-
-  
- 
-
-    
   </script>
 </body>
 </html>
