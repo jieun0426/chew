@@ -56,7 +56,7 @@
       justify-content: center;
       gap: 30px;
       margin: 0;
-      padding: 0;
+      padding: 0; 
     }
     .top-nav a {
       text-decoration: none;
@@ -281,6 +281,9 @@ button.next { right: 0; }
 	  text-align: center;
 	  background:bisque;
 	}
+	.btn02:hover{
+		cursor: pointer;
+	}
 	.rating:not(:checked) > input {
 	  position: absolute;
 	  appearance: none;
@@ -319,7 +322,7 @@ button.next { right: 0; }
 	  color: #666;
 	}
 
-    #heart {
+#heart {
   display: none;
 }
 
@@ -418,10 +421,10 @@ button.next { right: 0; }
   100% {
     transform: scale(1.2);
   }
-
+}
 .rating:not(:checked) > label {
   float: right;
-
+}
 .like-button {
   position: relative;
   cursor: pointer;
@@ -550,29 +553,6 @@ button.next { right: 0; }
     <div class="restaurant-header" id="home">
       <img src="image/${ddto.storeimage}" alt="레스토랑 사진">
       <div class="restaurant-info">
-
-        <div class="title"><h1>${ddto.storename}</h1></div>
-        
-        <div class="title-like">
-          <h1>${ddto.storename}</h1>
-          <label class="like-wrapper">
-            <input type="checkbox" class="check">
-            <div class="like-btn">
-              <svg class="icon inactive" viewBox="0 0 24 24">
-                <path d="M12.1 8.64l-.1.1-.11-.11C10.14 6.7 7.5 6.7 5.7 8.5c-1.8 1.8-1.8 4.6 0 6.4l6.4 6.4 6.4-6.4c1.8-1.8 1.8-4.6 0-6.4-1.8-1.8-4.6-1.8-6.4 0z"
-                      fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              <svg class="icon active" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-                         4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 
-                         14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-                         6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-              <span class="like-text">Like</span>
-            </div>
-          </label>
-        </div>
-
         <div class="title"><h1>${ddto.storename}</h1></div>
 
        <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
@@ -595,7 +575,7 @@ button.next { right: 0; }
       <!-- 좋아요 버튼 영역 -->
       <input type="hidden" id="storecode" value="${ddto.storecode}" />
 	  <div class="like-button">
-	  <input class="on" id="heart" type="checkbox" />
+	  <input class="on" id="heart" type="checkbox"/>
 	  <label class="like" for="heart">
 		   <svg
 	      class="like-icon"
@@ -710,7 +690,7 @@ button.next { right: 0; }
   	</c:when>
   	<c:otherwise>
   		<!-- 고정된 사용자 ID -->
-		<input type="hidden" name="id" value="testuser">
+		<input type="hidden" name="id" value="${id}">
 		
 		<!-- storecode는 해당 가게의 코드 -->
 		<input type="hidden" name="storecode" value="${ddto.storecode}">
@@ -864,7 +844,11 @@ button.next { right: 0; }
 		updateNav();
 	      
 		let reviewOffset = 5;
-
+		
+		if(${listsize}<=5){
+			$('#moreReviewBtn').hide();
+		}
+		
 		$('#moreReviewBtn').click(function () {
 		    const $btn = $(this);
 		    console.log("storecode: ", storecode);

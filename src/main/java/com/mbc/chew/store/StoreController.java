@@ -3,17 +3,22 @@ package com.mbc.chew.store;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -134,7 +139,7 @@ public class StoreController {
 			fname		 = uu.toString()+"_"+fname;
 	
 			mf.transferTo(new File(path+"\\"+fname));
-			ss.insertstore(storecode,storename,storeaddress,storecategory,storearea,fname);
+			ss.updatemodi2(storecode,storename,storeaddress,storecategory,storearea,fname);
 		}
 		return "redirect:/sout";
 	}
@@ -168,5 +173,52 @@ public class StoreController {
 		m.addAttribute("pdto", pdto);
 		m.addAttribute("search", search);
 		return "storemanage_search";
+	}
+	
+	@Transactional
+	@ResponseBody
+	@RequestMapping("/deleteSelectedItems")
+	public String deleteSelectedItems(@RequestParam("ids") String ids) {
+	    // 콤마로 구분된 문자열을 List<String>으로 변환
+	    List<String> idList = Arrays.asList(ids.split(","));
+	    StoreService ss = sqls.getMapper(StoreService.class);
+	    
+	    // 각 id에 대해 삭제 작업 수행
+	    for (String id : idList) {
+	    	try {
+	    		int code = Integer.parseInt(id);
+		        StoreDTO sdto = ss.selectOne(code);
+		        if (sdto == null) continue;
+		        System.out.println(code);
+		        String image = sdto.getStoreimage();
+		        System.out.println(image);
+		        File ff = new File("C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image\\" + image);
+		        ff.delete();
+		        
+		        
+		        ss.deleteFromReview(code);
+		        System.out.println("deleteFromReview");
+		        
+		        ss.deleteFromBooking(code);
+		        System.out.println("deleteFromBooking");
+		        
+		        ss.deleteFromImage(code);
+		        System.out.println("deleteFromImage");
+		        
+		        ss.deleteFromLikes(code);
+		        System.out.println("deleteFromLikes");
+		        
+		        ss.deleteFromStore(code);
+		        System.out.println("deleteFromStore");
+		        
+	    	}catch (Exception e) {
+	    		System.out.println("예외 발생: " + e.getMessage());
+	    	    e.printStackTrace(System.out);  // 확실하게 출력
+	    	    return "삭제 중 오류가 발생했습니다. 관리자에게 문의하세요.";
+	    	}
+	        
+	    }
+
+	    return "ok";
 	}
 }

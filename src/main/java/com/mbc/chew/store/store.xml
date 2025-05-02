@@ -52,7 +52,7 @@
 	
 	<!-- 검색 -->
 	<select id="countSearchRecords" resultType="int">
-		  select count(*) from store_3 where storename like '%'||#{param1}||'%'
+		select count(*) from store_3 where storename like '%'||#{param1}||'%'
 	</select>
 	<select id="searchList" resultType="com.mbc.chew.store.StoreDTO">
 	    select * from (
@@ -63,6 +63,24 @@
 	    ) where rn between #{param1} and #{param2}
 	</select>
 	<!-- 검색 끝 -->
+	
+	<!-- 매장 삭제 시 연관 테이블 전부 삭제 -->
+	<delete id="deleteFromReview">
+		delete from review_3 where storecode=#{code}
+	</delete>
+	<delete id="deleteFromLikes">
+		delete from member_likes where storecode=#{code}
+	</delete>
+	<delete id="deleteFromBooking">
+		delete from booking_3 where storecode=#{code}
+	</delete>
+	<delete id="deleteFromImage">
+		delete from store_image_3 where storecode=#{code}
+	</delete>
+	<delete id="deleteFromStore">
+		delete from store_3 where storecode=#{code}
+	</delete>
+	<!-- 매장 삭제 시 연관 테이블 전부 삭제 -->
 	
 </mapper>
 

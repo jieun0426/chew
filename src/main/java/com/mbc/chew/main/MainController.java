@@ -25,6 +25,7 @@ public class MainController {
 	public String home(Locale locale, Model model,HttpServletRequest request) {
 		HttpSession hs=request.getSession();
 		hs.setAttribute("loginstate", false);
+		hs.setAttribute("id", null);
 		
 		String area,category;
 		if(request.getParameter("area")==null) {

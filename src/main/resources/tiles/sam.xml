@@ -112,4 +112,15 @@
 		<put-attribute name="title" value="메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_search.jsp"/>
 	</definition>
+	
+	<definition name="FAQout" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/FAQ/FAQout.jsp"/>
+	</definition>
+	
+	<definition name="FAQin" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/FAQ/FAQin.jsp"/>
+	</definition>
+	
 </tiles-definitions>

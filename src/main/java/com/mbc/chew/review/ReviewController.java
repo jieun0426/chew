@@ -31,8 +31,6 @@ public class ReviewController {
 	    ReviewService rs = sqlSession.getMapper(ReviewService.class);
 	    rs.insertReview(dto);     
 	   
-	       
-	   
 
 	    return "redirect:/detailview?storecode=" + dto.getStorecode();
 	}

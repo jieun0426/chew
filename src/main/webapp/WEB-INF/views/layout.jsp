@@ -56,7 +56,7 @@ nav
     color: white;
     padding: 10px 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     cursor: pointer;
   }
 

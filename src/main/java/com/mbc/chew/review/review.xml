@@ -19,7 +19,7 @@
 <select id="reviewout" parameterType="int" resultType="com.mbc.chew.review.ReviewDTO">
         SELECT * from (select rownum rn, A.* from (SELECT ID, STORECODE, CONTENT, STARS, TITLE
         FROM REVIEW_3 
-        where storecode= #{param1} order by stars desc) A)
+        where storecode= #{param1}) A)
         where rn&lt;=5
 
 </select>
@@ -36,7 +36,6 @@
 	    select rownum rn, A.* from (
 	        select * from review_3
 	        where storecode = #{param1}
-	        order by stars desc
 	    ) A
 	    where rownum &lt;= #{param2} + 6
 	)
