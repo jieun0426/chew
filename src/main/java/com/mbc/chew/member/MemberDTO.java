@@ -1,7 +1,6 @@
 package com.mbc.chew.member;
 
-import java.sql.Date;
-import java.sql.Timestamp; 
+import java.sql.Date; 
 
 public class MemberDTO {
 
@@ -53,6 +52,7 @@ public class MemberDTO {
 	public void setBirth(Date birth) {
 		this.birth = birth;
 	}
+
 
 	
 }

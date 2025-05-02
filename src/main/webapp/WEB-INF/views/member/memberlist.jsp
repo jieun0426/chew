@@ -18,22 +18,35 @@ th { background-color: #f2f2f2; }
 .message { text-align: center; padding: 10px; margin-bottom: 15px; }
 .success { color: green; border: 1px solid green; background-color: #e9f7ef; }
 .error { color: red; border: 1px solid red; background-color: #fdecea; }
-/* 삭제 버튼을 링크처럼 보이게 하는 스타일 */
-.delete-button {
+.editBtn, .deleteBtn {
     background: none!important;
     border: none;
     padding: 0!important;
-    color: #069; /* 링크 색상 */
+    color: #069;
     text-decoration: underline;
     cursor: pointer;
-    }
+    font: inherit;
+    outline: none;
+    display: inline;
+}
+
+    
+    
 </style>
 
 
 </head>
 
 
-       <!-- -----------회원검색창----------------- -->
+
+                  <!-- ContextPath 선언  -->
+                  
+<script>   var contextPath = "${pageContext.request.contextPath}"; console.log("컨텍스트패스:",contextPath,"키값",key,"밸류값",val) </script>
+
+<script src="${pageContext.request.contextPath}/js/member.js"></script>
+
+
+            <!-- -----------회원검색창----------------- -->
 <body>
 <h1>회원목록창</h1>
 <div class="input_div" style="text-align: center; margin-bottom: 20px;">
@@ -49,7 +62,7 @@ th { background-color: #f2f2f2; }
 
                   <!-- 검색 모달창 -->
 
-		<div id="searchModal" style="display:none; position:fixed; top:20%; left:40%; background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
+	<div id="searchModal" style="display:none; position:fixed; top:20%; left:40%; background:#fff; border:1px solid #ccc; padding:20px; z-index:1000;">
     <form id="memberSearchForm" onsubmit="return false;">
         <select name="searchKey" id="searchKey">
             <option value="id">아이디</option>
@@ -58,33 +71,16 @@ th { background-color: #f2f2f2; }
             <option value="birth">생년월일</option>
         </select>
         <input type="text" name="searchValue" id="searchValue" placeholder="검색어 입력">
-        <button type="button" onclick="doMemberSearch()">검색</button>
+        <button type="button" onclick="MemberSearch()">검색</button>
         <button type="button" onclick="closeSearchModal()">닫기</button>
     </form>
     <div id="searchResult"></div>
 </div>
 
-                  <!--삭제기능부분 ContextPath 선언  -->
-                  
-                  
-<script>   var contextPath = "${pageContext.request.contextPath}";  </script>
-<script src="${pageContext.request.contextPath}/js/memberDeleteModal.js"></script>
-                  
-                  
-                  
-                  
-                  <!-- 검색 모달 여닫 -->
-
-	<script type="text/javascript">
-	function openSearchModal() {
-	    document.getElementById('searchModal').style.display = 'block';
-	}
-	function closeSearchModal() {
-	    document.getElementById('searchModal').style.display = 'none';
-	    document.getElementById('searchResult').innerHTML = '';
-	}
-	</script>
 	
+         
+                  
+                 
 	
                    <!--  삭제 모달 창  -->   
                     
@@ -95,11 +91,6 @@ th { background-color: #f2f2f2; }
     <button id="deleteNoBtn">취소</button>
   </div>
 </div>	
-
-
-<!--  -->
-<script src="${pageContext.request.contextPath}/js/member.js"></script>
-<!--  -->
 
 
                <!--   성공오류메시지 표시   -->
@@ -135,17 +126,17 @@ th { background-color: #f2f2f2; }
 					         </td>
 					         
 					         <td class="align_center">
-					         <a href="${pageContext.request.contextPath}/mypinfo?id=${member.id}">수정</a>
-					         </td>
-					         
+					         <a href="${pageContext.request.contextPath}/mypinfo?id=${member.id}" class="editBtn">수정</a>
+							 </td>
+						     </form>
 					         <td class="align_center">
-						    <form action="${pageContext.request.contextPath}/memberdelete" method="post" class="deleteForm" style="display:inline;">
-						        <input type="hidden" name="id" value="${member.id}">
-						        <button type="button" class="deleteBtn">삭제</button>
-						    </form>
-						</td>
-					 </tr>  
-					      
+						        <form action="${pageContext.request.contextPath}/memberdelete" method="post" class="deleteForm" style="display:inline;">
+							    <input type="hidden" name="id" value="${member.id}">
+							    <button type="button" class="deleteBtn" style="display:inline;">삭제</button>
+						     </form>
+						     </td>
+						     
+					    </tr>  
 					</c:forEach>
 				</c:when>
 				<c:otherwise>

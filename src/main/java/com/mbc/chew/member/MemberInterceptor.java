@@ -31,7 +31,7 @@ public class MemberInterceptor extends HandlerInterceptorAdapter{
 	String loginId = (String) hs.getAttribute("id");
     if (!"admin".equals(loginId)) {
         // 로그인은 했지만 ID가 "admin"이 아님
-        System.out.println("잘못된접근:관리자 전용 권한입니다" + loginId + ", URI: " + request.getRequestURI());
+        System.out.println("잘못된접근:관리자 전용 권한입니다" + loginId+"회원이 접근시도함" + ", URI: " + request.getRequestURI());
         response.setContentType("text/html; charset=UTF-8"); 
         response.getWriter().println("<script>");
         response.getWriter().println("alert('접근된 제한입니다(관리자전용)');");

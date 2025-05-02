@@ -68,7 +68,7 @@ public class MemberController {
 //		            }
 //		        } catch (Exception e) {
 //		            e.printStackTrace();
-//		            redirectAttributes.addFlashAttribute("errorMessage", "수정처리 중 오류 발생");
+//		            redirectAttri	butes.addFlashAttribute("errorMessage", "수정처리 중 오류 발생");
 //		        }
 //		        return "redirect:/members";
 //		    }///////////////////////

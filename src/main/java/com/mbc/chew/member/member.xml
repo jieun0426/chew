@@ -20,7 +20,27 @@ update member_3 set name=#{name},phone=#{phone},birth=#{birth} where id=#{id}
 delete from member_3 where id =#{id}
 </delete>
 
-
+<select id="searchmembers" parameterType="map" resultType="com.mbc.chew.member.MemberDTO">
+select id,name,phone,birth from member_3 
+  <where>
+    <choose>
+        <when test="searchKey == 'id'">id like '%' || #{searchValue} || '%'</when>
+        <when test="searchKey == 'name'">name like '%' || #{searchValue} || '%'</when>
+        <when test="searchKey == 'phone'">phone like '%' || #{searchValue} || '%'</when>
+        
+        
+        
+        
+        
+        <when test="searchKey == 'birth'">to_char(birth,'yyyy-MM-dd') like '%' || #{searchValue} || '%'</when>
+      
+      
+      
+      
+       <otherwise>1=1</otherwise>
+    </choose>
+</where> order by id asc
+</select>
 
 </mapper>
 

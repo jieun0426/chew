@@ -1,42 +1,82 @@
          //       memberlist.jsp 영역
 
                 
-                    //  검색값 입력시  Ajax 쏨
+                    //  검색부분
+                    
+//검색 모달 여닫
+
+	function openSearchModal() {
+	    document.getElementById('searchModal').style.display = 'block';
+	}
+	function closeSearchModal() {
+	    document.getElementById('searchModal').style.display = 'none';
+	    document.getElementById('searchResult').innerHTML = '';
+	}
 	
 	
-	function doMemberSearch() {
+	function MemberSearch() {
     var key = document.getElementById('searchKey').value;
     var val = document.getElementById('searchValue').value;
+    
+    if (!val) {
+        alert('검색어를 입력하세요.');
+        return;
+    }
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', '${pageContext.request.contextPath}/membersearch?searchKey=' + encodeURIComponent(key) + '&searchValue=' + encodeURIComponent(val));
+    xhr.open('GET', contextPath + '/membersearch?searchKey=' + encodeURIComponent(key) + '&searchValue=' + encodeURIComponent(val));
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            // 결과를 테이블로 출력
             var members = JSON.parse(xhr.responseText);
-            var html = '<table border="1" style="width:100%"><tr><th>아이디</th><th>이름</th><th>연락처</th><th>생년월일</th></tr>';
             if(members.length === 0){
-                html += '<tr><td colspan="4">검색 결과가 없습니다.</td></tr>';
+                alert('일치하는 회원이 없습니다.');
             } else {
-                for(var i=0; i<members.length; i++) {
-                    html += '<tr>' +
-                        '<td>' + members[i].id + '</td>' +
-                        '<td>' + members[i].name + '</td>' +
-                        '<td>' + members[i].phone + '</td>' +
-                        '<td>' + (members[i].birth ? members[i].birth.substring(0,10) : '') + '</td>' +
-                        '</tr>';
-                }
+                closeSearchModal();
+                renderMemberTable(members);
             }
-            html += '</table>';
-            document.getElementById('searchResult').innerHTML = html;
         }
     };
     xhr.send();
 }
+    
+    
+    
 
+                // 검색 결과로 테이블 갱신
+   
+   
+   function renderMemberTable(members) {
+    var tbody = document.querySelector('table tbody');
+    var html = '';
+    for(var i=0; i<members.length; i++) {
+        var m = members[i];
+        html += '<tr>'
+             + '<td class="align_center"><a href="' + contextPath + '/mypinfo?id=' + m.id + '">' + m.id + '</a></td>'
+             + '<td class="align_center">' + m.name + '</td>'
+             + '<td class="align_center">' + m.phone + '</td>'
+             + '<td class="align_center">' + (m.birth ? m.birth.substring(0,10) : '') + '</td>'
+             + '<td class="align_center"><a href="' + contextPath + '/memberupdate?id=' + m.id + '">수정</a></td>'
+             + '<td class="align_center">'
+             + '<form action="' + contextPath + '/memberdelete" method="post" class="deleteForm" style="display:inline;">'
+             + '<input type="hidden" name="id" value="' + m.id + '">'
+             + '<button type="button" class="deleteBtn">삭제</button>'
+             + '</form></td>'
+             + '</tr>';
+    }
+    tbody.innerHTML = html;
 
-//       회원 정보 수정 및 삭제 부분
+    // 삭제 버튼 이벤트 재등록
+    document.querySelectorAll('.deleteBtn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var form = btn.closest('form');
+            showDeleteModal(form);
+        });
+    });
+}
+   
+   
+                 //       회원 정보 수정 및 삭제 부분
 
-//         삭제 버튼 클릭시 alert 	
+                 //         삭제 버튼 클릭시 alert 	
 
 let deleteFormToSubmit = null;
 

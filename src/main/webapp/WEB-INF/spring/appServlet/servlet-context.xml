@@ -51,7 +51,7 @@
       <!--  패키지 경로는 매번 바뀌므로 다시 써줘야한다.  -->
       <beans:property name="mapperLocations" value="classpath:com/mbc/chew/**/*.xml"/>
       <!--  패키지 경로는 매번 바뀌므로 다시 써줘야한다.  -->
-      <beans:property name="typeAliasesPackage" value="com.mbc.chew.main"/>
+      <beans:property name="typeAliasesPackage" value="com.mbc.chew.main,com.mbc.chew.member"/>
      </beans:bean>
      <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
       <beans:constructor-arg index="0" ref="sqlSessionFactory"/>
