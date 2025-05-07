@@ -75,7 +75,9 @@ public class StoreController {
 		} catch (Exception e) {
 			nowPage=1;
 		}
-		int cntPerPage=10; //�븳 �럹�씠吏��뿉 �굹���궪 �젅肄붾뱶 �닔
+
+		int cntPerPage=10; 
+
 		StoreService ss = sqls.getMapper(StoreService.class);
 		int total=ss.countAllRecords();
 		PageDTO pdto=new PageDTO(total, nowPage, cntPerPage);
@@ -155,6 +157,7 @@ public class StoreController {
 		String storeaddress  = mul.getParameter("storeaddress");
 		String storecategory = mul.getParameter("storecategory");
 		String storearea	 = mul.getParameter("storearea");
+
 		// 메인 이미지 처리
 	    MultipartFile mf = mul.getFile("storeimage");
 	    StoreService ss = sqls.getMapper(StoreService.class);

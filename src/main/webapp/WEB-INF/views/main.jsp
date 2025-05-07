@@ -11,21 +11,21 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$(".areaSelectBtn").click(function(){
-		var tp=$(this).val()
-		
-		$.ajax({ 
-			type: "post",
-			url: "mainSelectType",
-			data: {"area":tp},
-			success: function(data){
-				$(".areaListView").html(data);
-			},
-			error: function(){
-				alert("데이터를 가져오는 데 실패했습니다.");
-			}
-		});
-	});
+   $(".areaSelectBtn").click(function(){
+      var tp=$(this).val()
+      
+      $.ajax({ 
+         type: "post",
+         url: "mainSelectType",
+         data: {"area":tp},
+         success: function(data){
+            $(".areaListView").html(data);
+         },
+         error: function(){
+            alert("데이터를 가져오는 데 실패했습니다.");
+         }
+      });
+   });
 });
 
 </script>
@@ -86,7 +86,6 @@ $(document).ready(function(){
    </c:forEach>
    </div>   
    
-
 </div>
 
 

@@ -1,11 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans:beans xmlns="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	https://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/beans 
+	https://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	https://www.springframework.org/schema/context/spring-context.xsd">
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -35,9 +49,9 @@
      <beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
       <beans:property name="dataSource" ref="dataSource"/>
       <!--  패키지 경로는 매번 바뀌므로 다시 써줘야한다.  -->
-      <beans:property name="mapperLocations" value="classpath:com/mbc/chew/*/*.xml"/>
+      <beans:property name="mapperLocations" value="classpath:com/mbc/chew/**/*.xml"/>
       <!--  패키지 경로는 매번 바뀌므로 다시 써줘야한다.  -->
-      <beans:property name="typeAliasesPackage" value="com.mbc.chew.main"/>
+      <beans:property name="typeAliasesPackage" value="com.mbc.chew.main,com.mbc.chew.member"/>
      </beans:bean>
      <beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
       <beans:constructor-arg index="0" ref="sqlSessionFactory"/>
@@ -103,11 +117,19 @@
 	    </beans:property>
 	</beans:bean>
      
-		
-	
-	
 	<context:component-scan base-package="com.mbc.chew" />
 	
 	
+<!-- 인터셉터 설정 시작 //logincheck로는 관리자 검증이 안됨(혹은 매 페이지 중복적용) -->
+<mvc:interceptors>
+    <mvc:interceptor>
+        <mvc:mapping path="/members"/>
+        <mvc:mapping path="/membersearch"/>
+        <mvc:mapping path="/memberupdate"/>
+        <mvc:mapping path="/memberdelete"/>
+        <beans:bean class="com.mbc.chew.member.MemberInterceptor"/>
+    </mvc:interceptor>
+</mvc:interceptors>
+<!-- 인터셉터 설정 끝 -->
 	
 </beans:beans>

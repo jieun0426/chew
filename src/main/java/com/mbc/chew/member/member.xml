@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mbc.chew.member.member">
+<select id="allmembers" resultType="com.mbc.chew.member.MemberDTO">
+select id,pw,name,phone,birth from member_3 order by id asc
+</select>
+
+<select id="findmembers" parameterType="string" resultType="com.mbc.chew.member.MemberDTO">
+select id,pw,name,phone,birth from member_3 where id=#{id}
+</select>
+
+<!-- <update id="memberupdate" parameterType="com.mbc.chew.member.MemberDTO">
+update member_3 set name=#{name},phone=#{phone},birth=#{birth} where id=#{id}
+</update> -->
+
+<delete id="memberdelete" parameterType="string">
+delete from member_3 where id =#{id}
+</delete>
+
+<select id="searchmembers" parameterType="map" resultType="com.mbc.chew.member.MemberDTO">
+select id,name,phone,birth from member_3 
+  <where>
+    <choose>
+        <when test="searchKey == 'id'">id like '%' || #{searchValue} || '%'</when>
+        <when test="searchKey == 'name'">name like '%' || #{searchValue} || '%'</when>
+        <when test="searchKey == 'phone'">phone like '%' || #{searchValue} || '%'</when>
+        
+        
+        
+        
+        
+        <when test="searchKey == 'birth'">to_char(birth,'yyyy-MM-dd') like '%' || #{searchValue} || '%'</when>
+      
+      
+      
+      
+       <otherwise>1=1</otherwise>
+    </choose>
+</where> order by id asc
+</select>
+
+</mapper>
+

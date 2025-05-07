@@ -359,7 +359,6 @@ padding: 20px;
   display: none;
 }
 
-
 .like-button {
    position: relative;
   cursor: pointer;
@@ -447,6 +446,7 @@ padding: 20px;
   transform: translateY(0);
 }
 
+/* 하트 애니메이션 */
 @keyframes enlarge {
   0% {
     transform: scale(0.5);
@@ -624,11 +624,11 @@ padding: 20px;
 }
 
      
-  </style>
+</style>
 
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
   const storecode = "${ddto.storecode}";
 </script>
 </head>
@@ -651,30 +651,10 @@ padding: 20px;
 
         <div class="title"><h1>${ddto.storename}</h1></div>
         
-        <div class="title-like">
-          <h1>${ddto.storename}</h1>
-          <label class="like-wrapper">
-            <input type="checkbox" class="check">
-            <div class="like-btn">
-              <svg class="icon inactive" viewBox="0 0 24 24">
-                <path d="M12.1 8.64l-.1.1-.11-.11C10.14 6.7 7.5 6.7 5.7 8.5c-1.8 1.8-1.8 4.6 0 6.4l6.4 6.4 6.4-6.4c1.8-1.8 1.8-4.6 0-6.4-1.8-1.8-4.6-1.8-6.4 0z"
-                      fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              <svg class="icon active" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-                         4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 
-                         14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-                         6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-              <span class="like-text">Like</span>
-            </div>
-          </label>
-        </div>
-
         <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
-        <c:set var="emptyStars" value="${5 - fullStars}" />
+       <c:set var="emptyStars" value="${5 - fullStars}" />
 
-        <div class="stars">
+       <div class="stars">
           <c:forEach var="i" begin="1" end="${fullStars}">
             ★
           </c:forEach>
@@ -682,35 +662,30 @@ padding: 20px;
             ☆
           </c:forEach>
           (${avgStars})
-        </div>
+       </div>
        
         <div class="location">${ddto.storeaddress}</div>
-          <p>🍴 ${ddto.storecategory}</p>
-          <p>🕒 ${ddto.storehours}</p>    
-        </div>
-
-		<!-- 좋아요 버튼 영역 -->
-		<input type="hidden" id="storecode" value="${ddto.storecode}" />
-		<div class="like-button">
-	  	  <input class="on" id="heart" type="checkbox"/>
-	  	  <label class="like" for="heart">
-	      <svg
-	        class="like-icon"
-	        fill-rule="nonzero"
-	        viewBox="0 0 24 24"
-	        xmlns="http://www.w3.org/2000/svg"
-	      >
-	        <path
-	          d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
-	        ></path>
-	      </svg>
-	    <span class="like-text">좋아요</span>
-	  </label>
-	  <span class="like-count" id="likeCount">${ddto.storelikes}</span> <!-- 좋아요 수 표시 -->
+        <p>🍴 ${ddto.storecategory}</p>
+        <p>🕒 ${ddto.storehours}</p>    
+      </div>
+      <!-- 좋아요 버튼 영역 -->
+   <div class="like-button">
+     <input class="on" id="heart" type="checkbox" />
+     <label class="like" for="heart">
+       <svg class="like-icon" fill-rule="nonzero" viewBox="0 0 24 24">
+         <path
+           d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
+         ></path>
+       </svg>
+       <span class="like-text">Likes</span>
+     </label>
+     <span class="like-count" id="likeCount">${ddto.storelikes}</span>
 	</div>
-     
+        
+
 	<!-- 숨겨진 storecode 값 -->
 	<input type="hidden" id="storecode" value="${ddto.storecode}" />
+      
       
 
     </div>
@@ -723,9 +698,6 @@ padding: 20px;
          <c:forEach var="image" items="${imagelist}">
            <li>
            <img src="image/${image.image_filename}" alt="Store Image">
-
-           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
-
            </li>
          </c:forEach>
         </ul>
@@ -996,7 +968,23 @@ padding: 20px;
   // JSP에서 전달된 데이터로 좌표 세팅
   var lat = ${ddto.latitude};
   var lng = ${ddto.longitude};
+  var mapContainer = document.getElementById('map'),
+  mapOption = { 
+      center: new kakao.maps.LatLng(lat, lng),
+      level: 3 
+  };
 
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+	
+	
+	var marker = new kakao.maps.Marker({
+	  position: markerPosition
+	});
+	
+	marker.setMap(map);
+	
   $(window).on('load', function() {
     let i = 0,
         $slides = $('#imageList'),
@@ -1027,34 +1015,9 @@ padding: 20px;
 
     updateNav();
   });
-    
-  </script>
-  <script>
   
 	$(document).ready(function(){
-		let i = 0,
-		$slides = $('.cardWrap ul'),
-		$items = $('.cardWrap ul li'),
-		slideCount = $items.length;
-
-		function goToSlide(index) {
-	        if (index < 0) index = 0;
-	        if (index >= slideCount) index = slideCount - 1;
-	        const shift = (800 + 20) * index;
-	        $slides.animate({ left: -shift + 'px' }, 300);
-	        i = index;
-	        updateNav();
-		}
-	
-		function updateNav() {
-			$('.prev').toggle(i > 0);
-	        $('.next').toggle(i < slideCount - 1);
-		}
-	
-		$('.prev').click(() => goToSlide(i - 1));
-		$('.next').click(() => goToSlide(i + 1));
-	
-		updateNav();
+		
 	      
 		let reviewOffset = 5;
 
@@ -1099,23 +1062,7 @@ padding: 20px;
 		});
 	});
 
->>>>>>> eunlee529-master
-  var mapContainer = document.getElementById('map'),
-      mapOption = { 
-          center: new kakao.maps.LatLng(lat, lng),
-          level: 3 
-      };
-
-  var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-
-
-  var marker = new kakao.maps.Marker({
-      position: markerPosition
-  });
-
-  marker.setMap(map);
+  
 
     
     $(function() {
@@ -1147,69 +1094,66 @@ padding: 20px;
           });     
       });
     
-    //좋아요
-    
-  $(function() {
-    const storecodeInput = document.getElementById("storecode");
-    const heartInput = document.getElementById("heart");  // checkbox
-    const likeCountElement = document.getElementById("likeCount");  // 좋아요 수 표시 요소
+    $(function() {
+        const storecodeInput = document.getElementById("storecode");
+        const heartInput = document.getElementById("heart");  // checkbox
+        const likeCountElement = document.getElementById("likeCount");  // 좋아요 수 표시 요소
 
-    if (!storecodeInput || !heartInput || !likeCountElement) return;
+        if (!storecodeInput || !heartInput || !likeCountElement) return;
 
-    const storecode = parseInt(storecodeInput.value, 10);
-    const contextPath = "${pageContext.request.contextPath}";
-    const checkUrl = contextPath + "/like/check";
-    const toggleUrl = contextPath + "/like/toggle";
+        const storecode = parseInt(storecodeInput.value, 10);
+        const contextPath = "${pageContext.request.contextPath}";
+        const checkUrl = contextPath + "/like/check";
+        const toggleUrl = contextPath + "/like/toggle";
 
-    // 페이지 진입 시 좋아요 상태 확인
-    fetch(checkUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ storecode })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (!data.success && data.message?.includes("로그인")) {
-            alert("로그인이 필요합니다.");  // 로그인 알림만
-            return;
-        }
-
-        if (data.success) {
-            heartInput.checked = data.liked;
-            likeCountElement.textContent = data.storelikes !== undefined ? data.storelikes : 0;
-        }
-    });
-
-    // 좋아요 토글 처리
-    heartInput.addEventListener("change", function () {
-        fetch(toggleUrl, {
+        // 페이지 진입 시 좋아요 상태 확인
+        fetch(checkUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ storecode })
         })
         .then(response => response.json())
         .then(data => {
-            if (!data.success) {
-                if (data.message?.includes("로그인")) {
-                    alert("로그인이 필요합니다.");  // 로그인 알림만
-                    heartInput.checked = false;   // 체크 해제
-                    return;
-                }
+            if (!data.success && data.message?.includes("로그인")) {
+                alert("로그인이 필요합니다.");  // 로그인 알림만
+                return;
+            }
 
-                alert(data.message || "좋아요 처리 중 오류 발생");
-                heartInput.checked = !heartInput.checked;
-            } else {
+            if (data.success) {
+                heartInput.checked = data.liked;
                 likeCountElement.textContent = data.storelikes !== undefined ? data.storelikes : 0;
             }
-        })
-        .catch(error => {
-            console.error("❌ 좋아요 토글 실패:", error);
-            alert("서버 오류 발생");
-            heartInput.checked = !heartInput.checked;
+        });
+
+        // 좋아요 토글 처리
+        heartInput.addEventListener("change", function () {
+            fetch(toggleUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ storecode })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    if (data.message?.includes("로그인")) {
+                        alert("로그인이 필요합니다.");  // 로그인 알림만
+                        heartInput.checked = false;   // 체크 해제
+                        return;
+                    }
+
+                    alert(data.message || "좋아요 처리 중 오류 발생");
+                    heartInput.checked = !heartInput.checked;
+                } else {
+                    likeCountElement.textContent = data.storelikes !== undefined ? data.storelikes : 0;
+                }
+            })
+            .catch(error => {
+                console.error("❌ 좋아요 토글 실패:", error);
+                alert("서버 오류 발생");
+                heartInput.checked = !heartInput.checked;
+            });
         });
     });
-});
-
   </script>
 </body>
 </html>
