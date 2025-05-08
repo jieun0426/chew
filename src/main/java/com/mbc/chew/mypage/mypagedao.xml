@@ -6,10 +6,10 @@
 
 <mapper namespace="com.mbc.chew.mypage.MyPageService">
 <select id="getUserById" resultType="com.mbc.chew.joinlogin.JoinLogDTO" parameterType="String">
-    SELECT * FROM member_3 WHERE id = #{param1}
+    select * from member_3 WHERE id = #{param1}
   </select>
 <select id="mymodify0423" resultType="com.mbc.chew.joinlogin.JoinLogDTO">
-    SELECT * FROM member_3 WHERE id = #{param1}
+    select * from member_3 WHERE id = #{param1}
 </select>
 
 <update id="mymodify042322">
@@ -27,4 +27,53 @@
 </delete>
 
 
-</mapper> 
+
+<!-- 내 리뷰 총 개수 -->
+<select id="countUserReviews" parameterType="String" resultType="int">
+    select count(*) from review_3 where id = #{param1}
+</select>
+
+<!-- 내 리뷰 페이징 -->
+<select id="pagingUserReviews" resultType="map">
+    select r.content, r.stars, r.title, s.storename, s.storecode
+    from (
+        select rownum rn, A.* 
+        from (
+            select * 
+            from review_3 
+            where id = #{param1} 
+            order by stars desc
+        ) a
+    ) r
+    join store_3 s on r.storecode = s.storecode
+    where rn between #{param2} and #{param3}
+</select>
+
+ 
+
+<select id="pagingUserBook" resultType="map">
+    select b.saramsu, b.state, b.bookingdate, b.bookingtime, s.storename, s.storecode
+    from booking_3 b
+    join store_3 s on b.storecode = s.storecode
+    where b.id = #{param1}
+    order by b.bookingdate desc
+</select>
+
+<!-- 예약삭제 -->
+<delete id="deleteUserBookings">
+  delete from booking_3 where id = #{param1}
+</delete>
+
+<!-- 리뷰삭제 -->
+<delete id="deleteUserReviews">
+  delete from review_3 where id = #{param1}
+</delete>
+
+<!-- 좋아요삭제 -->
+<delete id="deleteUserLikes">
+  delete from MEMBER_LIKES where member_id = #{param1}
+</delete>
+
+</mapper>
+
+

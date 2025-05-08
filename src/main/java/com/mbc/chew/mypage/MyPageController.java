@@ -1,6 +1,8 @@
 package com.mbc.chew.mypage;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mbc.chew.detail.PageDTO;
 import com.mbc.chew.joinlogin.JoinLogDTO;
 
 @Controller
@@ -22,7 +25,8 @@ public class MyPageController {
 
 	@Autowired
 	SqlSession sqlSession;
-
+	
+	//마이페이지 비밀번호 들어가기 전 체크
 	@RequestMapping(value = "/mypagePwcheck")
 	public String personalpwcheck(HttpServletRequest request) {
 		HttpSession session = request.getSession();
@@ -104,7 +108,8 @@ public class MyPageController {
 	    return "mypagedel";
 	}
 
-	//�쉶�썝�깉�눜 泥댄겕
+
+	//회원탈퇴 체크(예약,리뷰,좋아요 다 삭제)
 	@RequestMapping(value = "/mypagedelsave", method = RequestMethod.POST)
 	public String myinfodelete2(HttpServletRequest request) {
 		String id = request.getParameter("id");
@@ -119,6 +124,10 @@ public class MyPageController {
 		boolean flag = pe.matches(pw, cpw); // 鍮꾨�踰덊샇 鍮꾧탳
 
 		if (flag) {
+			
+			ms.deleteUserBookings(id);//예약삭제
+			ms.deleteUserReviews(id);//리뷰삭제
+			ms.deleteUserLikes(id);//좋아요삭제
 			ms.deleteUserById0424(id);
 			HttpSession hs = request.getSession();
 			hs.invalidate();// �꽭�뀡 醫낅즺 (濡쒓렇�븘�썐 �슚怨�)
@@ -132,9 +141,53 @@ public class MyPageController {
 	
 	//�궡媛� �옉�꽦�븳 由щ럭 �솗�씤
 	@RequestMapping(value = "/mypagereview")
-	public String reviewcheckk(HttpServletRequest request, Model mo) {
+	public String reviewcheckk(HttpServletRequest request, Model mo, HttpSession hs) {
+	    String id = (String) hs.getAttribute("id");
+
+	    if (id == null)
+	        return "redirect:/loginput";
+
+	    MyPageService ms = sqlSession.getMapper(MyPageService.class);
+
+	    // 페이징 처리
+	    int nowPage;
+	    try {
+	        nowPage = Integer.parseInt(request.getParameter("page"));
+	    } catch (Exception e) {
+	        nowPage = 1;
+	    }
+
+	    int cntPerPage = 5; 
+	    int total = ms.countUserReviews(id); 
+
+	    PageDTO pdto = new PageDTO(total, nowPage, cntPerPage);
+
+	    // ★ start, end를 보내서 해당 구간 리뷰만 가져옴
+	    List<Map<String, Object>> reviewList = ms.pagingUserReviews(id, pdto.getStart(), pdto.getEnd());
+
+	    mo.addAttribute("myreviews", reviewList);
+	    mo.addAttribute("pdto", pdto); // 페이지 정보도 넘기기
 
 	    return "mypagereview";
+	}
+
+	//내 예약관리
+	@RequestMapping(value = "/mypagebook")
+	public String mypagebooking(HttpServletRequest request,Model mo,HttpSession hs) {
+		String id = (String) hs.getAttribute("id");
+
+	    if (id == null)
+	        return "redirect:/loginput";
+
+	    MyPageService ms = sqlSession.getMapper(MyPageService.class);
+
+	    
+	    // ★ start, end를 보내서 해당 구간 리뷰만 가져옴
+	    List<Map<String, Object>> bookList = ms.pagingUserBook(id);
+
+	    mo.addAttribute("mybook", bookList);
+
+		return "mypagebook";
 	}
 	
 	
@@ -146,6 +199,5 @@ public class MyPageController {
 
 	    return "mypagePwcheck";
 	}
-
 
 }

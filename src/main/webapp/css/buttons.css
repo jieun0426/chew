@@ -7,7 +7,7 @@
 	font-size: 1em; /* 글자 크기 */
 	background-color: #ffe98b;
 	color: black;
-	border-radius: 15px;
+	border-radius: 10px;
 	font-weight: bold;
 	vertical-align: middle;
 }
@@ -61,20 +61,59 @@
 }
 
 /* 커스터마이즈한 파일 선택 버튼 */
-.file-label {
-  display: inline-block;
-  border: 2px solid #ffdb5a;
-	width: 90px;
-	height: 30px;
-	font-size: 1.1em;
-	background-color: #ffe98b;
-	color: black;
-	border-radius: 15px;
-	font-weight: bold;
+.plusButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #e5e7eb;
+  border-radius: 50%;
+  cursor: pointer;
 }
+
+.plusButton:hover .plusIcon {
+  transform: rotate(90deg);
+}
+
+.plusIcon {
+  fill: #4b5563;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s, fill 0.3s;
+}
+
 
 .file-name {
   margin-left: 10px; /* 버튼과 파일 이름 간격 */
   font-size: 14px;
   color: #555; /* 파일 이름 색상 */
+}
+
+.minusButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  background-color: #fecaca; /* 연한 빨강 */
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.minusButton:hover .minusIcon {
+  transform: rotate(-90deg);
+}
+
+.minusIcon {
+  fill: #b91c1c; /* 진한 빨강 */
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s, fill 0.3s;
+}
+
+.minusButton:active .minusIcon {
+  fill: #7f1d1d; /* 더 진한 빨강 */
 }

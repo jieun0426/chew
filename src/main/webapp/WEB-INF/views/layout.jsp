@@ -33,6 +33,7 @@ nav
    width: 100%;
    flex: 1;
    margin-bottom: 50px;
+   background-color: #FBF8EF;
 }
 #footer
 {
@@ -56,7 +57,7 @@ nav
     color: white;
     padding: 10px 15px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
     cursor: pointer;
   }
 

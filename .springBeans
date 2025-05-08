@@ -9,6 +9,7 @@
 	<configs>
 		<config>src/main/resources/tiles/sam.xml</config>
 		<config>src/main/java/com/mbc/chew/joinlogin/joinloginidao.xml</config>
+		<config>src/main/java/com/mbc/chew/faq/faq.xml</config>
 	</configs>
 	<autoconfigs>
 		<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>

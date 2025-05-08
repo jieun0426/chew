@@ -38,6 +38,11 @@
 		<put-attribute name="body" value="/WEB-INF/views/mypage/mypinfo.jsp"/>
 	</definition>
 	
+	<definition name="mypagebook" extends="baseLayout">
+		<put-attribute name="title" value="예약현황"/>
+		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagebook.jsp"/>
+	</definition>
+	
 	<definition name="mypagereview" extends="baseLayout">
 		<put-attribute name="title" value="작성리뷰확인"/>
 		<put-attribute name="body" value="/WEB-INF/views/mypage/mypagereview.jsp"/>
@@ -129,6 +134,20 @@
 								<!-- 회원관리 끝 -->
 
 
+	<definition name="storemanage_search" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/storemanage/storemanage_search.jsp"/>
+	</definition>
 	
+	<definition name="FAQout" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/FAQ/FAQout.jsp"/>
+	</definition>
+	
+	<definition name="FAQin" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/FAQ/FAQin.jsp"/>
+	</definition>
+
 	
 </tiles-definitions>

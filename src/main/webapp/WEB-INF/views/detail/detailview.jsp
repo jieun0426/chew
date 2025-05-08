@@ -7,6 +7,35 @@
 <head>
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
+<script>
+// 수정 폼 보이기
+function showEdit(storecode) {
+  const reviewDisplay = document.getElementById('review-display-' + storecode);
+  const editBox = document.getElementById('edit-' + storecode);
+
+  if (reviewDisplay && editBox) {
+    reviewDisplay.style.display = 'none';
+    editBox.style.display = 'block';
+  }
+}
+
+// 수정 폼 닫기
+function cancelEdit(storecode) {
+  const reviewDisplay = document.getElementById('review-display-' + storecode);
+  const editBox = document.getElementById('edit-' + storecode);
+
+  if (reviewDisplay && editBox) {
+    reviewDisplay.style.display = 'block';
+    editBox.style.display = 'none';
+  }
+}
+
+
+</script>
+
+
+
+  
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -56,7 +85,7 @@
       justify-content: center;
       gap: 30px;
       margin: 0;
-      padding: 0;
+      padding: 0; 
     }
     .top-nav a {
       text-decoration: none;
@@ -154,6 +183,8 @@ button.next { right: 0; }
 }
 
 .review {
+padding: 20px;
+  text-align: left;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -181,12 +212,14 @@ button.next { right: 0; }
   font-weight: bold;
   color: #333;
   margin-bottom: 6px;
+  text-align: left;
 }
 
 .review-content {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
+  text-align: left;
 }
 
 .map-wrapper {
@@ -281,6 +314,9 @@ button.next { right: 0; }
 	  text-align: center;
 	  background:bisque;
 	}
+	.btn02:hover{
+		cursor: pointer;
+	}
 	.rating:not(:checked) > input {
 	  position: absolute;
 	  appearance: none;
@@ -319,26 +355,23 @@ button.next { right: 0; }
 	  color: #666;
 	}
 
-    #heart {
+#heart {
   display: none;
 }
 
-
 .like-button {
-  position: relative;
+   position: relative;
   cursor: pointer;
   display: flex;
-  height: 48px;
-  width: 136px;
+  height: 38px;
+  width: 126px; 
   border-radius: 16px;
-  border: none;
+  border: 1px solid #e0e0e0;
   background-color: white;
   overflow: hidden;
-  box-shadow:
-    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
-    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
-    4px 4px 10px rgba(0, 0, 0, 0.4),
-    -2px -2px 8px rgba(255, 255, 255, 0.1);
+  margin-top: 10px; /* 원하는 만큼 아래로 이동 */
+  margin-bottom: 110px;
+  margin-left: 370px;  
 }
 
 .review_title {
@@ -369,11 +402,12 @@ button.next { right: 0; }
   fill: #505050;
   height: 28px;
   width: 28px;
+  transition: all 0.2s ease-out;
 }
 
 .like-text {
   color: black;
-  font-size: 16px;
+  font-size: 13px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -389,28 +423,30 @@ button.next { right: 0; }
   font-size: 16px;
   border-left: 2px solid #4e4e4e;
   transition: all 0.5s ease-out;
+
+  /* ✅ 기본 위치에서 보이도록 설정 */
+  transform: translateY(0);
 }
 
-
-.like-count.two {
-  transform: translateY(40px);
-}
-
+/* ✅ 좋아요 눌렀을 때 아이콘 색과 애니메이션 */
 .on:checked ~ .like .like-icon {
   fill: #fc4e4e;
   animation: enlarge 0.2s ease-out 1;
-  transition: all 0.2s ease-out;
 }
 
-.on:checked ~ .like-count.two {
-  transform: translateX(0);
+/* ✅ 좋아요 수 애니메이션 색상 변경 */
+.on:checked ~ .like-count {
   color: black;
 }
 
-.on:checked ~ .like-count.one {
-  transform: translateY(-40px);
+/* ✅ 필요 없는 클래스는 제거하거나 무시 */
+.like-count.two,
+.like-count.one {
+  /* 클래스가 있어도 위치 고정 */
+  transform: translateY(0);
 }
 
+/* 하트 애니메이션 */
 @keyframes enlarge {
   0% {
     transform: scale(0.5);
@@ -418,60 +454,6 @@ button.next { right: 0; }
   100% {
     transform: scale(1.2);
   }
-
-.rating:not(:checked) > label {
-  float: right;
-
-.like-button {
-  position: relative;
-  cursor: pointer;
-  display: flex;
-  height: 48px;
-  width: 136px;
-  border-radius: 16px;
-  border: none;
-  background-color: white;
-  overflow: hidden;
-  box-shadow:
-    inset -2px -2px 5px rgba(255, 255, 255, 0.2),
-    inset 2px 2px 5px rgba(0, 0, 0, 0.1),
-    4px 4px 10px rgba(0, 0, 0, 0.4),
-    -2px -2px 8px rgba(255, 255, 255, 0.1);
-}
-
-.like {
-  width: 70%;
-  height: 100%;
-  display: flex;
-  cursor: pointer;
-  align-items: center;
-  justify-content: space-evenly;
-}
-
-.like-icon {
-  fill: #505050;
-  height: 28px;
-  width: 28px;
-}
-
-.like-text {
-  color: black;
-  font-size: 16px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-}
-
-.like-count {
-  position: absolute;
-  right: 0;
-  width: 30%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: gray;
-  font-size: 16px;
-  border-left: 2px solid #4e4e4e;
-  transition: all 0.5s ease-out;
 }
 
 .review_logout_box {
@@ -497,44 +479,160 @@ button.next { right: 0; }
 	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
 	cursor: pointer;
 }
-.like-count.two {
-  transform: translateY(40px);
+
+/* 리뷰 수정 삭제 버튼 */
+
+/* 부모 요소에 상대 위치 설정 */
+.review {
+  position: relative;
 }
 
-.on:checked ~ .like .like-icon {
-  fill: #fc4e4e;
-  animation: enlarge 0.2s ease-out 1;
-  transition: all 0.2s ease-out;
+/* 버튼 박스를 오른쪽 위로 이동 */
+.review-buttons {
+  position: absolute;
+  top: 10px;       /* 위쪽 여백 */
+  right: 10px;     /* 오른쪽 여백 */
+  display: flex;
+  gap: 10px;
 }
 
-.on:checked ~ .like-count.two {
-  transform: translateX(0);
-  color: black;
+.review-btn-form {
+  display: inline-block;
 }
 
-.on:checked ~ .like-count.one {
-  transform: translateY(-40px);
+.review-buttons .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
 }
 
-@keyframes enlarge {
-  0% {
-    transform: scale(0.5);
-  }
-  100% {
-    transform: scale(1.2);
-  }
+.review-buttons .btn:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
 }
+
+.review-edit {
+  border-radius: 12px;
+  height: 220px; /* 고정 높이 유지 */
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
+  overflow: hidden; /* 넘치는 요소 숨기기 */
+}
+
+.review-edit .edit-group {
+  margin-bottom: 16px;
+}
+
+.review-edit label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.review-edit input[type="text"],
+.review-edit textarea {
+  width: 100%;
+  font-size: 15px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.review-edit input[type="text"]:focus,
+.review-edit textarea:focus {
+  background-color: #fff;
+  outline: none;
+}
+
+.review-edit textarea {
+  height: 90px;
+  resize: vertical;
+}
+
+
+
+
+.edit-buttons {
+  position: absolute;
+  bottom: 25px;
+  right: 26px; /* ← 원래 6px이었던 값을 더 크게 조정 (왼쪽으로 이동) */
+  display: flex;
+  gap: 10px;
+}
+
+
+
+
+.edit-buttons .btn {
+  padding: 6px 12px;
+  font-size: 14px;
+  border-radius: 6px;
+  border: 1px solid #aaa;
+  background-color: #fff;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.edit-buttons .btn:hover {
+  background-color: #f0f0f0;
+  border-color: #888;
+}
+
+.edit-buttons .cancel {
+  color: #b00;
+  border-color: #b00;
+}
+
+.btn.cancel {
+  color: #b00 !important;
+  border-color: #b00 !important;
+}
+.btn.cancel:hover {
+  background-color: #ffe5e5;
+  border-color: #a00;
+}
+
+/* 리뷰 안 텍스트 정렬 통일 */
+
+.review-header,
+.review-stars
+{
+  padding-left: -10px;  /* 왼쪽 여백을 동일하게 맞춤 */
+}
+
+
+/* 아바타 아이콘과 아이디 나란히 정렬 */
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+.review-avatar-emoji {
+  font-size: 18px;
+}
+
      
-  </style>
+</style>
 
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script>
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
   const storecode = "${ddto.storecode}";
 </script>
 </head>
 <body>
-
   <header class="top-nav">
     <nav>
       <ul>
@@ -553,29 +651,7 @@ button.next { right: 0; }
 
         <div class="title"><h1>${ddto.storename}</h1></div>
         
-        <div class="title-like">
-          <h1>${ddto.storename}</h1>
-          <label class="like-wrapper">
-            <input type="checkbox" class="check">
-            <div class="like-btn">
-              <svg class="icon inactive" viewBox="0 0 24 24">
-                <path d="M12.1 8.64l-.1.1-.11-.11C10.14 6.7 7.5 6.7 5.7 8.5c-1.8 1.8-1.8 4.6 0 6.4l6.4 6.4 6.4-6.4c1.8-1.8 1.8-4.6 0-6.4-1.8-1.8-4.6-1.8-6.4 0z"
-                      fill="none" stroke="currentColor" stroke-width="2"/>
-              </svg>
-              <svg class="icon active" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 
-                         4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 
-                         14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 
-                         6.86-8.55 11.54L12 21.35z"/>
-              </svg>
-              <span class="like-text">Like</span>
-            </div>
-          </label>
-        </div>
-
-        <div class="title"><h1>${ddto.storename}</h1></div>
-
-       <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
+        <c:set var="fullStars" value="${avgStars - (avgStars % 1)}" />
        <c:set var="emptyStars" value="${5 - fullStars}" />
 
        <div class="stars">
@@ -593,34 +669,25 @@ button.next { right: 0; }
         <p>🕒 ${ddto.storehours}</p>    
       </div>
       <!-- 좋아요 버튼 영역 -->
-      <input type="hidden" id="storecode" value="${ddto.storecode}" />
-	  <div class="like-button">
-	  <input class="on" id="heart" type="checkbox" />
-	  <label class="like" for="heart">
-		   <svg
-	      class="like-icon"
-	      fill-rule="nonzero"
-	      viewBox="0 0 24 24"
-	      xmlns="http://www.w3.org/2000/svg"
-	    >
-	      <path
-	        d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
-	      ></path>
-	    </svg>
-	    <span class="like-text">Likes</span>
-	  </label>
-	  <span class="like-count one">${ddto.storelikes}</span>
-	  <span class="like-count two">${ddto.storelikes}</span>
+   <div class="like-button">
+     <input class="on" id="heart" type="checkbox" />
+     <label class="like" for="heart">
+       <svg class="like-icon" fill-rule="nonzero" viewBox="0 0 24 24">
+         <path
+           d="m11.645 20.91-.007-.003-.022-.012a15.247 15.247 0 0 1-.383-.218 25.18 25.18 0 0 1-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0 1 12 5.052 5.5 5.5 0 0 1 16.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 0 1-4.244 3.17 15.247 15.247 0 0 1-.383.219l-.022.012-.007.004-.003.001a.752.752 0 0 1-.704 0l-.003-.001Z"
+         ></path>
+       </svg>
+       <span class="like-text">Likes</span>
+     </label>
+     <span class="like-count" id="likeCount">${ddto.storelikes}</span>
 	</div>
+        
 
-<!-- 숨겨진 storecode 값 -->
-<input type="hidden" id="storecode" value="${ddto.storecode}" />
-		
+	<!-- 숨겨진 storecode 값 -->
+	<input type="hidden" id="storecode" value="${ddto.storecode}" />
+      
+      
 
-<!-- 숨겨진 storecode 값 -->
-<input type="hidden" id="storecode" value="${ddto.storecode}" />
-		
-		       
     </div>
    </div>
    
@@ -630,12 +697,7 @@ button.next { right: 0; }
         <ul id="imageList">
          <c:forEach var="image" items="${imagelist}">
            <li>
-
-
            <img src="image/${image.image_filename}" alt="Store Image">
-
-           <img src="${pageContext.request.contextPath}/images/${image.image_filename}" alt="Store Image">
-
            </li>
          </c:forEach>
         </ul>
@@ -798,7 +860,7 @@ button.next { right: 0; }
   	</c:when>
   	<c:otherwise>
   		<!-- 고정된 사용자 ID -->
-		<input type="hidden" name="id" value="testuser">
+		<input type="hidden" name="id" value="${id}">
 		
 		<!-- storecode는 해당 가게의 코드 -->
 		<input type="hidden" name="storecode" value="${ddto.storecode}">
@@ -828,7 +890,8 @@ button.next { right: 0; }
 		<!-- 리뷰 등록 버튼 -->
 		<button type="submit" class="btn02" style="display: block; margin: 0 auto; margin-bottom: 100px;">리뷰 등록하기</button>
 
-  	</c:otherwise>
+
+     </c:otherwise>
   </c:choose>
   
 </form>
@@ -836,28 +899,63 @@ button.next { right: 0; }
 </div>
    
 <div class="review-section" id="reviews">
-    <h2>리뷰</h2>
+  <h2>리뷰</h2>
 
-    <c:forEach var="r" items="${list}">
-        <div class="review">
-            <div class="review-header">
-                <span class="review-avatar-emoji">👤</span>
-                <span class="review-id">${r.id}</span>
-            </div>
-            <div class="review-stars">
-                <c:forEach var="i" begin="1" end="${r.stars}">
-                    ★
-                </c:forEach>
-                <c:forEach var="i" begin="${r.stars + 1}" end="5">
-                    ☆
-                </c:forEach>
-            </div>
-            <div class="review-title">${r.title}</div>
-            <div class="review-content">${r.content}</div>
+  <c:forEach var="r" items="${list}">
+    <div class="review" id="review-${r.storecode}">
+
+      <!-- ✅ 기존 리뷰 표시 부분 감싸기 -->
+      <div id="review-display-${r.storecode}">
+        <div class="review-header">
+          <span class="review-avatar-emoji">👤</span>
+          <span class="review-id">${r.id}</span>
         </div>
-    </c:forEach>
-    
+
+        <div class="review-stars">
+          <c:forEach var="i" begin="1" end="${r.stars}">★</c:forEach>
+          <c:forEach var="i" begin="${r.stars + 1}" end="5">☆</c:forEach>
+        </div>
+
+        <div class="review-title">${r.title}</div>
+        <div class="review-content">${r.content}</div>
+
+        <c:if test="${loginstate == true && r.id == id}">
+          <div class="review-buttons">
+            <button type="button" class="btn" onclick="showEdit(${r.storecode})">수정</button>
+            <form action="deleteReview" method="post" class="review-btn-form">
+              <input type="hidden" name="id" value="${r.id}">
+              <input type="hidden" name="storecode" value="${r.storecode}">
+              <button type="submit" class="btn cancel">삭제</button>
+            </form>
+          </div>
+        </c:if>
+      </div>
+
+     <div class="review-edit" id="edit-${r.storecode}" style="display: none;">
+  <form action="editReview" method="post">
+    <input type="hidden" name="id" value="${r.id}">
+    <input type="hidden" name="storecode" value="${r.storecode}">
+
+    <div class="edit-group">
+      <input type="text" id="title-${r.storecode}" name="title" value="${r.title}">
+    </div>
+
+    <div class="edit-group">
+      <textarea id="content-${r.storecode}" name="content">${r.content}</textarea>
+    </div>
+
+    <div class="edit-buttons">
+      <button type="submit" class="btn">수정완료</button>
+      <button type="button" class="btn cancel" onclick="cancelEdit(${r.storecode})">취소</button>
+    </div>
+  </form>
 </div>
+
+
+    </div>
+  </c:forEach>
+</div>
+
 <button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
 <!-- hasMore 플래그를 data 속성으로 -->
 <div id="moreFlag" data-hasmore="${hasMore}"></div>
@@ -870,28 +968,23 @@ button.next { right: 0; }
   // JSP에서 전달된 데이터로 좌표 세팅
   var lat = ${ddto.latitude};
   var lng = ${ddto.longitude};
-
   var mapContainer = document.getElementById('map'),
-      mapOption = { 
-          center: new kakao.maps.LatLng(lat, lng),
-          level: 3 
-      };
+  mapOption = { 
+      center: new kakao.maps.LatLng(lat, lng),
+      level: 3 
+  };
 
-  var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-
-
-  var marker = new kakao.maps.Marker({
-      position: markerPosition
-  });
-
-  marker.setMap(map);
-</script>
-  
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+	
+	var markerPosition  = new kakao.maps.LatLng(lat, lng); 
+	
+	
+	var marker = new kakao.maps.Marker({
+	  position: markerPosition
+	});
+	
+	marker.setMap(map);
+	
   $(window).on('load', function() {
     let i = 0,
         $slides = $('#imageList'),
@@ -922,34 +1015,9 @@ button.next { right: 0; }
 
     updateNav();
   });
-    
-  </script>
-  <script>
   
 	$(document).ready(function(){
-		let i = 0,
-		$slides = $('.cardWrap ul'),
-		$items = $('.cardWrap ul li'),
-		slideCount = $items.length;
-
-		function goToSlide(index) {
-	        if (index < 0) index = 0;
-	        if (index >= slideCount) index = slideCount - 1;
-	        const shift = (800 + 20) * index;
-	        $slides.animate({ left: -shift + 'px' }, 300);
-	        i = index;
-	        updateNav();
-		}
-	
-		function updateNav() {
-			$('.prev').toggle(i > 0);
-	        $('.next').toggle(i < slideCount - 1);
-		}
-	
-		$('.prev').click(() => goToSlide(i - 1));
-		$('.next').click(() => goToSlide(i + 1));
-	
-		updateNav();
+		
 	      
 		let reviewOffset = 5;
 
@@ -994,55 +1062,8 @@ button.next { right: 0; }
 		});
 	});
 
-  var mapContainer = document.getElementById('map'),
-      mapOption = { 
-          center: new kakao.maps.LatLng(lat, lng),
-          level: 3 
-      };
-
-  var map = new kakao.maps.Map(mapContainer, mapOption); 
-
-  var markerPosition  = new kakao.maps.LatLng(lat, lng); 
-
-  var marker = new kakao.maps.Marker({
-      position: markerPosition
-  });
-
-  marker.setMap(map);
-</script>
   
 
-<script>
-  $(window).on('load', function() {
-    let i = 0,
-        $slides = $('#imageList'),
-        $items = $('#imageList li'),
-        slideCount = $items.length;
-
-    const slideWidth = 800 + 20; // 이미지 너비 + 여백
-
-    // 슬라이드 전체 너비 계산해서 적용
-    $slides.css('width', slideCount * slideWidth);
-
-    function goToSlide(index) {
-      if (index < 0) index = 0;
-      if (index >= slideCount) index = slideCount - 1;
-      const shift = slideWidth * index;
-      $slides.animate({ left: -shift + 'px' }, 300);
-      i = index;
-      updateNav();
-    }
-
-    function updateNav() {
-      $('.prev').toggle(i > 0);
-      $('.next').toggle(i < slideCount - 1);
-    }
-
-    $('.prev').click(() => goToSlide(i - 1));
-    $('.next').click(() => goToSlide(i + 1));
-
-    updateNav();
-  });
     
     $(function() {
         const modal = $('#bookingModal');
@@ -1073,65 +1094,66 @@ button.next { right: 0; }
           });     
       });
     
-    //조아요
-	   $(function() {
-    const storecodeInput = document.getElementById("storecode");
-    const heartInput = document.getElementById("heart");  // checkbox
+    $(function() {
+        const storecodeInput = document.getElementById("storecode");
+        const heartInput = document.getElementById("heart");  // checkbox
+        const likeCountElement = document.getElementById("likeCount");  // 좋아요 수 표시 요소
 
-    if (!storecodeInput || !heartInput) return;
+        if (!storecodeInput || !heartInput || !likeCountElement) return;
 
-    const storecode = parseInt(storecodeInput.value, 10);
-    const contextPath = "${pageContext.request.contextPath}";
-    const checkUrl = contextPath + "/like/check";
-    const toggleUrl = contextPath + "/like/toggle";
+        const storecode = parseInt(storecodeInput.value, 10);
+        const contextPath = "${pageContext.request.contextPath}";
+        const checkUrl = contextPath + "/like/check";
+        const toggleUrl = contextPath + "/like/toggle";
 
-    // ✅ 1. 페이지 진입 시 좋아요 상태 확인
-    fetch(checkUrl, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ storecode })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            heartInput.checked = data.liked;  // 체크박스 상태 반영
-        }
-    });
-
-    // ✅ 2. 체크박스 클릭 시 좋아요 토글 요청
-    heartInput.addEventListener("change", function () {
-        fetch(toggleUrl, {
+        // 페이지 진입 시 좋아요 상태 확인
+        fetch(checkUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ storecode })
         })
         .then(response => response.json())
         .then(data => {
-            if (!data.success) {
-                alert(data.message || "좋아요 처리 중 오류 발생");
-                heartInput.checked = !heartInput.checked; // 실패 시 롤백
+            if (!data.success && data.message?.includes("로그인")) {
+                alert("로그인이 필요합니다.");  // 로그인 알림만
+                return;
             }
-        })
-        .catch(error => {
-            console.error("❌ 좋아요 토글 실패:", error);
-            alert("서버 오류 발생");
-            heartInput.checked = !heartInput.checked; // 실패 시 롤백
+
+            if (data.success) {
+                heartInput.checked = data.liked;
+                likeCountElement.textContent = data.storelikes !== undefined ? data.storelikes : 0;
+            }
+        });
+
+        // 좋아요 토글 처리
+        heartInput.addEventListener("change", function () {
+            fetch(toggleUrl, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ storecode })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    if (data.message?.includes("로그인")) {
+                        alert("로그인이 필요합니다.");  // 로그인 알림만
+                        heartInput.checked = false;   // 체크 해제
+                        return;
+                    }
+
+                    alert(data.message || "좋아요 처리 중 오류 발생");
+                    heartInput.checked = !heartInput.checked;
+                } else {
+                    likeCountElement.textContent = data.storelikes !== undefined ? data.storelikes : 0;
+                }
+            })
+            .catch(error => {
+                console.error("❌ 좋아요 토글 실패:", error);
+                alert("서버 오류 발생");
+                heartInput.checked = !heartInput.checked;
+            });
         });
     });
-});
-
-
-
-
-
-
-    
-    
-
-  
- 
-
-    
   </script>
 </body>
 </html>

@@ -19,16 +19,9 @@
 <select id="reviewout" parameterType="int" resultType="com.mbc.chew.review.ReviewDTO">
         SELECT * from (select rownum rn, A.* from (SELECT ID, STORECODE, CONTENT, STARS, TITLE
         FROM REVIEW_3 
-        where storecode= #{param1} order by stars desc) A)
+        where storecode= #{param1}) A)
         where rn&lt;=5
 
-</select>
-
-
-<select id="getAverageStars" parameterType="int" resultType="double">
-	SELECT NVL(ROUND(AVG(STARS), 1), 0) <!-- nvl->리뷰가 없어도 0반환 -->
-	FROM REVIEW_3 
-	WHERE STORECODE = #{storecode}
 </select>
 
 <select id="getReviews" resultType="com.mbc.chew.review.ReviewDTO">
@@ -36,12 +29,32 @@
 	    select rownum rn, A.* from (
 	        select * from review_3
 	        where storecode = #{param1}
-	        order by stars desc
 	    ) A
 	    where rownum &lt;= #{param2} + 6
 	)
 	where rn > #{param2}
-  </select>
+</select>
+
+<select id="getAverageStars" parameterType="int" resultType="double">
+	SELECT NVL(ROUND(AVG(STARS), 1), 0) <!-- nvl->리뷰가 없어도 0반환 -->
+	FROM REVIEW_3 
+	WHERE STORECODE = #{storecode}
+</select>
+    
+<update id="updateReview" parameterType="com.mbc.chew.review.ReviewDTO">
+    UPDATE REVIEW_3
+    SET TITLE = #{title},   
+        CONTENT = #{content}  
+    WHERE ID = #{id}     
+      AND STORECODE = #{storecode} 
+</update>
+
+
+    
+<delete id="deleteReview">
+  DELETE FROM REVIEW_3 
+  WHERE ID = #{param1} AND STORECODE = #{param2}
+</delete>
     
 </mapper>
 

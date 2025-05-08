@@ -43,9 +43,6 @@ public class DetailController {
 		model.addAttribute("list", plist);
 		model.addAttribute("pdto", pdto);
 
-//		ArrayList<DetailDTO>list=ds.resout();
-//		model.addAttribute("list",list);
-		
 		return "detailmain";
 	}
 	
@@ -65,17 +62,17 @@ public class DetailController {
 		ArrayList<ImageDTO> imagelist = is.getImage(Integer.parseInt(code));
 		model.addAttribute("imagelist", imagelist);
 
-	    ArrayList<ReviewDTO> list = rs.getReviews(Integer.parseInt(code),0);
-	    boolean hasMore = list.size() > 5;
+	    ArrayList<ReviewDTO> reviewlist = rs.getReviews(Integer.parseInt(code),0);
+	    int listsize=reviewlist.size();
+	    boolean hasMore = listsize > 5;
 
 	    if (hasMore) {
-	    	list.remove(5);  // 6번째는 보여주지 않음
+	    	reviewlist.remove(5);  // 6번째는 보여주지 않음
 	    }
-	    model.addAttribute("list", list); // 
+	    model.addAttribute("list", reviewlist); // 
 	    model.addAttribute("hasMore", hasMore);
-
+	    model.addAttribute("listsize", listsize);
 		return "detailview"; 
-
 	}
 	
 	@RequestMapping(value="/loadMoreReviews", produces = "text/html; charset=UTF-8")
@@ -97,5 +94,25 @@ public class DetailController {
 	    return "main/moreReviews"; // JSP fragment 반환 (리뷰 한 세트 5개)
 	}
 	
-	
+	@RequestMapping(value ="/detailmain_search")
+	public String detailmain_search(HttpServletRequest request,Model model) {
+		String search=request.getParameter("search");
+		int nowPage;
+		try {
+			nowPage=Integer.parseInt(request.getParameter("page"));
+		} catch (Exception e) {
+			nowPage=1;
+		}
+		int cntPerPage=6; //한 페이지에 나타낼 레코드 수
+		DetailService ds = sqlSession.getMapper(DetailService.class);
+		int total=ds.countSearchRecords(search);
+		PageDTO pdto = new PageDTO(total, nowPage, cntPerPage);
+		ArrayList<DetailDTO> plist= ds.searchPaging(pdto.getStart(), pdto.getEnd(),search);
+		
+		model.addAttribute("list", plist);
+		model.addAttribute("pdto", pdto);
+		model.addAttribute("search", search);
+		model.addAttribute("count", total);
+		return "detailmain";
+	}
 }
