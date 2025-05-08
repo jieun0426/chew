@@ -58,18 +58,18 @@ public class BookingController {
 	        
 	        
 	        bs.insertbook(
-	            0, // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¹Ç·ï¿½ 0 ï¿½ï¿½ï¿½ï¿½
+	            0, // ÀÚµ¿ ½ÃÄö½º ¹ÞÀ½
 	            storecode,
 	            id,
 	            saramsu,
-	            "ëŒ€ê¸°", // ï¿½âº» ï¿½ï¿½ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
+	            "´ë±â", // 
 	            bookingdate,
 	            bookingtime
 	        );
 	        result = "success";
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        result = "error: " + e.getMessage(); // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ½ï¿½ï¿½ï¿½
+	        result = "error: " + e.getMessage(); 
 	    }
 	    return result;
 	}
