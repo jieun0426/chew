@@ -39,6 +39,24 @@ public class BookingController {
 	        String bookingtime = request.getParameter("bookingtime");
 
 	        BookingService bs = sqls.getMapper(BookingService.class);
+	        // bookingtime 을 분단위로 변환해서 넘겨버림
+	        int bookingmin = Integer.parseInt(bookingtime.substring(0,2)) * 60 + Integer.parseInt(bookingtime.substring(3,5));
+
+	        //사용자가 같은시간 2시간 이내로 중복예약 불가 (중복체크)
+	        int userdup = bs.countuserdup(storecode,id,bookingdate,bookingtime,bookingmin);
+	        if (userdup>0) {
+	        	return "duplicate";
+	        }
+	        
+	        
+	        // 전체 예약시간중 2시간 범위 (이미 다른사용자 예약시 2시간 내 예약불가)
+	        int storedup = bs.countstoredup(storecode,bookingdate,bookingtime,bookingmin);
+	        if(storedup>0) {
+	        	return "time_unavailable";
+	        	
+	        }
+	        
+	        
 	        bs.insertbook(
 	            0, // 시퀀스로 자동 생성되므로 0 전달
 	            storecode,
