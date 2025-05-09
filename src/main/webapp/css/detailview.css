@@ -33,7 +33,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    background: rgba(255, 255, 255, 0.95);
+    background-color: #EDD892;
     backdrop-filter: blur(4px);
     border-bottom: 1px solid #ddd;
     padding: 10px 20px;

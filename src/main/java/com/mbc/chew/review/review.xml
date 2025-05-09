@@ -55,6 +55,40 @@
   DELETE FROM REVIEW_3 
   WHERE ID = #{param1} AND STORECODE = #{param2}
 </delete>
+
+
+<!-- 리뷰관리하다가말앗다 -->
+
+     <!-- 모든 매장 목록과 리뷰 정보 가져오기 -->
+    <select id="getAllStoresWithReviewInfo" resultType="com.mbc.chew.review.ReviewManageDTO">
+        SELECT
+            s.storecode,
+            s.storename,
+            COUNT(r.id) AS review_count,
+            AVG(r.stars) AS average_rating
+        FROM
+            STORE_3 s
+        LEFT JOIN
+            REVIEW_3 r ON s.storecode = r.storecode
+        GROUP BY
+            s.storecode, s.storename
+    </select>
+
+    <!-- 특정 매장에 대한 리뷰 수 가져오기 -->
+    <select id="getReviewCountByStorecode" resultType="int">
+        SELECT COUNT(*) 
+        FROM REVIEW_3 
+        WHERE storecode = #{storecode}
+    </select>
+
+    <!-- 특정 매장에 대한 평균 별점 가져오기 -->
+    <select id="getAverageRatingByStorecode" resultType="double">
+        SELECT AVG(stars)
+        FROM REVIEW_3
+        WHERE storecode = #{storecode}
+    </select>
     
+<!-- 리뷰관리안해도되지않을까하하하ㅏ하 -->
+
 </mapper>
 

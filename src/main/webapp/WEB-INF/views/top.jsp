@@ -19,12 +19,10 @@
 <div class="login">
   <c:choose>
     <c:when test="${loginstate == true}">
-      <a href="mypagePwcheck">👤 ${id}님 반갑습니다</a>
-      <a href="logout">🔓 로그아웃</a>
+      <a href="mypagePwcheck">👤 ${id}님 반갑습니다</a>&nbsp; |<a href="logout">로그아웃</a>
     </c:when>
     <c:otherwise>
-      <a href="joinput">👤 회원가입</a>
-      <a href="loginput">🔐 로그인</a>
+   <a href="joinput">회원가입</a> &nbsp; |<a href="loginput">로그인</a>
     </c:otherwise>
   </c:choose>
 </div>
@@ -40,13 +38,13 @@
 <!-- 왼쪽 사이드바 -->
 <nav id="sidebar" class="sidebar">
   <div class="sidebar-header">
-    <h3>Chew</h3>
+    <h3>MENU</h3>
   </div>
   <ul class="menu">
     <li><a href="main">메인으로</a></li>
     <li><a href="detailmain">맛집 찾기</a></li>
     <li><a href="FAQ">FAQ</a></li>
-    
+
     <c:if test="${loginstate == true}">
       <li><a href="mypagePwcheck">마이페이지</a></li>
     </c:if>

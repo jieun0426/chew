@@ -29,12 +29,12 @@ public class MainController {
 		
 		String area,category;
 		if(request.getParameter("area")==null) {
-			area="서울";
+			area="�꽌�슱";
 		}else {
 			area=request.getParameter("area");
 		}
 		if(request.getParameter("category")==null) {
-			category="한식";
+			category="�븳�떇";
 		}else {
 			category=request.getParameter("category");
 		}
@@ -54,7 +54,7 @@ public class MainController {
 		model.addAttribute("area", list1);
 		
 		/*
-		ArrayList<MainDTO> list2=ms.show3nostars_category("한식");
+		ArrayList<MainDTO> list2=ms.show3nostars_category("�븳�떇");
 		for(int i=0; i<list2.size(); i++) {
 			int storecode=list2.get(i).getStorecode();
 			Double stars=ms.avgStar(storecode);
@@ -72,12 +72,12 @@ public class MainController {
 		
 		String area,category;
 		if(request.getParameter("area")==null) {
-			area="서울";
+			area="�꽌�슱";
 		}else {
 			area=request.getParameter("area");
 		}
 		if(request.getParameter("category")==null) {
-			category="한식";
+			category="�븳�떇";
 		}else {
 			category=request.getParameter("category");
 		}
@@ -96,16 +96,7 @@ public class MainController {
 		model.addAttribute("list", list);
 		model.addAttribute("area", list1);
 		
-		/*
-		ArrayList<MainDTO> list2=ms.show3nostars_category("한식");
-		for(int i=0; i<list2.size(); i++) {
-			int storecode=list2.get(i).getStorecode();
-			Double stars=ms.avgStar(storecode);
-			
-			list2.get(i).setStars(stars);
-		}
-		model.addAttribute("category", list2);
-		*/
+		
 		return "main";
 	}
 	
