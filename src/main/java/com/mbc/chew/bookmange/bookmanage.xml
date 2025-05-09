@@ -62,7 +62,10 @@
         BOOKINGTIME = #{bookingtime}
     WHERE storecode = #{storecode, jdbcType=VARCHAR}
       AND id = #{id, jdbcType=VARCHAR}
+      AND bookingdate = #{bookingdate}
+      AND bookingtime = #{bookingtime}
 </update>
+
 
 
 <!-- 예약창 검색 -->

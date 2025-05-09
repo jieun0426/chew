@@ -54,13 +54,13 @@
         <tr>
             <th>예약날짜</th>
             <td>
-                <input type="date" name="bookingdate" value="<fmt:formatDate value='${detail.BOOKINGDATE}' pattern='yyyy-MM-dd'/>" readonly />
+                <input type="date" name="bookingdate" value="<fmt:formatDate value='${detail.BOOKINGDATE}' pattern='yyyy-MM-dd'/>" >
             </td>
         </tr>
         <tr>
             <th>예약시간</th>
             <td>
-                <input type="time" name="bookingtime" value="${detail.BOOKINGTIME}" readonly />
+                <input type="time" name="bookingtime" value="${detail.BOOKINGTIME}" >
             </td>
         </tr>
     </table>
