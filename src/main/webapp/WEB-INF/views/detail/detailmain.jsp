@@ -16,7 +16,7 @@
   width: 90%;                  /* 전체 너비의 90%로 설정 */
   max-width: 1000px;           /* 최대 너비 지정 */
   min-height: 40vh;            /* 화면의 85% 높이 */
-  margin: 60px auto;           /* 가운데 정렬 + 위아래 여백 */
+  margin: 30px auto;           /* 가운데 정렬 + 위아래 여백 */
   background-color: #FFF5E2;
   padding: 60px 40px;          /* 내부 여백 늘리기 */
   border-radius: 30px;         /* 모서리 둥글게 */
@@ -378,7 +378,7 @@
 }
 .container2 {
   padding: 20px 20% 100px;
-  background-color: #fefefe;
+ 
   font-family: Arial, sans-serif;
 }
 
@@ -387,6 +387,7 @@
   margin-bottom: 30px;
   color: #222;
   margin-top: 0;
+  padding: 30px;
 }
 
 /* 레스토랑 카드 그리드 */
@@ -534,7 +535,7 @@ a {
 </div>
 
 <div id="container2" class="container2">
-  <h2><a href="detailmain#container2">츄토피아 추천 음식점</a></h2>
+  <h2><a href="detailmain#container2">추천 음식점 전체보기</a></h2>
   <c:if test="${search!=null && count>0}">
   	<p style="margin-bottom: 30px;">'<span style="font-weight: bold;">${search}</span>' 검색 결과 (${count}건)</p> 
   </c:if>

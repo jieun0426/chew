@@ -142,6 +142,12 @@
 		<put-attribute name="title" value="메인화면"/>
 		<put-attribute name="body" value="/WEB-INF/views/FAQ/FAQin.jsp"/>
 	</definition>
+	
+	<!-- 리뷰관리 -->
+	<definition name="reviewmanage" extends="baseLayout">
+		<put-attribute name="title" value="메인화면"/>
+		<put-attribute name="body" value="/WEB-INF/views/review/reviewmanage.jsp"/>
+	</definition>
 
 	
 </tiles-definitions>

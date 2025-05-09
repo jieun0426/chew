@@ -363,15 +363,23 @@ padding: 20px;
    position: relative;
   cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 126px;
   height: 38px;
-  width: 126px; 
+  min-width: 126px;
+  max-width: 126px;
+  min-height: 38px;
+  max-height: 38px;
   border-radius: 16px;
   border: 1px solid #e0e0e0;
   background-color: white;
   overflow: hidden;
-  margin-top: 10px; /* 원하는 만큼 아래로 이동 */
-  margin-bottom: 110px;
-  margin-left: 370px;  
+  box-sizing: border-box;
+  padding: 0 10px; /* 안쪽 여백으로 요소 정렬 */
+  gap: 6px; /* 요소 간 간격 */
+  font-size: 14px;
+  margin-top: 59px;
 }
 
 .review_title {
@@ -623,6 +631,22 @@ padding: 20px;
   font-size: 18px;
 }
 
+.item {
+  display: flex;
+  align-items: center; /* 세로 가운데 정렬 */
+  gap: 12px; /* 요소 사이 간격 */
+  padding: 10px;
+}
+
+.time {
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+.category {
+  white-space: nowrap; /* 줄바꿈 방지 */
+}
+
+
      
 </style>
 
@@ -664,10 +688,16 @@ padding: 20px;
           (${avgStars})
        </div>
        
-        <div class="location">${ddto.storeaddress}</div>
+        <!--<div class="location">${ddto.storeaddress}</div>
         <p>🍴 ${ddto.storecategory}</p>
         <p>🕒 ${ddto.storehours}</p>    
-      </div>
+       -->
+      
+	      <div class="item">
+		  <span class="time">🍴 ${ddto.storecategory}</span>
+		  <span class="category">🕒 ${ddto.storehours}</span>
+		</div>
+	</div> 
       <!-- 좋아요 버튼 영역 -->
    <div class="like-button">
      <input class="on" id="heart" type="checkbox" />

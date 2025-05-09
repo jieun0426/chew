@@ -41,30 +41,56 @@ nav
    position: relative;
    bottom: 0px;
    width: 100%;
+   height: 200px;
    text-align: center;
    font-size: 15px;
    line-height: 30px;
-   background-color: #853b2c;
-   color: #ffffff; 
+   background-color: #C6B89E;
+   color: #EDD892;
+   margin-top: 0;
+   padding-top: 0;
+   padding-bottom: 10px;
+   border-bottom-left-radius: 20px;
+   border-bottom-right-radius: 20px;'
 }
-#topBtn {
-    display: none;
-    position: fixed;
-    bottom: 40px;
-    right: 40px;
-    z-index: 999;
-    font-size: 16px;
-    background-color: #ffcc00;
-    color: white;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-  }
+/* <reset-style> ============================ */
+a {
+  text-decoration: none;
+}
+/* <main-style> ============================ */
+.scroll-up {
+  position: fixed; /* 주석 해제 */
+  right: 3rem;
+  bottom: 3rem; /* 항상 오른쪽 하단에 위치 */
+  z-index: 10;
+  width: 32px;
+  height: 32px;
+  border-radius: 4px; 
+  background-color: #D5C7BC;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: bottom .4s, transform .4s;
+}
 
-  #topBtn:hover {
-    background-color: #555;
+
+.scroll-up:hover {
+  transform: translateY(-.25rem);
+}
+
+/* Show scroll-up */
+._show-scroll {
+  bottom: 3rem;
+}
+
+@media (max-width: 1199.98px) {
+  .scroll-up {
+    right: 1rem;
   }
+}
 </style>
 </head>
 <body>
@@ -79,21 +105,28 @@ nav
 			<t:insertAttribute name="footer"/>
 		</div>
 	</div>
-	<button onclick="scrollToTop()" id="topBtn" title="맨 위로">▲</button>
-	<script>
-	window.onscroll = function () {
-		const topBtn = document.getElementById("topBtn");
-		if (document.documentElement.scrollTop > 300) {
-			topBtn.style.display = "block";
-		} else {
-			topBtn.style.display = "none";
-		}
-	};
+<a id="scroll-up" class="scroll-up" href="#" onclick="scrollToTop()">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 0h24v24H0z" fill="none"></path>
+    <path fill="rgba(255,255,255,1)" d="M11.9997 10.8284L7.04996 15.7782L5.63574 14.364L11.9997 8L18.3637 14.364L16.9495 15.7782L11.9997 10.8284Z"></path>
+  </svg>
+</a>
 
-	function scrollToTop() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	}
-	</script>
+<script>
+window.onscroll = function () {
+  const scrollUpBtn = document.getElementById("scroll-up");
+  if (document.documentElement.scrollTop > 300) {
+    scrollUpBtn.style.display = "block";
+  } else {
+    scrollUpBtn.style.display = "none";
+  }
+};
+
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+
 </body>
 </html>
 

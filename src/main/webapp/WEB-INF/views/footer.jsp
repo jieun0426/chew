@@ -8,12 +8,21 @@
 </head>
 <body>
 <div>
-팀명:쥐쥐않쥐<br>
-깃허브&emsp;
-<span style="font-size: 2em;">💩</span>차지은 https://github.com/jieun0426&emsp;&emsp;
-<span style="font-size: 1.2em;">💩</span>김지민 https://github.com/Jimin-718&emsp;&emsp;
-고은이 https://github.com/eunlee529&emsp;&emsp;
-김지수 https://github.com/levi0408<br>
+  <h4>
+    Team | Github
+  </h4>
+  <p>
+    <span>Team : 지지않쥐</span><br/>
+    <span>MBC12AI Team Project. 2025.</span><br/>
+    <span>https://github.com/jieun0426 | 차지은
+           &ensp; https://github.com/Jimin-718 | 김지민<br/>
+           https://github.com/eunlee529 | 고은이
+           &ensp;https://github.com/levi0408 | 차지수<br/>
+    </span>
+  </p>
 </div>
+
+
+
 </body>
 </html>
