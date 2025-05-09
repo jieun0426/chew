@@ -170,7 +170,9 @@ body {
 </head>
 
 <body>
-
+<c:if test="${not empty alertMessage}">
+  <script>alert("${alertMessage}");</script>
+</c:if>
 <div class="div-container">
   <!-- 메뉴바 -->
   <div class="category">

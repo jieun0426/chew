@@ -49,22 +49,37 @@ public class JoinLogController {
 		String birthDay= request.getParameter("birthDay");
 		String bb=birthYear+"-"+birthMonth+"-"+birthDay;
 		Date birth=Date.valueOf(bb) ;
-		PasswordEncoder pe = new BCryptPasswordEncoder();
-		pw=pe.encode(pw);
-		JoinLogService jls = sqlSession.getMapper(JoinLogService.class);
-		jls.jlsinsert(id,pw,name,phone,birth);
-		
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println("<script>");
-		out.println("alert('회원가입을 환영합니다!');");
-		String contextPath = request.getContextPath();
-		out.println("location.href='" + contextPath + "/main';");
-		out.println("</script>");
-		out.close();
 
-		
+	    JoinLogService jls = sqlSession.getMapper(JoinLogService.class);
+	    
+	    // ✅ 아이디 중복 확인
+	    int count = jls.idcount22(id);
+	    if (count > 0) {
+	        response.setContentType("text/html; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("<script>");
+	        out.println("alert('이미 사용중인 아이디입니다. 다시 입력해주세요');");
+	        out.println("history.back();");
+	        out.println("</script>");
+	        out.close();
+	        return;
+	    }
+
+	    // 비밀번호 암호화 및 저장
+	    PasswordEncoder pe = new BCryptPasswordEncoder();
+	    pw = pe.encode(pw);
+	    jls.jlsinsert(id, pw, name, phone, birth);
+
+	    response.setContentType("text/html; charset=UTF-8");
+	    PrintWriter out = response.getWriter();
+	    out.println("<script>");
+	    out.println("alert('회원가입을 환영합니다!');");
+	    String contextPath = request.getContextPath();
+	    out.println("location.href='" + contextPath + "/main';");
+	    out.println("</script>");
+	    out.close();
 	}
+
 	
 	
 	

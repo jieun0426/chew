@@ -33,7 +33,7 @@ public class MyPageController {
 		Boolean loginstate = (Boolean) session.getAttribute("loginstate");
 
 		if (loginstate == null || !loginstate) {
-			session.setAttribute("alertMessage", "濡쒓렇�씤 �썑 �씠�슜 媛��뒫�빀�땲�떎.");
+			session.setAttribute("alertMessage", "로그인 후 이용해주세요");
 			return "redirect:/loginput";
 		}
 
@@ -59,7 +59,7 @@ public class MyPageController {
 			mo.addAttribute("dto", dto);
 			return "mypinfo"; // 留덉씠�럹�씠吏� �젙蹂대줈 �씠�룞
 		} else {
-			request.setAttribute("alertMessage", "비번이 일치하지 않습니다.");
+			request.setAttribute("alertMessage", "비밀번호가 틀렸습니다.");
 			return "mypagePwcheck";
 		}
 	}
@@ -137,7 +137,7 @@ public class MyPageController {
 			hs.invalidate();// �꽭�뀡 醫낅즺 (濡쒓렇�븘�썐 �슚怨�)
 			return "redirect:/";
 		} else {
-			request.setAttribute("alertMessage", "鍮꾨�踰덊샇媛� ��由쎈땲�떎.");
+			request.setAttribute("alertMessage", "비밀번호가 틀렸습니다.");
 			return "mypagedel";
 		}
 	}
@@ -184,13 +184,25 @@ public class MyPageController {
 	        return "redirect:/loginput";
 
 	    MyPageService ms = sqlSession.getMapper(MyPageService.class);
+	    
+	    int nowPage;
+	    try {
+	        nowPage = Integer.parseInt(request.getParameter("page"));
+	    } catch (Exception e) {
+	        nowPage = 1;
+	    }
 
+	    int cntPerPage = 5; 
+	    int total = ms.countUserBooks(id); 
+
+	    PageDTO pdto = new PageDTO(total, nowPage, cntPerPage);
 	    
 	    // ★ start, end를 보내서 해당 구간 리뷰만 가져옴
-	    List<Map<String, Object>> bookList = ms.pagingUserBook(id);
+	    List<Map<String, Object>> bookList = ms.pagingUserBook(id,pdto.getStart(), pdto.getEnd());
 
 	    mo.addAttribute("mybook", bookList);
-
+	    mo.addAttribute("pdto", pdto);
+	    
 		return "mypagebook";
 	}
 	

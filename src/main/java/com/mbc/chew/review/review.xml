@@ -21,7 +21,6 @@
         FROM REVIEW_3 
         where storecode= #{param1}) A)
         where rn&lt;=5
-
 </select>
 
 <select id="getReviews" resultType="com.mbc.chew.review.ReviewDTO">
@@ -57,8 +56,6 @@
 </delete>
 
 
-<!-- 리뷰관리하다가말앗다 -->
-
      <!-- 모든 매장 목록과 리뷰 정보 가져오기 -->
     <select id="getAllStoresWithReviewInfo" resultType="com.mbc.chew.review.ReviewManageDTO">
         SELECT
@@ -87,8 +84,7 @@
         FROM REVIEW_3
         WHERE storecode = #{storecode}
     </select>
-    
-<!-- 리뷰관리안해도되지않을까하하하ㅏ하 -->
+
 
 </mapper>
 

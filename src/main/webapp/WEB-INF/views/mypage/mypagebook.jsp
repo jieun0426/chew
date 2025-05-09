@@ -129,6 +129,34 @@ td {
 	color: #783403;
 	font-weight: bold;
 }
+/* 페이징 */
+.container2 {
+  padding: 20px 20% 100px;
+  background-color: #fefefe;
+  font-family: Arial, sans-serif;
+}
+
+.container2 h2 {
+  font-size: 26px;
+  margin-bottom: 30px;
+  
+  color: #222;
+  margin-top: 0;
+}
+#nowPage{
+  color: black;
+  font-weight: bold;
+  margin-left: 40px;
+}
+.pageList{
+  color: #aaaa7a;
+  text-decoration: none; 
+}
+.pageList, #nowPage {
+  margin: 0 2px;  /* 좌우 간격 5px로 설정 */
+  font-size: 16px;
+  text-decoration: none;
+}
 </style>
 </head>
 <body>
@@ -181,6 +209,21 @@ td {
 					</tbody>
 				</table>
 			</c:if>
+			<br><br>
+	<c:if test="${pdto.startPage>pdto.cntPage}">
+		<a href="mypagebook?page=${pdto.startPage-pdto.cntPage}#container2">◀</a>&emsp;
+	</c:if>
+	<c:forEach begin="${pdto.startPage}" end="${pdto.endPage}" var="p">
+		<c:if test="${p==pdto.nowPage}">
+			<span id="nowPage">${p}</span>&emsp;
+		</c:if>
+		<c:if test="${p!=pdto.nowPage}">
+			<a class="pageList" href="mypagebook?page=${p}#container2">${p}</a>&emsp;
+		</c:if>
+	</c:forEach>
+	<c:if test="${pdto.endPage<pdto.lastPage}">
+		<a href="mypagebook?page=${pdto.startPage+pdto.cntPage}#container2">▶</a>
+	</c:if>
 		</div>
 	</div>
 

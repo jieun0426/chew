@@ -34,6 +34,7 @@ $(document).ready(function(){
     });
 });
 
+
 function send_go(){
     var id = document.f.id.value.trim();
     var pw = document.f.pw.value.trim();

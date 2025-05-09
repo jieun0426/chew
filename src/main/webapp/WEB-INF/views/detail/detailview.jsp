@@ -8,10 +8,10 @@
   <meta charset="UTF-8">
   <title>카보정 갈비</title>
 <script>
-// 수정 폼 보이기
-function showEdit(storecode) {
-  const reviewDisplay = document.getElementById('review-display-' + storecode);
-  const editBox = document.getElementById('edit-' + storecode);
+/* 리뷰수정/삭제 스크립트 */
+function showEdit(key) {
+  const reviewDisplay = document.getElementById('review-display-' + key);
+  const editBox = document.getElementById('edit-' + key);
 
   if (reviewDisplay && editBox) {
     reviewDisplay.style.display = 'none';
@@ -19,10 +19,9 @@ function showEdit(storecode) {
   }
 }
 
-// 수정 폼 닫기
-function cancelEdit(storecode) {
-  const reviewDisplay = document.getElementById('review-display-' + storecode);
-  const editBox = document.getElementById('edit-' + storecode);
+function cancelEdit(key) {
+  const reviewDisplay = document.getElementById('review-display-' + key);
+  const editBox = document.getElementById('edit-' + key);
 
   if (reviewDisplay && editBox) {
     reviewDisplay.style.display = 'block';
@@ -32,6 +31,7 @@ function cancelEdit(storecode) {
 
 
 </script>
+
 
 
 
@@ -235,33 +235,153 @@ padding: 20px;
     .address-box {
       flex: 1;
     }
-    .modal {
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.5);
-    }
-    .modal-content {
-      background-color: #fff;
-      margin: 10% auto;
-      padding: 30px;
-      border-radius: 10px;
-      width: 400px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    }
-    .close {
-      color: #aaa;
-      float: right;
-      font-size: 28px;
-      cursor: pointer;
-    }
-    .close:hover {
-      color: black;
-    }
+    /* 모달 전체 배경 */
+.modal {
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* 모달 콘텐츠 */
+.modal-content {
+  background-color: #fff;
+  margin: 8% auto;
+  padding: 30px;
+  width: 360px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  font-family: 'Noto Sans KR', sans-serif;
+  position: relative;
+}
+
+/* 닫기 버튼 */
+.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+}
+.close:hover {
+  color: #000;
+}
+
+/* 제목 */
+.modal-content h4 {
+  text-align: center;
+  font-size: 20px;
+  margin-bottom: 25px;
+}
+
+/* 라벨 */
+.modal-content label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 6px;
+  margin-top: 15px;
+}
+
+/* 입력창과 셀렉트 박스 */
+.modal-content input,
+.modal-content select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* 예약하기 버튼 */
+.modal-content button[type="submit"] {
+  margin-top: 25px;
+  width: 100%;
+  padding: 12px;
+  background-color: bisque;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.modal-content button[type="submit"]:hover {
+  background-color: #f7cfa1;
+}
+
+.people-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.people-buttons .people-btn {
+  flex: 1 1 30%;
+  padding: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 15px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.people-buttons .people-btn.active {
+  background-color: #f7cfa1;
+  border-color: #f3be84;
+  font-weight: bold;
+}
+
+.time-buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+}
+.time-buttons .time-btn {
+  padding: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.time-buttons .time-btn.selected {
+  background-color: #f7cfa1;
+  border-color: #f3be84;
+  font-weight: bold;
+}
+.time-label1 {
+text-align: left;
+font-size: 14px;
+}
+.time-label2 {
+margin-top: 20px; 
+text-align: left;
+font-size: 14px;
+
+}
+
+/* 날짜 input 스타일 */
+input[type="date"] {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+/* 예약css끝 */
 	    
 	.review_form {
 	  display: flex;
@@ -382,21 +502,6 @@ padding: 20px;
   margin-top: 59px;
 }
 
-.review_title {
-  width: 600px;
-  box-sizing: border-box;
-  display: inline-block;
-  margin: 15px 0 0 0;
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  height: 40px;
-  padding: 10px 15px;
-  font-size: 13px;
-  font-family: sans-serif;
-  font-weight: bold;
-}
-
 .like {
   width: 70%;
   height: 100%;
@@ -483,8 +588,6 @@ padding: 20px;
 	padding: 7px;
 }
 #moreReviewBtn:hover {
-	/* border: 1px solid #f3e2a9; 
-	box-shadow: 0 0 0 4px rgb(255 219 90 / 5%); */
 	cursor: pointer;
 }
 
@@ -646,8 +749,6 @@ padding: 20px;
   white-space: nowrap; /* 줄바꿈 방지 */
 }
 
-
-     
 </style>
 
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
@@ -757,122 +858,182 @@ padding: 20px;
     </div>
    </div>
     
-     <!-- //////////예약 모달 창/////////// -->
-
+     <!-- //////////예약 모달 창/////////// -->     
+<!-- 예약 버튼 -->
 <div id="bookingModal" class="modal" style="display:none;">
   <div class="modal-content">
     <span class="close">&times;</span>
     <h4>예약하기</h4>
     <form id="bookingForm">
       <input type="hidden" name="storecode" value="${ddto.storecode}">
-      <label for="saramsu">인원수:</label><br>
-      <select id="saramsu" name="saramsu">
-        <option value="">선택</option>
-        <option value="1">1명</option>
-        <option value="2">2명</option>
-      </select><br><br>
-      <label for="bookingdate">날짜:</label><br>
-      <input type="date" id="bookingdate" name="bookingdate"><br><br>
-      <label for="bookingtime">시간:</label><br>
-      <input type="time" id="bookingtime" name="bookingtime"><br><br>
+
+      <!-- 인원수 -->
+      <label>인원수:</label>
+<div class="people-buttons" id="personOptions">
+  <button type="button" data-value="1" class="people-btn">1명</button>
+  <button type="button" data-value="2" class="people-btn">2명</button>
+  <button type="button" data-value="3" class="people-btn">3명</button>
+  <button type="button" data-value="4" class="people-btn">4명</button>
+  <button type="button" data-value="5" class="people-btn">5명</button>
+  <button type="button" data-value="6" class="people-btn">6명</button>
+  <button type="button" data-value="7" class="people-btn">7명</button>
+  <button type="button" data-value="8" class="people-btn">8명</button>
+  <button type="button" data-value="9" class="people-btn">9명</button>
+  <!-- 필요시 더 추가 가능 -->
+</div>
+<input type="hidden" name="saramsu" id="saramsu">
+
+
+      <!-- 날짜 -->
+      <label for="bookingdate">날짜:</label>
+      <input type="date" id="bookingdate" name="bookingdate">
+
+      <!-- 시간 -->
+      <label>시간:</label>
+<div class="time-section">
+  <div class="time-label1">오전</div>
+  <div class="time-buttons" id="amTimes">
+    <button type="button" class="time-btn" data-time="11:30">11:30</button>
+  </div>
+
+  <div class="time-label2">오후</div>
+  <div class="time-buttons" id="pmTimes">
+    <button type="button" class="time-btn" data-time="12:00">12:00</button>
+    <button type="button" class="time-btn" data-time="12:30">12:30</button>
+    <button type="button" class="time-btn" data-time="13:00">1:00</button>
+    <button type="button" class="time-btn" data-time="13:30">1:30</button>
+    <button type="button" class="time-btn" data-time="14:00">2:00</button>
+    <button type="button" class="time-btn" data-time="14:30">2:30</button>
+    <button type="button" class="time-btn" data-time="15:00">3:00</button>
+    <button type="button" class="time-btn" data-time="15:30">3:30</button>
+    <button type="button" class="time-btn" data-time="16:00">4:00</button>
+    <button type="button" class="time-btn" data-time="16:30">4:30</button>
+    <button type="button" class="time-btn" data-time="17:00">5:00</button>
+    <button type="button" class="time-btn" data-time="17:30">5:30</button>
+    <button type="button" class="time-btn" data-time="18:00">6:00</button>
+    <button type="button" class="time-btn" data-time="18:30">6:30</button>
+    <button type="button" class="time-btn" data-time="19:00">7:00</button>
+    <button type="button" class="time-btn" data-time="19:00">7:30</button>
+    <button type="button" class="time-btn" data-time="19:00">8:00</button>
+  </div>
+</div>
+<input type="hidden" name="bookingtime" id="bookingtime">
+
+
       <button type="submit">예약하기</button>
     </form>
   </div>
 </div>
 
 
+
  <script type="text/javascript">
- $(function() {
-	    const modal = $('#bookingModal');
-	    const openBtn = $('#openModalBtn');
-	    const closeBtn = $('.close');
+  $(function () {
+    const modal = $('#bookingModal');
+    const openBtn = $('#openModalBtn');
+    const closeBtn = $('.close');
 
-	    // 1. 예약하기 버튼 클릭 시 로그인 체크 후 모달 오픈
-	    openBtn.on('click', function(e) {
-	        e.preventDefault();
-	        $.ajax({
-	            url: '/chew/logincheck',
-	            type: 'GET',
-	            success: function(result) {
-	                if (result === 'ok') {
-	                    modal.fadeIn();
-	                    
-	                 $('.modal-content').on('click', function(e) {
-	                        e.stopPropagation();
-	                    });    
-	                    
-	                } else {
-	                    alert('로그인이 필요합니다.');
-	                    window.location.href = '/chew/loginput';
-	                }
-	            },
-	            error: function() {
-	                alert('로그인 체크 오류');
-	            }
-	        });
-	    });
+    // 1. 예약하기 버튼 클릭 시 로그인 체크 후 모달 오픈
+    openBtn.on('click', function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/chew/logincheck',
+        type: 'GET',
+        success: function (result) {
+          if (result === 'ok') {
+            modal.fadeIn();
 
-	    // 2. 모달 닫기 (X 버튼)
-	    closeBtn.on('click', function() {
-	        modal.fadeOut();
-	    });
+            $('.modal-content').on('click', function (e) {
+              e.stopPropagation();
+            });
+          } else {
+            alert('로그인이 필요합니다.');
+            window.location.href = '/chew/loginput';
+          }
+        },
+        error: function () {
+          alert('로그인 체크 오류');
+        }
+      });
+    });
 
-	    // 3. 모달 외부 클릭 시 닫기
-	    $(window).on('click', function(e) {
-	        if ($(e.target).is(modal)) {
-	            modal.fadeOut();
-	        }
-	    });
+    // 2. 모달 닫기 (X 버튼)
+    closeBtn.on('click', function () {
+      modal.fadeOut();
+    });
 
-	    // 4. 예약 폼 제출 시 AJAX로 예약 요청
-	    $('#bookingForm').on('submit', function(e) {
-	        e.preventDefault();
-	        
-	        // 필수 입력값 체크
-	        const saramsu = $('#saramsu').val();
-	        const bookingdate = $('#bookingdate').val();
-	        const bookingtime = $('#bookingtime').val();
+    // 3. 모달 외부 클릭 시 닫기
+    $(window).on('click', function (e) {
+      if ($(e.target).is(modal)) {
+        modal.fadeOut();
+      }
+    });
 
-	        if (!saramsu || !bookingdate || !bookingtime) {
-	            alert('입력을 완료해주세요.');
-	            return;
-	        }
+    // ✅ 추가된 부분: 인원 버튼 클릭 시 선택 처리
+    $('#personOptions .people-btn').on('click', function () {
+  $('#personOptions .people-btn').removeClass('active');
+  $(this).addClass('active');
+  $('#saramsu').val($(this).data('value'));
+});
 
-	        // 시간 형식 체크 (HH:mm)
-	        const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
-	        if (!timePattern.test(bookingtime)) {
-	            alert('시간을 HH:mm 형식으로 입력해주세요.');
-	            return;
-	        }
 
-	        $.ajax({
-	            url: 'bookingsave',
-	            type: 'POST',
-	            data: $('#bookingForm').serialize(),
-	            success: function(result) {
-	                if (result === 'success') {
-	                    alert('예약 성공!');
-	                    modal.fadeOut();
-	                } 
-	                else if (result === 'login_required') {
-	                    alert('로그인이 필요합니다.');
-	                    window.location.href = '/chew/loginput';
-	                }
-	                else if (result.startsWith("error:")) {
-	                    alert("서버 오류: " + result.split(":")[1]);
-	                }
-	                else {
-	                    alert('예약에 실패했습니다. 다시 시도해주세요.');
-	                }
-	            },
-	            error: function(xhr) {
-	                alert('예약 요청 실패: ' + xhr.status);
-	            }
-	        });
-	    });
-	});
- </script>
+    // ✅ 추가된 부분: 시간 버튼 클릭 시 선택 처리
+  // 시간 버튼 클릭 시 처리
+$('.time-btn').on('click', function () {
+  $('.time-btn').removeClass('selected');
+  $(this).addClass('selected');
+  $('#bookingtime').val($(this).data('time'));
+});
+
+
+    // 4. 예약 폼 제출 시 AJAX로 예약 요청
+    $('#bookingForm').on('submit', function (e) {
+      e.preventDefault();
+
+      // 필수 입력값 체크
+      const saramsu = $('#saramsu').val();
+      const bookingdate = $('#bookingdate').val();
+      const bookingtime = $('#bookingtime').val();
+
+      if (!saramsu || !bookingdate || !bookingtime) {
+        alert('입력을 완료해주세요.');
+        return;
+      }
+
+      // 시간 형식 체크 (HH:mm)
+      const timePattern = /^([01]\d|2[0-3]):([0-5]\d)$/;
+      if (!timePattern.test(bookingtime)) {
+        alert('시간을 HH:mm 형식으로 입력해주세요.');
+        return;
+      }
+
+      $.ajax({
+        url: 'bookingsave',
+        type: 'POST',
+        data: $('#bookingForm').serialize(),
+        success: function (result) {
+          if (result === 'success') {
+            alert('예약 성공!');
+            modal.fadeOut();
+          } else if (result === 'login_required') {
+            alert('로그인이 필요합니다.');
+            window.location.href = '/chew/loginput';
+          } else if (result.startsWith("error:")) {
+            alert("서버 오류: " + result.split(":")[1]);
+          } else {
+            alert('예약에 실패했습니다. 다시 시도해주세요.');
+          }
+        },
+        error: function (xhr) {
+          alert('예약 요청 실패: ' + xhr.status);
+        }
+      });
+    });
+  });
+</script>
 <!-- 예약모달 끝 -->
+
+
 <div class="container3">  
 <!-- 리뷰 작성 폼 -->
 <div class="review-form" style="margin-top: 30px;">
@@ -925,62 +1086,62 @@ padding: 20px;
  
 </div>
    
-<div class="review-section" id="reviews">
+<div class="review-section" id="reviews" style="padding-top: 50px;">
   <h2>리뷰</h2>
 
   <c:forEach var="r" items="${list}">
-    <div class="review" id="review-${r.storecode}">
+  <c:set var="reviewKey" value="${r.storecode}_${r.id}" />
+  
+  <div class="review" id="review-${reviewKey}">
 
-      <!-- ✅ 기존 리뷰 표시 부분 감싸기 -->
-      <div id="review-display-${r.storecode}">
-        <div class="review-header">
-          <span class="review-avatar-emoji">👤</span>
-          <span class="review-id">${r.id}</span>
-        </div>
-
-        <div class="review-stars">
-          <c:forEach var="i" begin="1" end="${r.stars}">★</c:forEach>
-          <c:forEach var="i" begin="${r.stars + 1}" end="5">☆</c:forEach>
-        </div>
-
-        <div class="review-title">${r.title}</div>
-        <div class="review-content">${r.content}</div>
-
-        <c:if test="${loginstate == true && r.id == id}">
-          <div class="review-buttons">
-            <button type="button" class="btn" onclick="showEdit(${r.storecode})">수정</button>
-            <form action="deleteReview" method="post" class="review-btn-form">
-              <input type="hidden" name="id" value="${r.id}">
-              <input type="hidden" name="storecode" value="${r.storecode}">
-              <button type="submit" class="btn cancel">삭제</button>
-            </form>
-          </div>
-        </c:if>
+    <!-- 기존 리뷰 표시 영역 -->
+    <div id="review-display-${reviewKey}">
+      <div class="review-header">
+        <span class="review-avatar-emoji">👤</span>
+        <span class="review-id">${r.id}</span>
       </div>
 
-     <div class="review-edit" id="edit-${r.storecode}" style="display: none;">
-  <form action="editReview" method="post">
-    <input type="hidden" name="id" value="${r.id}">
-    <input type="hidden" name="storecode" value="${r.storecode}">
+      <div class="review-stars">
+        <c:forEach var="i" begin="1" end="${r.stars}">★</c:forEach><c:forEach var="i" begin="${r.stars + 1}" end="5">☆</c:forEach>
+      </div>
 
-    <div class="edit-group">
-      <input type="text" id="title-${r.storecode}" name="title" value="${r.title}">
+      <div class="review-title">${r.title}</div>
+      <div class="review-content">${r.content}</div>
+
+      <c:if test="${loginstate == true && r.id == id}">
+        <div class="review-buttons">
+          <button type="button" class="btn" onclick="showEdit('${reviewKey}')">수정</button>
+          <form action="deleteReview" method="post" class="review-btn-form">
+            <input type="hidden" name="id" value="${r.id}">
+            <input type="hidden" name="storecode" value="${r.storecode}">
+            <button type="submit" class="btn cancel">삭제</button>
+          </form>
+        </div>
+      </c:if>
     </div>
 
-    <div class="edit-group">
-      <textarea id="content-${r.storecode}" name="content">${r.content}</textarea>
-    </div>
+    <!-- 리뷰 수정 폼 -->
+    <div class="review-edit" id="edit-${reviewKey}" style="display: none;">
+      <form action="editReview" method="post">
+        <input type="hidden" name="id" value="${r.id}">
+        <input type="hidden" name="storecode" value="${r.storecode}">
 
-    <div class="edit-buttons">
-      <button type="submit" class="btn">수정완료</button>
-      <button type="button" class="btn cancel" onclick="cancelEdit(${r.storecode})">취소</button>
-    </div>
-  </form>
-</div>
+        <div class="edit-group">
+          <input type="text" name="title" value="${r.title}">
+        </div>
 
+        <div class="edit-group">
+          <textarea name="content">${r.content}</textarea>
+        </div>
 
+        <div class="edit-buttons">
+          <button type="submit" class="btn">수정완료</button>
+          <button type="button" class="btn cancel" onclick="cancelEdit('${reviewKey}')">취소</button>
+        </div>
+      </form>
     </div>
-  </c:forEach>
+  </div>
+</c:forEach>
 </div>
 
 <button id="moreReviewBtn" data-state="more">리뷰 더 보기</button>
@@ -1048,7 +1209,7 @@ padding: 20px;
 	      
 		let reviewOffset = 5;
 
-		$('#moreReviewBtn').click(function () {
+		$(document).on('click', '#moreReviewBtn', function(){
 		    const $btn = $(this);
 		    console.log("storecode: ", storecode);
 		    if ($btn.data("state") === "more") {

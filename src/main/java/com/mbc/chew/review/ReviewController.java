@@ -54,29 +54,31 @@ public class ReviewController {
 
 	@RequestMapping(value="/deleteReview", method = RequestMethod.POST)
 	public String deleteReview(HttpServletRequest request) {
-	    String id = (String) request.getSession().getAttribute("id");
+	    String sessionId = (String) request.getSession().getAttribute("id");
 	    int storecode = Integer.parseInt(request.getParameter("storecode"));
 
-	   
-
 	    ReviewService rs = sqlSession.getMapper(ReviewService.class);
-	    rs.deleteReview(id, storecode); 
+	    rs.deleteReview(sessionId, storecode); // 세션 ID 사용
 
-	    return "detailview";
+	    return "redirect:/detailview?storecode=" + storecode;
 	}
+
 
 	@RequestMapping(value="/editReview", method = RequestMethod.POST)
 	public String editReview(HttpServletRequest request) {
+	    String sessionId = (String) request.getSession().getAttribute("id"); // 세션에서 가져온 로그인 사용자 ID
+	    int storecode = Integer.parseInt(request.getParameter("storecode"));
+
 	    ReviewDTO dto = new ReviewDTO();
-	    dto.setId(request.getParameter("id"));
-	    dto.setStorecode(Integer.parseInt(request.getParameter("storecode")));
+	    dto.setId(sessionId); // 세션 ID 사용
+	    dto.setStorecode(storecode);
 	    dto.setTitle(request.getParameter("title"));
 	    dto.setContent(request.getParameter("content"));
 
 	    ReviewService rs = sqlSession.getMapper(ReviewService.class);
 	    rs.updateReview(dto);
 
-	    return "redirect:/detailview?storecode=" + dto.getStorecode();
+	    return "redirect:/detailview?storecode=" + storecode;
 	}
 	
 	

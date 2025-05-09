@@ -49,14 +49,24 @@
     where rn between #{param2} and #{param3}
 </select>
 
- 
-
+ <!-- 내 예약 총 개수 -->
+<select id="countUserBooks" parameterType="String" resultType="int">
+    select count(*) from booking_3 where id = #{param1}
+</select>
+ <!-- 내 예약 페이징 -->
 <select id="pagingUserBook" resultType="map">
     select b.saramsu, b.state, b.bookingdate, b.bookingtime, s.storename, s.storecode
-    from booking_3 b
+    from (
+        select rownum rn, A.*
+        from (
+            select b.saramsu, b.state, b.bookingdate, b.bookingtime, b.storecode
+            from booking_3 b
+            where b.id = #{param1}
+            order by b.bookingdate desc
+        ) A
+    ) b
     join store_3 s on b.storecode = s.storecode
-    where b.id = #{param1}
-    order by b.bookingdate desc
+    where rn between #{param2} and #{param3}
 </select>
 
 <!-- 예약삭제 -->

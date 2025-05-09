@@ -44,7 +44,7 @@
     <li><a href="main">메인으로</a></li>
     <li><a href="detailmain">맛집 찾기</a></li>
     <li><a href="FAQ">FAQ</a></li>
-
+    
     <c:if test="${loginstate == true}">
       <li><a href="mypagePwcheck">마이페이지</a></li>
     </c:if>

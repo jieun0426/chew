@@ -22,7 +22,6 @@
   }
 
   .form-container {
-    width: 360px;
     text-align: center;
   }
 
@@ -33,7 +32,7 @@
   }
 
   .input-field {
-    width: 100%;
+  width:350px;
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
