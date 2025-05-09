@@ -47,8 +47,8 @@
 	</select>
 	
 	<insert id="insertAnswer" parameterType="com.mbc.chew.faq.FAQDTO">
-    insert into FAQ_3 (id, content, wdate, groups, step)
-    values (#{id}, #{content}, sysdate, #{num}, 1)
+    insert into FAQ_3 (num ,id, content, wdate, groups, step)
+    values (FAQ_seq.nextval, #{id}, #{content}, sysdate, #{num}, 1)
 	</insert>
 	
 	<update id="updateQuestionState">
