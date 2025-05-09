@@ -53,7 +53,7 @@
         <li><a href="sout">매장관리</a></li>
         <li><a href="${pageContext.request.contextPath}/members">회원관리</a></li>
         <li><a href="#">리뷰관리</a></li>
-        <li><a href="#">예약관리</a></li>
+        <li><a href="booklist">예약관리</a></li>
       </ul>
     </li>
     <c:if test="${loginstate == true}">

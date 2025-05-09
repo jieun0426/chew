@@ -29,15 +29,23 @@ public interface MyPageService {
 	int countUserReviews(String id);
 
 	List<Map<String, Object>> pagingUserReviews(String id, int start, int end);
-
-
-	List<Map<String, Object>> pagingUserBook(String id);
+	
+	
+	int countUserBooks(String id);
+	
+	
+	
+	List<Map<String, Object>> pagingUserBook(String id, int start, int end);
 
 	void deleteUserBookings(String id);
 
 	void deleteUserReviews(String id);
 
 	void deleteUserLikes(String id);
+
+	
+
+	
 
 
 
