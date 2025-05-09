@@ -14,4 +14,13 @@ public interface FAQService {
 
 	ArrayList<FAQDTO> myPagingList(int start, int end, String id);
 
+	FAQDTO selectQuestion(String qnum);
+	
+	FAQDTO selectAnswer(String qnum);
+
+	void insertAnswer(FAQDTO dto);
+
+	void updateQuestionState(int num);
+
+	void updateAnswer(FAQDTO dto);
 }

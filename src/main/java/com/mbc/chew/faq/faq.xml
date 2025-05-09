@@ -5,20 +5,20 @@
 
 <mapper namespace="com.mbc.chew.faq.FAQService">
 	<insert id="insertFAQ">
-	insert into FAQ_3 values(FAQ_seq.nextval,#{param1},#{param2},#{param3},sysdate,'미답변',0,0,#{param4})
+	insert into FAQ_3 values(FAQ_seq.nextval,#{param1},#{param2},#{param3},sysdate,'미답변',FAQ_seq.currval,0,#{param4})
 	</insert>
 
 	<!-- 페이징 처리 -->
 	<select id="paging" resultType="com.mbc.chew.faq.FAQDTO">
 	    select * from (
 	    	select rownum rn, A.* from (
-	    		select num, id, title, content, to_char(wdate,'yy-dd-mm') wdate, state, groups, step, secret
-				from FAQ_3 order by num desc
+	    		select num, id, title, content, to_char(wdate,'yy-mm-dd') wdate, state, groups, step, secret
+				from FAQ_3 where step=0 order by num desc
 	    	) A
 	    ) where rn between #{param1} and #{param2}
 	</select>
 	<select id="countAllRecords" resultType="int">
-		select count(*) from FAQ_3
+		select count(*) from FAQ_3 where step=0
 	</select>
 	<!-- 페이징 처리 끝 -->
 	
@@ -26,13 +26,36 @@
 	<select id="myPagingList" resultType="com.mbc.chew.faq.FAQDTO">
 	    select * from (
 	    	select rownum rn, A.* from (
-	    		select num, id, title, content, to_char(wdate,'yy-dd-mm') wdate, state, groups, step, secret
-				from FAQ_3 where id=#{param3} order by num desc
+	    		select num, id, title, content, to_char(wdate,'yy-mm-dd') wdate, state, groups, step, secret
+				from FAQ_3 where id=#{param3} and step=0 order by num desc
 	    	) A
 	    ) where rn between #{param1} and #{param2}
 	</select>
 	<select id="countMyFAQ" resultType="int">
-		select count(*) from FAQ_3 where id=#{param1}
+		select count(*) from FAQ_3 where id=#{param1} and step=0
 	</select>
 	<!-- 내 FAQ 검색 끝 -->
+	
+	<select id="selectQuestion" resultType="com.mbc.chew.faq.FAQDTO">
+	select num, id, title, content, to_char(wdate,'yy-mm-dd') wdate, state, groups, step, secret from FAQ_3 
+	where num=#{param}
+	</select>
+	
+	<select id="selectAnswer" resultType="com.mbc.chew.faq.FAQDTO">
+	select num, id, title, content, to_char(wdate,'yy-mm-dd') wdate, state, groups, step, secret from FAQ_3 
+	where groups=#{param} and step=1
+	</select>
+	
+	<insert id="insertAnswer" parameterType="com.mbc.chew.faq.FAQDTO">
+    insert into FAQ_3 (id, content, wdate, groups, step)
+    values (#{id}, #{content}, sysdate, #{num}, 1)
+	</insert>
+	
+	<update id="updateQuestionState">
+	update FAQ_3 set state='답변완료' where num=#{param}
+	</update>
+	
+	<update id="updateAnswer" parameterType="com.mbc.chew.faq.FAQDTO">
+	update FAQ_3 set content=#{content}, id=#{id} where groups=#{groups} and step=1
+	</update>
 </mapper>

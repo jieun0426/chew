@@ -45,19 +45,22 @@
   <ul class="menu">
     <li><a href="main">메인으로</a></li>
     <li><a href="detailmain">맛집 찾기</a></li>
-    <li><a href="#">이벤트</a></li>
     <li><a href="FAQ">FAQ</a></li>
-    <li>
-      <button class="menu-toggle">관리자페이지 ▼</button>
-      <ul class="submenu">
-        <li><a href="sout">매장관리</a></li>
-        <li><a href="${pageContext.request.contextPath}/members">회원관리</a></li>
-        <li><a href="#">리뷰관리</a></li>
-        <li><a href="#">예약관리</a></li>
-      </ul>
-    </li>
+    
     <c:if test="${loginstate == true}">
       <li><a href="mypagePwcheck">마이페이지</a></li>
+    </c:if>
+    
+    <c:if test="${id == 'admin'}">
+    	<li>
+	      <button class="menu-toggle">관리자페이지 ▼</button>
+	      <ul class="submenu">
+	        <li><a href="sout">매장관리</a></li>
+	        <li><a href="${pageContext.request.contextPath}/members">회원관리</a></li>
+	        <li><a href="#">리뷰관리</a></li>
+	        <li><a href="#">예약관리</a></li>
+	      </ul>
+    	</li>
     </c:if>
   </ul>
 </nav>

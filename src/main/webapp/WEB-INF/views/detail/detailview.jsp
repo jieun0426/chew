@@ -728,9 +728,6 @@ padding: 20px;
    </div>
     
      <!-- //////////예약 모달 창/////////// -->
-     
-<!-- 예약 버튼 -->
-<button id="openModalBtn">예약하기</button>
 
 <div id="bookingModal" class="modal" style="display:none;">
   <div class="modal-content">

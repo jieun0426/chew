@@ -44,7 +44,11 @@ public class JoinLogController {
 		String pw= request.getParameter("pw");
 		String name= request.getParameter("name");
 		String phone= request.getParameter("phone");
-		Date birth=Date.valueOf(request.getParameter("birth")) ;
+		String birthYear= request.getParameter("birthYear");
+		String birthMonth= request.getParameter("birthMonth");
+		String birthDay= request.getParameter("birthDay");
+		String bb=birthYear+"-"+birthMonth+"-"+birthDay;
+		Date birth=Date.valueOf(bb) ;
 		PasswordEncoder pe = new BCryptPasswordEncoder();
 		pw=pe.encode(pw);
 		JoinLogService jls = sqlSession.getMapper(JoinLogService.class);

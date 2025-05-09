@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,8 +71,18 @@ function send_go(){
         document.f.phone.focus();
         return false;
     }
-    if(birth === ""){
-        alert("생년월일을 입력하세요");
+    if(birthYear === ""){
+        alert("생년을 입력하세요");
+        document.f.birth.focus();
+        return false;
+    }
+    if(birthMonth === ""){
+        alert("생월을 입력하세요");
+        document.f.birth.focus();
+        return false;
+    }
+    if(birthDay === ""){
+        alert("생일을 입력하세요");
         document.f.birth.focus();
         return false;
     }
@@ -229,6 +240,16 @@ function send_go(){
   outline: none !important;
   box-shadow: none !important;
 }
+select {
+	width: 120px;
+	padding: 12px 16px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	outline: none;
+	font-size: 1em;
+	box-sizing: border-box;
+	background-color: #fff;
+}
 </style>
 </head>
 
@@ -259,7 +280,34 @@ function send_go(){
 
   <label class="required-label">생년월일 <span class="required">*</span></label>
   <div class="field">
-    <input class="input-field" type="date" name="birth">
+    <select id="birthYear" name="birthYear" required>
+    	<option value="" disabled selected></option>
+    </select> 년&ensp;
+    
+    <script>
+	  const select = document.getElementById('birthYear');
+	  for (let y = 2025; y >= 1900; y--) {
+	    const option = document.createElement('option');
+	    option.value = y;
+	    option.textContent = y;
+	    select.appendChild(option);
+	  }
+	</script>
+	
+	<select id="birthMonth" name="birthMonth" required>
+    	<option value="" disabled selected></option>
+    	<c:forEach var="m" begin="1" end="12">
+    		<option value="${m}">${m}</option>
+    	</c:forEach>
+    </select> 월&ensp;
+    
+    <select id="birthDay" name="birthDay" required>
+    	<option value="" disabled selected></option>
+    	<c:forEach var="d" begin="1" end="31">
+    		<option value="${d}">${d}</option>
+    	</c:forEach>
+    </select> 일
+    
   </div>
 
   <div class="btn">

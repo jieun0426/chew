@@ -5,9 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/buttons.css">
-<link rel="stylesheet" href="css/tables.css">
+<link rel="stylesheet" href="css/vtable.css">
 
 <meta charset="UTF-8">
 <title>Insert title here</title>

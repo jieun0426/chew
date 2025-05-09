@@ -32,8 +32,9 @@ nav
    text-align: center;
    width: 100%;
    flex: 1;
-   margin-bottom: 50px;
    background-color: #FBF8EF;
+   padding-top: 20px;
+   padding-bottom: 50px;
 }
 #footer
 {

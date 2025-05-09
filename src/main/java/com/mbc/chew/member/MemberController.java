@@ -31,61 +31,24 @@ public class MemberController {
 			}catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
-				m.addAttribute("errorMessage","¿À·ù¹ß»ý");
+				m.addAttribute("errorMessage","ì˜¤ë¥˜ë°œìƒ");
 			}
 				return "memberlist";
 			}//////////////////////
 
-//		@RequestMapping(value="/memberupdate",method = RequestMethod.GET)
-//		public String memberGetForm(@RequestParam("id")String id,Model m) {
-//			try {    //¼öÁ¤ÇÒ È¸¿ø Á¤º¸ Á¶È¸
-//				MemberDTO dto = sqls.selectOne("com.mbc.chew.member.member.findmembers",id);
-//				 if (dto == null) {
-//		                m.addAttribute("errorMessage", "¼öÁ¤ÇÒ È¸¿øÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
-//		               
-//		                return "redirect:/members";
-//				 	}
-//				 		m.addAttribute("dto",dto);
-//				 		return "memberedit";
-//				
-//			}catch (Exception e) {
-//				// TODO: handle exception
-//				e.printStackTrace();
-//				m.addAttribute("errorMessage", "¼öÁ¤ ¿äÃ»Áß ¿À·ù ¹ß»ý");
-//			}	
-//				return "redirect:/members";
-//			}
-//		
-//		
-//		 @RequestMapping(value = "/memberupdate", method = RequestMethod.POST)
-//		    public String memberPostForm(MemberDTO dto, RedirectAttributes redirectAttributes) {
-//		        try {
-//		            int result = sqls.update("com.mbc.chew.member.member.memberupdate", dto);
-//		            if (result > 0) {
-//		                redirectAttributes.addFlashAttribute("successMessage", "È¸¿ø Á¤º¸°¡ ¼öÁ¤µÇ¾ú½À´Ï´Ù.");
-//		            } else {
-//		                redirectAttributes.addFlashAttribute("errorMessage", "Á¤º¸ ¼öÁ¤¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
-//		            }
-//		        } catch (Exception e) {
-//		            e.printStackTrace();
-//		            redirectAttri	butes.addFlashAttribute("errorMessage", "¼öÁ¤Ã³¸® Áß ¿À·ù ¹ß»ý");
-//		        }
-//		        return "redirect:/members";
-//		    }///////////////////////
-
-		 
+		
 	    @RequestMapping(value = "/memberdelete", method = RequestMethod.POST)
 	    public String memberDelete(@RequestParam("id") String id, RedirectAttributes redirectAttributes) {
 	        try {
 	            int result = sqls.delete("com.mbc.chew.member.member.memberdelete", id);
 	            if (result > 0) {
-	                redirectAttributes.addFlashAttribute("successMessage", "È¸¿ø Á¤º¸°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+	                redirectAttributes.addFlashAttribute("successMessage", "È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 	            } else {
-	                redirectAttributes.addFlashAttribute("errorMessage", "Á¤º¸»èÁ¦¿¡ ½ÇÆÐÇß½À´Ï´Ù.");
+	                redirectAttributes.addFlashAttribute("errorMessage", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            redirectAttributes.addFlashAttribute("errorMessage", "Á¤º¸»èÁ¦Ã³¸® Áß ¿À·ù ¹ß»ý");
+	            redirectAttributes.addFlashAttribute("errorMessage", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½");
 	        }
 	        return "redirect:/members";
 	    }

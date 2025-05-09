@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class StoreController {
 	@Autowired
 	SqlSession sqls;
-	String path="C:\\MBC12AI\\spring\\chew\\src\\main\\webapp\\image";
+	String path="C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image";
 
 	
 	@RequestMapping(value="/storein")
@@ -187,6 +187,8 @@ public class StoreController {
                   if (oldFilename != null && !oldFilename.isEmpty()) {
                       // 기존 이미지가 있으면 update
                       ss.updateDetailImage(storecode, newFilename, oldFilename);
+                      File ff = new File(path + File.separator + oldFilename);
+                      ff.delete();
                   } else {
                       // 기존 이미지가 없으면 insert
                       ss.insertDetailImage(storecode, newFilename);

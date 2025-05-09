@@ -18,18 +18,13 @@ a {
 .input_div {
   display: flex;
   align-items: center;
-  justify-content: space-between; /* 오른쪽 정렬 */
-  padding: 10px 20px;
+  justify-content: flex-end; /* 오른쪽 정렬 */
+  margin: 10px auto;
   width: 1100px;
-  margin: 0 auto;
 }
 
 /* 매장관리 -> 삭제 버튼 */
 .deleteBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: rgb(255, 208, 0);
   border: none;
   font-weight: 600;
   display: flex;
@@ -42,7 +37,6 @@ a {
   overflow: hidden;
   position: relative;
   gap: 2px;
-  margin-left: auto;
 }
 
 .svgIcon {
@@ -56,9 +50,6 @@ a {
 
 .deleteBtn:hover {
   transition-duration: 0.3s;
-  background-color: rgb(233, 193, 16);
-  align-items: center;
-  gap: 0;
 }
 
 .bin-top {
@@ -69,52 +60,9 @@ a {
   transform: rotate(160deg);
 }
 
-
-/* 검색창 */
-form {
-  display: inline; /* 또는 inline-flex */
-}
-.group {
- display: flex;
- line-height: 28px;
- align-items: center;
- position: relative;
- max-width: 450px;
-}
-.input {
- width: 100%;
- height: 40px;
- line-height: 28px;
- padding: 0 1rem;
- padding-left: 2.5rem;
- border: 2px solid transparent;
- border-radius: 8px;
- outline: none;
- background-color: #f3f3f4;
- color: #0d0c22;
- transition: .3s ease;
-}
-
-.input::placeholder {
- color: #9e9ea7;
-}
-
-.input:focus, input:hover {
- outline: none;
- border-color: rgba(255,219,90,0.4);
- background-color: #fff;
- box-shadow: 0 0 0 4px rgb(255 219 90 / 10%);
-}
-
-.icon {
- position: absolute;
- left: 1rem;
- fill: #9e9ea7;
- width: 1rem;
- height: 1rem;
-}
 .search-group {
-  flex: 1;
+  /*flex: 1;*/
+  display: flex;
   min-width: 200px;
 }
 /* 검색창 끝 */
@@ -122,20 +70,5 @@ form {
 .button-group {
   display: flex;
   align-items: center;
-  gap: 50px;
-}
-
-#add_store {
-	width: 120px;
-	height: 40px;
-	background-color: rgb(255, 208, 0);
-	border-radius: 8px;
-	font-weight: bold;
-	border: none;
-}
-#add_store:hover {
-	cursor: pointer;
-} 
-#add_store:active {
-	background-color: rgb(233, 193, 16);
+  gap: 0;
 }
