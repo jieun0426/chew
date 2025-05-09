@@ -54,11 +54,11 @@
              + '<td class="align_center">' + m.name + '</td>'
              + '<td class="align_center">' + m.phone + '</td>'
              + '<td class="align_center">' + (m.birth ? m.birth.substring(0,10) : '') + '</td>'
-             + '<td class="align_center"><a href="' + contextPath + '/memberupdate?id=' + m.id + '">수정</a></td>'
+             + '<td class="align_center"><a href="' + contextPath + '/memberupdate?id=' + m.id + '" class="editBtn">수정</a></td>'
              + '<td class="align_center">'
              + '<form action="' + contextPath + '/memberdelete" method="post" class="deleteForm" style="display:inline;">'
              + '<input type="hidden" name="id" value="' + m.id + '">'
-             + '<button type="button" class="deleteBtn">삭제</button>'
+             + '<button type="button" class="deleteBtn" id="deleteBtn">삭제</button>'
              + '</form></td>'
              + '</tr>';
     }

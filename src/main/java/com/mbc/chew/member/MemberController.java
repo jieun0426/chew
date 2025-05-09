@@ -31,24 +31,28 @@ public class MemberController {
 			}catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
-				m.addAttribute("errorMessage","¿À·ù¹ß»ı");
+				m.addAttribute("errorMessage","ì˜¤ë¥˜ë°œìƒ");
 			}
 				return "memberlist";
 			}//////////////////////
 
+<<<<<<< HEAD
 	 
+=======
+		
+>>>>>>> f5f94b391e3ab2bec416afcb51c560efef7e897d
 	    @RequestMapping(value = "/memberdelete", method = RequestMethod.POST)
 	    public String memberDelete(@RequestParam("id") String id, RedirectAttributes redirectAttributes) {
 	        try {
 	            int result = sqls.delete("com.mbc.chew.member.member.memberdelete", id);
 	            if (result > 0) {
-	                redirectAttributes.addFlashAttribute("successMessage", "È¸¿ø Á¤º¸°¡ »èÁ¦µÇ¾ú½À´Ï´Ù.");
+	                redirectAttributes.addFlashAttribute("successMessage", "È¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½.");
 	            } else {
-	                redirectAttributes.addFlashAttribute("errorMessage", "Á¤º¸»èÁ¦¿¡ ½ÇÆĞÇß½À´Ï´Ù.");
+	                redirectAttributes.addFlashAttribute("errorMessage", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.");
 	            }
 	        } catch (Exception e) {
 	            e.printStackTrace();
-	            redirectAttributes.addFlashAttribute("errorMessage", "Á¤º¸»èÁ¦Ã³¸® Áß ¿À·ù ¹ß»ı");
+	            redirectAttributes.addFlashAttribute("errorMessage", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½");
 	        }
 	        return "redirect:/members";
 	    }

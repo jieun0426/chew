@@ -125,7 +125,10 @@
       <put-attribute name="title" value="페이지오류"/>
       <put-attribute name="body" value="/WEB-INF/views/member/memberlist.jsp"/>
    </definition>					
+<<<<<<< HEAD
    
+=======
+>>>>>>> f5f94b391e3ab2bec416afcb51c560efef7e897d
 								<!-- 회원관리 끝 -->
 
 

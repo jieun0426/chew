@@ -4,39 +4,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/buttons.css">
-<link rel="stylesheet" href="css/tables.css">
+<link rel="stylesheet" href="css/htable.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <form action="delete" method="post">
-<table border="1" width="1100px" align="center">
-	<tr style="text-align: center;">
-		<th>매장코드</th><th>매장명</th><th>매장주소</th>
-		<th>매장카테고리</th><th>지역</th>
-		<th>매장이미지</th><th>상세이미지</th>
-	</tr>
-<tr>
-	<td class="align_center">${dto.storecode}</td>
-	<td class="align_center">${dto.storename}</td>
-	<td class="align_center">${dto.storeaddress}</td>
-	<td class="align_center">${dto.storecategory}</td>
-	<td class="align_center">${dto.storearea}</td>
-	<td class="align_center">
-		<img src="./image/${dto.storeimage}" width="70px" height="50px" 
-			style="border: 1px solid #ccc; border-radius: 6px;">
-	</td>
-	<td class="align_center">
-		<c:if test="${not empty oneImage}">
-    		<img src="${pageContext.request.contextPath}/image/${oneImage.image_filename}"
-        	 width="70px" height="50px" style="border: 1px solid #ccc; border-radius: 6px;">
-		</c:if>
-		
-	</td>
-	
-</tr>
+<table width="1100px">
+	<thead>
+		<tr style="text-align: center;">
+			<th>매장코드</th><th>매장명</th><th>매장주소</th>
+			<th>매장카테고리</th><th>지역</th>
+			<th>매장이미지</th><th>상세이미지</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td class="align_center">${dto.storecode}</td>
+			<td class="align_center">${dto.storename}</td>
+			<td class="align_center">${dto.storeaddress}</td>
+			<td class="align_center">${dto.storecategory}</td>
+			<td class="align_center">${dto.storearea}</td>
+			<td class="align_center">
+				<img src="./image/${dto.storeimage}" width="70px" height="50px" 
+					style="border: 1px solid #ccc; border-radius: 6px;">
+			</td>
+			<td class="align_center">
+				<c:if test="${not empty oneImage}">
+		    		<img src="${pageContext.request.contextPath}/image/${oneImage.image_filename}"
+		        	 width="70px" height="50px" style="border: 1px solid #ccc; border-radius: 6px;">
+				</c:if>	
+			</td>
+		</tr>
+	</tbody>
 </table>
 
 <input type="hidden" name="storecode" value="${dto.storecode}">

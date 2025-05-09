@@ -40,12 +40,12 @@ body {
   padding: 2em;
   border-radius: 25px;
   width: 480px;
-  margin:  auto;
+  margin: auto;
   margin-top: -10px;
-  margin-left: 250px;
   border: none;
   box-shadow: none;
   align-items: center;
+  justify-content: center;
 }
 
 #heading {
@@ -74,6 +74,7 @@ body {
 .field {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   gap: 10px;
 }
@@ -189,6 +190,16 @@ body {
   appearance: none !important;
   -webkit-appearance: none !important;
 }
+select {
+	width: 95px;
+	padding: 12px 16px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	outline: none;
+	font-size: 1em;
+	box-sizing: border-box;
+	background-color: #fff;
+}
 </style>
 </head>
 
@@ -227,7 +238,45 @@ body {
 
     <label class="required-label">생년월일</label>
     <div class="field">
-      <input class="input-field" type="date" name="birth" value="${dto.birth}">
+    	<select id="birthYear" name="birthYear" required>
+    		<option value="" disabled selected></option>
+	    </select> 년&ensp;
+	    
+	    <select id="birthMonth" name="birthMonth" required>
+	    	<option value="" disabled selected></option>
+	    	<c:forEach var="m" begin="1" end="12">
+	    		<option value="${m}">${m}</option>
+	    	</c:forEach>
+	    </select> 월&ensp;
+	    
+	    <select id="birthDay" name="birthDay" required>
+	    	<option value="" disabled selected></option>
+	    	<c:forEach var="d" begin="1" end="31">
+	    		<option value="${d}">${d}</option>
+	    	</c:forEach>
+	    </select> 일
+	    
+	    <script>
+	    const birth = '${dto.birth}';
+	    const [year, month, day] = birth.split('-'); //년,월,일 나눔
+		  
+		// 년도 select 생성 + 선택
+		const yearSelect = document.getElementById('birthYear');
+		for (let y = 2025; y >= 1900; y--) {
+			const option = document.createElement('option');
+		    option.value = y;
+		    option.textContent = y;
+		    if (y.toString() === year) {
+		    	option.selected = true;
+		    }
+		    yearSelect.appendChild(option);
+		}
+
+		// 월, 일 선택 설정
+		document.getElementById('birthMonth').value = parseInt(month, 10).toString();
+		document.getElementById('birthDay').value = parseInt(day, 10).toString();
+		</script>
+
     </div>
 
     <br>

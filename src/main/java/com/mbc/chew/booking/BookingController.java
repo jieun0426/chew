@@ -1,13 +1,8 @@
 package com.mbc.chew.booking;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.Date;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
 public class BookingController {
@@ -39,17 +32,17 @@ public class BookingController {
 	        String bookingtime = request.getParameter("bookingtime");
 
 	        BookingService bs = sqls.getMapper(BookingService.class);
-	        // bookingtime À» ºÐ´ÜÀ§·Î º¯È¯ÇØ¼­ ³Ñ°Ü¹ö¸²
+	        // bookingtime ï¿½ï¿½ ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ø¼ï¿½ ï¿½Ñ°Ü¹ï¿½ï¿½ï¿½
 	        int bookingmin = Integer.parseInt(bookingtime.substring(0,2)) * 60 + Integer.parseInt(bookingtime.substring(3,5));
 
-	        //»ç¿ëÀÚ°¡ °°Àº½Ã°£ 2½Ã°£ ÀÌ³»·Î Áßº¹¿¹¾à ºÒ°¡ (Áßº¹Ã¼Å©)
+	        //ï¿½ï¿½ï¿½ï¿½Ú°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ 2ï¿½Ã°ï¿½ ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½ (ï¿½ßºï¿½Ã¼Å©)
 	        int userdup = bs.countuserdup(storecode,id,bookingdate,bookingtime,bookingmin);
 	        if (userdup>0) {
 	        	return "duplicate";
 	        }
 	        
 	        
-	        // ÀüÃ¼ ¿¹¾à½Ã°£Áß 2½Ã°£ ¹üÀ§ (ÀÌ¹Ì ´Ù¸¥»ç¿ëÀÚ ¿¹¾à½Ã 2½Ã°£ ³» ¿¹¾àºÒ°¡)
+	        // ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ 2ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½Ì¹ï¿½ ï¿½Ù¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½Ã°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ò°ï¿½)
 	        int storedup = bs.countstoredup(storecode,bookingdate,bookingtime,bookingmin);
 	        if(storedup>0) {
 	        	return "time_unavailable";
@@ -58,18 +51,19 @@ public class BookingController {
 	        
 	        
 	        bs.insertbook(
-	            0, // ÀÚµ¿ ½ÃÄö½º ¹ÞÀ½
+	            0,
 	            storecode,
 	            id,
 	            saramsu,
-	            "´ë±â", // 
+	            "ëŒ€ê¸°",
 	            bookingdate,
 	            bookingtime
 	        );
 	        result = "success";
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        result = "error: " + e.getMessage(); 
+	        result = "error: " + e.getMessage();
+
 	    }
 	    return result;
 	}

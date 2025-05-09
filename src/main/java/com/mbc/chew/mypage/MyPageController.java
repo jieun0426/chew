@@ -59,7 +59,7 @@ public class MyPageController {
 			mo.addAttribute("dto", dto);
 			return "mypinfo"; // 留덉씠�럹�씠吏� �젙蹂대줈 �씠�룞
 		} else {
-			request.setAttribute("alertMessage", "鍮꾨�踰덊샇媛� ��由쎈땲�떎.");
+			request.setAttribute("alertMessage", "비번이 일치하지 않습니다.");
 			return "mypagePwcheck";
 		}
 	}
@@ -86,7 +86,11 @@ public class MyPageController {
 		String id = request.getParameter("id");
 		String name = request.getParameter("name");
 		String phone = request.getParameter("phone");
-		Date birth = Date.valueOf(request.getParameter("birth"));
+		String birthYear= request.getParameter("birthYear");
+		String birthMonth= request.getParameter("birthMonth");
+		String birthDay= request.getParameter("birthDay");
+		String bb=birthYear+"-"+birthMonth+"-"+birthDay;
+		Date birth=Date.valueOf(bb) ;
 
 		MyPageService ms = sqlSession.getMapper(MyPageService.class);
 		ms.mymodify042322(name, phone, birth, id);

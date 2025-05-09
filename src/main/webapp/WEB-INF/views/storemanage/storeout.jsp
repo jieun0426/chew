@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>매장 목록</title>
-<link rel="stylesheet" href="css/tables.css">
+<link rel="stylesheet" href="css/htable.css">
 <link rel="stylesheet" href="css/search.css">
 <link rel="stylesheet" href="css/storeout.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -69,33 +69,37 @@
 
 
 <div>
-	<table border="1" width="1100px">
-	    <tr>
-	        <th>매장코드</th>
-	        <th>매장명</th>
-	        <th>매장주소</th>
-	        <th>매장카테고리</th>
-	        <th>지역</th>
-	        <th>매장이미지</th>
-	        <th>
-	        	<input type="checkbox" id="allCheck">
-	        </th>
-	    </tr>
-		<c:forEach items="${list}" var="aa">
-	     <tr>
-	         <td class="align_center">${aa.storecode}</td>
-	         <td class="align_center"><a href="storemanage_detail?num=${aa.storecode}">${aa.storename}</a></td>
-	         <td class="align_center">${aa.storeaddress}</td> 
-	         <td class="align_center">${aa.storecategory}</td>  
-	         <td class="align_center">${aa.storearea}</td>
-	         <td class="align_center">
-	             <img src="./image/${aa.storeimage}" width="70px" height="50px">
-	         </td>
-	         <td class="align_center">
-	             <input type="checkbox" id="check_${aa.storecode}" class="deleteCheckbox" value="${aa.storecode}">
-	         </td>
-	     </tr>
-		</c:forEach>
+	<table width="1100px">
+		<thead>
+		    <tr>
+		        <th>매장코드</th>
+		        <th>매장명</th>
+		        <th>매장주소</th>
+		        <th>매장카테고리</th>
+		        <th>지역</th>
+		        <th>매장이미지</th>
+		        <th>
+		        	<input type="checkbox" id="allCheck">
+		        </th>
+		    </tr>
+	    </thead>
+	    <tbody>
+		    <c:forEach items="${list}" var="aa">
+		     <tr>
+		         <td class="align_center">${aa.storecode}</td>
+		         <td class="align_center"><a href="storemanage_detail?num=${aa.storecode}">${aa.storename}</a></td>
+		         <td class="align_center">${aa.storeaddress}</td> 
+		         <td class="align_center">${aa.storecategory}</td>  
+		         <td class="align_center">${aa.storearea}</td>
+		         <td class="align_center">
+		             <img src="./image/${aa.storeimage}" width="70px" height="50px">
+		         </td>
+		         <td class="align_center">
+		             <input type="checkbox" id="check_${aa.storecode}" class="deleteCheckbox" value="${aa.storecode}">
+		         </td>
+		     </tr>
+			</c:forEach>
+	    </tbody>
 	</table>
 </div>
 <script type="text/javascript">
