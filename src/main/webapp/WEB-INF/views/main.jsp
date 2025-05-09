@@ -49,50 +49,136 @@ $(document).ready(function(){
     </div>
 </div>
 
+<div class="loader">
+  <div class="loader__bar"></div>
+  <div class="loader__bar"></div>
+  <div class="loader__bar"></div>
+  <div class="loader__bar"></div>
+  <div class="loader__bar"></div>
+  <div class="loader__ball"></div>
+</div>
+
 
 <div class="ranking_div">
    <h2>맛집/음식점 추천 순위 Best 3</h2>
    <p>사용자 리뷰를 기반으로 한 랭킹입니다.</p>
 
    <div class="listView clearfix">
-   <c:forEach items="${list}" var="rank" varStatus="status">
-      <div class="main_rankList">
-         <a href="detailview?storecode=${rank.storecode}"><img src="image/${rank.storeimage}" class="storeimg"></a>
-         <h1><a href="detailview?storecode=${rank.storecode}">${rank.storename}</a></h1>
-         <div class="rating" id="rating_${status.index}_rank">
-           <input type="radio" id="star5_${status.index}" name="rating_rank_${status.index}" value="5" onclick="return(false);" />
-           <label for="star5_${status.index}"></label>
-           <input type="radio" id="star4_${status.index}" name="rating_rank_${status.index}" value="4" onclick="return(false);" />
-           <label for="star4_${status.index}"></label>
-           <input type="radio" id="star3_${status.index}" name="rating_rank_${status.index}" value="3" onclick="return(false);" />
-           <label for="star3_${status.index}"></label>
-           <input type="radio" id="star2_${status.index}" name="rating_rank_${status.index}" value="2" onclick="return(false);" />
-           <label for="star2_${status.index}"></label>
-           <input type="radio" id="star1_${status.index}" name="rating_rank_${status.index}" value="1" onclick="return(false);" />
-           <label for="star1_${status.index}"></label>
-         <p>평균 별점 ${rank.stars}</p> 
-         </div>   
-       
-         <script>
-         // 별점 셋팅 스크립트
-         (function() {
-            let rstars = Math.round(parseFloat('${rank.stars}'));
+ <c:forEach items="${list}" var="rank" varStatus="status">
+    <div class="main_rankList">
+        <a href="detailview?storecode=${rank.storecode}">
+            <img src="image/${rank.storeimage}" class="storeimg">
+        </a>
+        <h1><a href="detailview?storecode=${rank.storecode}">${rank.storename}</a></h1>
+        
+        <div class="rating" id="rating_${status.index}_rank">
+            <div class="stars" id="stars_${status.index}">
+                <!-- 여기서 input은 별점 표시용이고, checked가 되면 별색을 바꿔주는 방식 -->
+                <input type="radio" id="star5_${status.index}" name="rating_rank_${status.index}" value="5" readonly />
+                <label for="star5_${status.index}"></label>
+                <input type="radio" id="star4_${status.index}" name="rating_rank_${status.index}" value="4" readonly />
+                <label for="star4_${status.index}"></label>
+                <input type="radio" id="star3_${status.index}" name="rating_rank_${status.index}" value="3" readonly />
+                <label for="star3_${status.index}"></label>
+                <input type="radio" id="star2_${status.index}" name="rating_rank_${status.index}" value="2" readonly />
+                <label for="star2_${status.index}"></label>
+                <input type="radio" id="star1_${status.index}" name="rating_rank_${status.index}" value="1" readonly />
+                <label for="star1_${status.index}"></label>
+            </div>
+        </div>
+        
+        <p class="star-score" style="margin-bottom: 0;">평균 별점 ${rank.stars}</p>   
+        
+        <script>
+        // 별점 셋팅 스크립트
+        (function() {
+            let rstars = Math.round(parseFloat('${rank.stars}')); // 평균 별점을 반올림
             let radio = document.querySelector('input[name="rating_rank_${status.index}"][value="' + rstars + '"]');
-            if (radio) radio.checked = true;
-         })();
-         </script>
-         
-      </div>
-   </c:forEach>
+            if (radio) radio.checked = true; // 해당 별을 체크
+        })();
+        </script>
+    </div>
+</c:forEach>
+ 
    </div>   
    
 </div>
 
 
 
+		<svg class="pl" viewBox="0 0 160 160" width="160px" height="160px" xmlns="http://www.w3.org/2000/svg">
+			<defs>
+				<linearGradient id="grad" x1="0" y1="0" x2="0" y2="1">
+					<stop offset="0%" stop-color="#000"></stop>
+					<stop offset="100%" stop-color="#fff"></stop>
+				</linearGradient>
+				<mask id="mask1">
+					<rect x="0" y="0" width="160" height="160" fill="url(#grad)"></rect>
+				</mask>
+				<mask id="mask2">
+					<rect x="28" y="28" width="104" height="104" fill="url(#grad)"></rect>
+				</mask>
+			</defs>
+			
+			<g>
+				<g class="pl__ring-rotate">
+					<circle class="pl__ring-stroke" cx="80" cy="80" r="72" fill="none" stroke="hsl(223,90%,55%)" stroke-width="16" stroke-dasharray="452.39 452.39" stroke-dashoffset="452" stroke-linecap="round" transform="rotate(-45,80,80)"></circle>
+				</g>
+			</g>
+			<g mask="url(#mask1)">
+				<g class="pl__ring-rotate">
+					<circle class="pl__ring-stroke" cx="80" cy="80" r="72" fill="none" stroke="hsl(193,90%,55%)" stroke-width="16" stroke-dasharray="452.39 452.39" stroke-dashoffset="452" stroke-linecap="round" transform="rotate(-45,80,80)"></circle>
+				</g>
+			</g>
+			
+			<g>
+				<g stroke-width="4" stroke-dasharray="12 12" stroke-dashoffset="12" stroke-linecap="round" transform="translate(80,80)">
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(-135,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(-90,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(-45,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(0,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(45,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(90,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(135,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,10%,90%)" points="0,2 0,14" transform="rotate(180,0,0) translate(0,40)"></polyline>
+				</g>
+			</g>
+			<g mask="url(#mask1)">
+				<g stroke-width="4" stroke-dasharray="12 12" stroke-dashoffset="12" stroke-linecap="round" transform="translate(80,80)">
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(-135,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(-90,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(-45,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(0,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(45,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(90,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(135,0,0) translate(0,40)"></polyline>
+					<polyline class="pl__tick" stroke="hsl(223,90%,80%)" points="0,2 0,14" transform="rotate(180,0,0) translate(0,40)"></polyline>
+				</g>
+			</g>
+			
+			<g>
+				<g transform="translate(64,28)">
+					<g class="pl__arrows" transform="rotate(45,16,52)">
+						<path fill="hsl(3,90%,55%)" d="M17.998,1.506l13.892,43.594c.455,1.426-.56,2.899-1.998,2.899H2.108c-1.437,0-2.452-1.473-1.998-2.899L14.002,1.506c.64-2.008,3.356-2.008,3.996,0Z"></path>
+						<path fill="hsl(223,10%,90%)" d="M14.009,102.499L.109,58.889c-.453-1.421,.559-2.889,1.991-2.889H29.899c1.433,0,2.444,1.468,1.991,2.889l-13.899,43.61c-.638,2.001-3.345,2.001-3.983,0Z"></path>
+					</g>
+				</g>
+			</g>
+			<g mask="url(#mask2)">
+				<g transform="translate(64,28)">
+					<g class="pl__arrows" transform="rotate(45,16,52)">
+						<path fill="hsl(333,90%,55%)" d="M17.998,1.506l13.892,43.594c.455,1.426-.56,2.899-1.998,2.899H2.108c-1.437,0-2.452-1.473-1.998-2.899L14.002,1.506c.64-2.008,3.356-2.008,3.996,0Z"></path>
+						<path fill="hsl(223,90%,80%)" d="M14.009,102.499L.109,58.889c-.453-1.421,.559-2.889,1.991-2.889H29.899c1.433,0,2.444,1.468,1.991,2.889l-13.899,43.61c-.638,2.001-3.345,2.001-3.983,0Z"></path>
+					</g>
+				</g>
+			</g>
+		</svg>
+
+
+
  
-<div class="area_div" style="margin-top: 100px;">
-    <h2>지역별 추천</h2>
+<div class="area_div" >
+    <h2>지역별추천</h2>
     <p>해당 지역에서 인기 있는 맛집을 소개합니다.</p>
     <div class="areaSelectContainer">
         <input type="button" class="areaSelectBtn" id="area1" value="서울" style="background-image: url('image/seoul.jpg');">
@@ -100,82 +186,48 @@ $(document).ready(function(){
         <input type="button" class="areaSelectBtn" id="area3" value="인천" style="background-image: url('image/incheon.jpg');">
     </div>
     
-    <h3 id="selectedAreaText" style="font-size: 40px; color: #333; padding: 50px;"></h3>
+    <h3 id="selectedAreaText" style="font-size: 25px; color: #FCAB64; padding: 50px;"></h3>
 
     <div class="areaListView clearfix">
-       <c:forEach items="${area}" var="aa" varStatus="status">
-    <div class="main_areaList">
-        <a href="detailview?storecode=${aa.storecode}">
-            <img src="image/${aa.storeimage}" class="storeimg">
-        </a>
-        <p><a href="detailview?storecode=${aa.storecode}">${aa.storename}</a></p>
+    <c:forEach items="${area}" var="aa" varStatus="status">
+        <div class="main_areaList">
+            <a href="detailview?storecode=${aa.storecode}">
+                <img src="image/${aa.storeimage}" class="storeimg">
+            </a>
+            <p><a href="detailview?storecode=${aa.storecode}">${aa.storename}</a></p>
 
-       <div class="rating" id="rating_${status.index}">
-    <div class="stars" id="stars_${status.index}" data-stars="${aa.stars}">
-        <!-- 왼쪽부터 1~5 순서로 별 -->
-        <input type="radio" id="star1_${status.index}" name="rating_area_${status.index}" value="1" readonly />
-        <label for="star1_${status.index}"></label>
-        <input type="radio" id="star2_${status.index}" name="rating_area_${status.index}" value="2" readonly />
-        <label for="star2_${status.index}"></label>
-        <input type="radio" id="star3_${status.index}" name="rating_area_${status.index}" value="3" readonly />
-        <label for="star3_${status.index}"></label>
-        <input type="radio" id="star4_${status.index}" name="rating_area_${status.index}" value="4" readonly />
-        <label for="star4_${status.index}"></label>
-        <input type="radio" id="star5_${status.index}" name="rating_area_${status.index}" value="5" readonly />
-        <label for="star5_${status.index}"></label>
-    </div>
-    <p class="star-score">평균 별점 ${aa.stars}</p>
+            <div class="rating" id="rating_${status.index}">
+                <div class="stars" id="stars_${status.index}">
+                    <input type="radio" id="star1_${status.index}" name="rating_area_${status.index}" value="1" readonly />
+                    <label for="star1_${status.index}"></label>
+                    <input type="radio" id="star2_${status.index}" name="rating_area_${status.index}" value="2" readonly />
+                    <label for="star2_${status.index}"></label>
+                    <input type="radio" id="star3_${status.index}" name="rating_area_${status.index}" value="3" readonly />
+                    <label for="star3_${status.index}"></label>
+                    <input type="radio" id="star4_${status.index}" name="rating_area_${status.index}" value="4" readonly />
+                    <label for="star4_${status.index}"></label>
+                    <input type="radio" id="star5_${status.index}" name="rating_area_${status.index}" value="5" readonly />
+                    <label for="star5_${status.index}"></label>
+                </div>
+            </div>
+            <p class="star-score">평균 별점 ${aa.stars}</p>
+
+            <script>
+                // 별점 셋팅 스크립트
+                (function() {
+                    let rstars = Math.round(parseFloat('${aa.stars}')); // 평균 별점을 반올림
+                    let radio = document.querySelector('input[name="rating_area_${status.index}"][value="' + rstars + '"]');
+                    if (radio) radio.checked = true; // 해당 별을 체크
+                })();
+            </script>
+        </div>
+    </c:forEach>
 </div>
-       
-    </div>
-</c:forEach>
-       
-       
-    </div>  
+    
 </div>
 
 <br><br><br>
-<!-- 
-<div>
-   <h2>카테고리별 추천</h2><br><br>
-   <input type="button" class="categorySelectBtn" value="한식">&emsp;
-   <input type="button" class="categorySelectBtn" value="중식">&emsp;
-   <input type="button" class="categorySelectBtn" value="일식">&emsp;
-   <input type="button" class="categorySelectBtn" value="양식">
 
-   <div class="categoryListView">
-   <c:forEach items="${category}" var="cc" varStatus="status">
-      <div class="main_categoryList">
-         <a href="detailview?storecode=${cc.storecode}"><img src="image/${cc.storeimage}" class="storeimg"></a>
-         <p><a href="detailview?storecode=${cc.storecode}">${cc.storename}</a></p>
-         <div class="rating" id="rating_${status.index}_cate">
-           <input type="radio" id="star5" name="rating_${status.index}_cate" value="5" readonly />
-           <label for="star5"></label>
-           <input type="radio" id="star4" name="rating_${status.index}_cate" value="4" readonly />
-           <label for="star4"></label>
-           <input type="radio" id="star3" name="rating_${status.index}_cate" value="3" readonly />
-           <label for="star3"></label>
-           <input type="radio" id="star2" name="rating_${status.index}_cate" value="2" readonly />
-           <label for="star2"></label>
-           <input type="radio" id="star1" name="rating_${status.index}_cate" value="1" readonly />
-           <label for="star1"></label>
-         </div>&nbsp;${cc.stars}
-      
-         <script>
-         // 별점 셋팅 스크립트
-         (function() {
-            let stars = Math.round(parseFloat('${cc.stars}'));
-            let radio = document.querySelector('input[name="rating_${status.index}_cate"][value="' + stars + '"]');
-            if (radio) radio.checked = true;
-         })();
-         </script>
-         
-      </div>
-   </c:forEach>
-   </div>
-
-</div>
--->
 
 <script src="js/slider.js"></script>
 <script>
@@ -193,18 +245,6 @@ $(document).ready(function(){
   });
 </script>
 
-<script>
-    window.addEventListener('load', function () {
-        const ratings = document.querySelectorAll('.rating');
-        ratings.forEach(rating => {
-            const score = Math.round(parseFloat(rating.dataset.stars));
-            const stars = rating.querySelectorAll('.star');
-            for (let i = 0; i < stars.length; i++) {
-                stars[i].style.color = i < score ? '#FFD700' : '#ccc';
-            }
-        });
-    });
-</script>
 
 
 </body>

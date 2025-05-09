@@ -5,7 +5,7 @@ body {
 }
 
 .sidebar-header h3 {
-  color: black;
+  color: white;
   text-align: center;
   margin-top: 60px;
 }
@@ -21,7 +21,7 @@ body {
 }
 
 .menu a, .menu-toggle {
-  color: black;
+  color: white;
   text-decoration: none;
   background: none;
   border: none;
@@ -119,10 +119,12 @@ body {
 
    .check-icon:checked + .icon-menu > .bar--1 {
      transition: top 200ms, transform 200ms 100ms;
+     background-color: white;
    }
 
    .check-icon:checked + .icon-menu > .bar--3 {
      transition: bottom 200ms, transform 200ms 100ms;
+     background-color: white;
    }
 
    .check-icon:checked + .icon-menu {
@@ -140,11 +142,12 @@ body {
   left: -300px; /* 숨겨진 상태 */
   width: 250px;
   height: 100%;
-  background-color: #fff5e2;
+  background-color: #FCB97D;
   color: white;
   transition: left 0.3s ease; /* 부드러운 이동 효과 */
   z-index: 1000;
   overflow-y: auto;
+  border-top-right-radius: 20px;
 }
 
 /* 체크박스가 체크될 때 사이드바를 보이게 */

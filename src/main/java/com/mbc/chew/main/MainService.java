@@ -10,7 +10,6 @@ public interface MainService {
 
 	ArrayList<MainDTO> show3nostars_area(String string);
 	
-	//ArrayList<MainDTO> show3nostars_category(String string);
 	
 	ArrayList<MainDTO> show3latest(String string);
 
