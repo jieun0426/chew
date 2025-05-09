@@ -9,4 +9,42 @@
 insert into booking_3 values(booking_seq.nextval,#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
 </insert>
 
+<!-- 개인 이용시간 2시간  -->
+
+<select id="countuserdup" resultType="int">
+  <![CDATA[
+    select count(*) from booking_3
+    where storecode = #{storecode}
+      and id = #{id}
+      and bookingdate = #{bookingdate}
+      and abs(
+            #{bookingmin}
+            -
+            (to_number(substr(bookingtime,1,2))*60 + to_number(substr(bookingtime,4,2)))
+          ) < 120
+  ]]>
+</select>
+
+
+
+<!-- 전체 이용자 이미 예약시간 2시간 -->
+
+<select id="countstoredup" resultType="int">
+  <![CDATA[
+    select count(*) from booking_3
+    where storecode = #{storecode}
+      and bookingdate = #{bookingdate}
+      and abs(
+            #{bookingmin}
+            -
+            (to_number(substr(bookingtime,1,2))*60 + to_number(substr(bookingtime,4,2)))
+          ) < 120
+  ]]>
+</select>
+
+
+
+
+
+
 </mapper>
