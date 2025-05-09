@@ -45,8 +45,13 @@
     FROM booking_3 b
     JOIN store_3 s ON b.storecode = s.storecode
     WHERE b.storecode = #{storecode}
-      AND b.id = #{id}  <!-- 추가 -->
+      AND b.id = #{id}
+      AND b.bookingdate = TO_DATE(#{bookingdate, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+      AND b.bookingtime = #{bookingtime}
 </select>
+
+
+
 
 <update id="updateBooking" parameterType="com.mbc.chew.booking.BookingDTO">
     UPDATE booking_3
@@ -55,9 +60,10 @@
         STATE = #{state},
         BOOKINGDATE = #{bookingdate},
         BOOKINGTIME = #{bookingtime}
-    WHERE b.storecode = #{storecode, jdbcType=VARCHAR}
-  AND b.id = #{id, jdbcType=VARCHAR}
+    WHERE storecode = #{storecode, jdbcType=VARCHAR}
+      AND id = #{id, jdbcType=VARCHAR}
 </update>
+
 
 <!-- 예약창 검색 -->
 <select id="countBookingsById" parameterType="string" resultType="int">

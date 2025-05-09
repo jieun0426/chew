@@ -64,20 +64,23 @@ public class BookManageController {
     public String bookman2(HttpServletRequest request, Model mo) {
         int storecode = Integer.parseInt(request.getParameter("storecode"));
         String id = request.getParameter("id");
+        String bookingdate = request.getParameter("bookingdate");
+        String bookingtime = request.getParameter("bookingtime");
 
-        // 파라미터를 Map에 넣어 전달
         Map<String, Object> params = new HashMap<>();
         params.put("storecode", storecode);
         params.put("id", id);
+        params.put("bookingdate", bookingdate);
+        params.put("bookingtime", bookingtime);
 
         BookManageService bms = sqlSession.getMapper(BookManageService.class);
 
-        // 매장코드 + ID로 하나의 예약 정보만 조회
         Map<String, Object> detail = bms.select05077(params);
 
         mo.addAttribute("detail", detail);
         return "bookmanage_detail";
     }
+
 
 
 

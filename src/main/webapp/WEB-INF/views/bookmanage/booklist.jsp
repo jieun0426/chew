@@ -197,8 +197,8 @@
               <a href="detailview?storecode=${bookm.STORECODE}" class="slink">${bookm.STORENAME}</a>
             </td>
             <td class="book_id">
-              <a href="bookmanage_detail?storecode=${bookm.STORECODE}&id=${bookm.ID}" class="slink">${bookm.ID}</a>
-            </td>
+				<a href="bookmanage_detail?storecode=${bookm.STORECODE}&id=${bookm.ID}&bookingdate=<fmt:formatDate value='${bookm.BOOKINGDATE}' pattern='yyyy-MM-dd'/>&bookingtime=${bookm.BOOKINGTIME}" class="slink">${bookm.ID}</a>
+	            </td>
             <td>${bookm.SARAMSU}</td>
             <td>${bookm.STATE}</td>
             <td><fmt:formatDate value="${bookm.BOOKINGDATE}" pattern="yyyy-MM-dd" /></td>
