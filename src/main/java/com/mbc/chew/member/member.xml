@@ -23,13 +23,7 @@ select id,name,phone,birth from member_3
         <when test="searchKey == 'id'">id like '%' || #{searchValue} || '%'</when>
         <when test="searchKey == 'name'">name like '%' || #{searchValue} || '%'</when>
         <when test="searchKey == 'phone'">phone like '%' || #{searchValue} || '%'</when>
-<<<<<<< HEAD
         <when test="searchKey == 'birth'">to_char(birth,'yyyy-MM-dd') like '%' || #{searchValue} || '%'</when>
-=======
-
-        <when test="searchKey == 'birth'">to_char(birth,'yyyy-MM-dd') like '%' || #{searchValue} || '%'</when>
-
->>>>>>> f5f94b391e3ab2bec416afcb51c560efef7e897d
        <otherwise>1=1</otherwise>
     </choose>
 </where> order by id asc
