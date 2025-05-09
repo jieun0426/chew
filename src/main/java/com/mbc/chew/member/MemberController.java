@@ -36,44 +36,7 @@ public class MemberController {
 				return "memberlist";
 			}//////////////////////
 
-//		@RequestMapping(value="/memberupdate",method = RequestMethod.GET)
-//		public String memberGetForm(@RequestParam("id")String id,Model m) {
-//			try {    //수정할 회원 정보 조회
-//				MemberDTO dto = sqls.selectOne("com.mbc.chew.member.member.findmembers",id);
-//				 if (dto == null) {
-//		                m.addAttribute("errorMessage", "수정할 회원을 찾을 수 없습니다.");
-//		               
-//		                return "redirect:/members";
-//				 	}
-//				 		m.addAttribute("dto",dto);
-//				 		return "memberedit";
-//				
-//			}catch (Exception e) {
-//				// TODO: handle exception
-//				e.printStackTrace();
-//				m.addAttribute("errorMessage", "수정 요청중 오류 발생");
-//			}	
-//				return "redirect:/members";
-//			}
-//		
-//		
-//		 @RequestMapping(value = "/memberupdate", method = RequestMethod.POST)
-//		    public String memberPostForm(MemberDTO dto, RedirectAttributes redirectAttributes) {
-//		        try {
-//		            int result = sqls.update("com.mbc.chew.member.member.memberupdate", dto);
-//		            if (result > 0) {
-//		                redirectAttributes.addFlashAttribute("successMessage", "회원 정보가 수정되었습니다.");
-//		            } else {
-//		                redirectAttributes.addFlashAttribute("errorMessage", "정보 수정에 실패했습니다.");
-//		            }
-//		        } catch (Exception e) {
-//		            e.printStackTrace();
-//		            redirectAttri	butes.addFlashAttribute("errorMessage", "수정처리 중 오류 발생");
-//		        }
-//		        return "redirect:/members";
-//		    }///////////////////////
-
-		 
+	 
 	    @RequestMapping(value = "/memberdelete", method = RequestMethod.POST)
 	    public String memberDelete(@RequestParam("id") String id, RedirectAttributes redirectAttributes) {
 	        try {

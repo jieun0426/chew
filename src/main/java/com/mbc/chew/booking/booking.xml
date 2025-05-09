@@ -9,7 +9,7 @@
 insert into booking_3 values(booking_seq.nextval,#{param2},#{param3},#{param4},#{param5},#{param6},#{param7})
 </insert>
 
-<!-- 개인 이용시간 2시간  -->
+<!-- 개인 최대 이용시간 2시간  -->
 
 <select id="countuserdup" resultType="int">
   <![CDATA[
@@ -25,9 +25,7 @@ insert into booking_3 values(booking_seq.nextval,#{param2},#{param3},#{param4},#
   ]]>
 </select>
 
-
-
-<!-- 전체 이용자 이미 예약시간 2시간 -->
+<!-- 이미 예약시간 2시간있을시 다른 이용자 예약불가처리 -->
 
 <select id="countstoredup" resultType="int">
   <![CDATA[
@@ -41,10 +39,4 @@ insert into booking_3 values(booking_seq.nextval,#{param2},#{param3},#{param4},#
           ) < 120
   ]]>
 </select>
-
-
-
-
-
-
 </mapper>
