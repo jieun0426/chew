@@ -380,6 +380,5 @@ $(document).ready(function(){
 	</c:if>
 </div>
 
-
 </body>
 </html>

@@ -55,7 +55,5 @@ public class BookingDTO {
 	public void setBookingtime(String bookingtime) {
 		this.bookingtime = bookingtime;
 	}
-
-	
 	
 }

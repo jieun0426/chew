@@ -65,5 +65,4 @@ public class JoinLogDTO {
 		this.newpwconfirm = newpwconfirm;
 	}
 	
-	
 }

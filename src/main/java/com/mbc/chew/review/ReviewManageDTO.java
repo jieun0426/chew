@@ -31,7 +31,4 @@ public class ReviewManageDTO {
 		this.averageRating = averageRating;
 	}
 	 
-	 
-	
-
 }

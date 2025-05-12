@@ -5,31 +5,31 @@
 
 <mapper namespace="com.mbc.chew.main.MainService">
 	<select id="ranking3" resultType="com.mbc.chew.main.MainDTO">
-	select storecode,storeimage,storename,storearea,storecategory,stars from 
-		(select rownum rn,A.* from 
-			(select s.storecode,storeimage,storename,storearea,storecategory,NVL(ROUND(r.stars, 1), 0) AS stars
-            from store_3 s
-            join (select storecode,round(avg(stars),2) stars from  review_3 
-                group by storecode) r
-            on s.storecode=r.storecode
-            order by r.stars desc,storecode desc) A 
-	)where rn between 1 and 3
+		select storecode,storeimage,storename,storearea,storecategory,stars from 
+			(select rownum rn,A.* from 
+				(select s.storecode,storeimage,storename,storearea,storecategory,NVL(ROUND(r.stars, 1), 0) AS stars
+	            from store_3 s
+	            join (select storecode,round(avg(stars),2) stars from  review_3 
+	                group by storecode) r
+	            on s.storecode=r.storecode
+	            order by r.stars desc,storecode desc) A 
+		)where rn between 1 and 3
 	</select>
 	
 	<select id="show3nostars_area" resultType="com.mbc.chew.main.MainDTO">
-	select storecode,storeimage,storename,storearea,storecategory from 
-		(select rownum rn,A.* from 
-			(select storecode,storeimage,storename,storearea,storecategory
-			from store_3 where storearea=#{param1} order by storecode desc) A 
-	)where rn between 1 and 3
+		select storecode,storeimage,storename,storearea,storecategory from 
+			(select rownum rn,A.* from 
+				(select storecode,storeimage,storename,storearea,storecategory
+				from store_3 where storearea=#{param1} order by storecode desc) A 
+		)where rn between 1 and 3
 	</select>
 	
 	<select id="show3nostars_category" resultType="com.mbc.chew.main.MainDTO">
 		select storecode,storeimage,storename,storearea,storecategory from 
-		(select rownum rn,A.* from 
-			(select storecode,storeimage,storename,storearea,storecategory
-			from store_3 where storecategory=#{param1} order by storecode desc) A 
-	)where rn between 1 and 3
+			(select rownum rn,A.* from 
+				(select storecode,storeimage,storename,storearea,storecategory
+				from store_3 where storecategory=#{param1} order by storecode desc) A 
+		)where rn between 1 and 3
 	</select>
 	
 	<select id="avgStar" resultType="java.lang.Double" parameterType="int">

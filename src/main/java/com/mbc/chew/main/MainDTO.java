@@ -63,6 +63,5 @@ public class MainDTO {
 		return "MainDTO [storecode=" + storecode + ", storeimage=" + storeimage + ", storename=" + storename
 				+ ", storearea=" + storearea + ", storecategory=" + storecategory + ", stars=" + stars + "]";
 	}
-	
-	
+
 }

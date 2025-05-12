@@ -27,23 +27,20 @@ public class StoreController {
 	SqlSession sqls;
 	String path="C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image";
 
-	
 	@RequestMapping(value="/storein")
-		public String storein()
+	public String storein()
 	{
-			return"storeinput";
+		return"storeinput";
 	}
 	
 	@RequestMapping(value="/storesave", method = RequestMethod.POST)
 	public String storesave(MultipartHttpServletRequest mul) throws IllegalStateException, IOException
 	{
-		
 		int storecode         = Integer.parseInt(mul.getParameter("storecode"));
 		String storename      = mul.getParameter("storename");
 		String storeaddress   = mul.getParameter("storeaddress");
 		String storecategory  = mul.getParameter("storecategory");
 		String storearea	  = mul.getParameter("storearea");
-		
 		
 		List<MultipartFile> files = mul.getFiles("storeimage");
 		StoreService ss 	 = sqls.getMapper(StoreService.class);
@@ -51,11 +48,11 @@ public class StoreController {
 	
 		for (MultipartFile mf : files) {
 			if(!mf.isEmpty()) {
-			String fname		 = mf.getOriginalFilename();
-			UUID uu = UUID.randomUUID();
-			fname= uu.toString()+"_"+fname;
-			mf.transferTo(new File(path+"\\"+fname));
-			fn.append(fname).append(",");
+				String fname		 = mf.getOriginalFilename();
+				UUID uu = UUID.randomUUID();
+				fname= uu.toString()+"_"+fname;
+				mf.transferTo(new File(path+"\\"+fname));
+				fn.append(fname).append(",");
 			}
 		}
 		if (fn.length()>0) {
@@ -82,13 +79,12 @@ public class StoreController {
 		int total=ss.countAllRecords();
 		PageDTO pdto=new PageDTO(total, nowPage, cntPerPage);
 		
-		//ArrayList<StoreDTO>list = ss.outstore();
-		
 		ArrayList<StoreDTO> list = ss.paging(pdto.getStart(), pdto.getEnd());
 		m.addAttribute("list",list);
 		m.addAttribute("pdto", pdto);
 		return "storeout";
 	}
+	
 	@RequestMapping(value ="/sdelete")
 	public String storedelete(HttpServletRequest request,Model m)
 	{
@@ -96,45 +92,42 @@ public class StoreController {
 		StoreService ss  	 = sqls.getMapper(StoreService.class);
 		StoreDTO dto 	  	 = ss.storedelete(storecode);
 		StoreImageDTO oneImage = ss.selectOneDetailImage(storecode);  // 상세 이미지 1장 가져오기
-	      m.addAttribute("dto",dto);
-	      m.addAttribute("oneImage", oneImage);  // 모델에 이미지 추가
-	      return "storedeleteview";
-	
+		m.addAttribute("dto",dto);
+		m.addAttribute("oneImage", oneImage);  // 모델에 이미지 추가
+		return "storedeleteview";
 	}
+	
 	@RequestMapping(value ="/delete",method = RequestMethod.POST)
 	public String delete(HttpServletRequest request)
 	{
 		int storecode   = Integer.parseInt(request.getParameter("storecode"));
 		String img 		= request.getParameter("storeimage");
 		StoreService ss = sqls.getMapper(StoreService.class);
+		
 		// 1. 리뷰 삭제
-	       ss.deleteReviewsByStorecode(storecode);
-	       
-	       //2. 예약 삭제
-	       ss.deleteReservationsByStorecode(storecode);
-	       
-	       //
-	       ss.deletelikesByStorecode(storecode);
+		ss.deleteReviewsByStorecode(storecode);
+		//2. 예약 삭제
+		ss.deleteReservationsByStorecode(storecode);
+		//
+		ss.deletelikesByStorecode(storecode);
 
-	       // 3. 상세 이미지 파일 삭제 + DB 삭제
-	       List<StoreImageDTO> detailImages = ss.detailImages(storecode);
-	       for (StoreImageDTO image : detailImages) {
-	           File detailImg = new File(path + File.separator + image.getImage_filename());
-	           if (detailImg.exists()) detailImg.delete();
-	       }
-	       ss.deleteDetailImages(storecode); 
+		// 3. 상세 이미지 파일 삭제 + DB 삭제
+		List<StoreImageDTO> detailImages = ss.detailImages(storecode);
+		for (StoreImageDTO image : detailImages) {
+			File detailImg = new File(path + File.separator + image.getImage_filename());
+			if (detailImg.exists()) detailImg.delete();
+		}
+		ss.deleteDetailImages(storecode); 
 
-	       // 4. 메인 이미지 파일 삭제
-	       File mainImg = new File(path + File.separator + img);
-	       if (mainImg.exists()) mainImg.delete();
+		// 4. 메인 이미지 파일 삭제
+		File mainImg = new File(path + File.separator + img);
+		if (mainImg.exists()) mainImg.delete();
 
-	       // 5. 가게 정보 삭제
-	       ss.delete(storecode);
+		// 5. 가게 정보 삭제
+		ss.delete(storecode);
 
-	       return "redirect:/sout";
-
+		return "redirect:/sout";
 	}
-
 	
 	@RequestMapping(value ="/smodify")
 	public String ff(HttpServletRequest request,Model m)
@@ -198,7 +191,6 @@ public class StoreController {
          
        return "redirect:/sout";
 	}
-
 	
 	@RequestMapping(value="storemanage_detail")
 	public String hh(HttpServletRequest request,Model m) {
@@ -212,7 +204,6 @@ public class StoreController {
 		m.addAttribute("images", images);
 		
 		return "storemanage_detail";
-
 	}
 	
 	@RequestMapping(value="storemanage_search")
@@ -223,7 +214,7 @@ public class StoreController {
 		} catch (Exception e) {
 			nowPage=1;
 		}
-		int cntPerPage=5; //�븳 �럹�씠吏��뿉 �굹���궪 �젅肄붾뱶 �닔
+		int cntPerPage=5;
 		
 		String search=request.getParameter("search");
 		StoreService ss = sqls.getMapper(StoreService.class);
@@ -254,10 +245,9 @@ public class StoreController {
 		        System.out.println(code);
 		        String image = sdto.getStoreimage();
 		        System.out.println(image);
-		        File ff = new File("C:\\MBC12AI\\spring\\chewtopia\\src\\main\\webapp\\image\\" + image);
+		        File ff = new File(path+ "\\" + image);
 		        ff.delete();
-		         
-		        
+
 		        ss.deleteFromReview(code);
 		        System.out.println("deleteFromReview");
 		        

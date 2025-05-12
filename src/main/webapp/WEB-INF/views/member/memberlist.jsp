@@ -92,7 +92,7 @@
 				         </td>
 				         
 				         <td class="align_center">
-				         <a href="${pageContext.request.contextPath}/mypinfo?id=${member.id}" class="editBtn">수정</a>
+				         <a href="${pageContext.request.contextPath}/memberedit?id=${member.id}" class="editBtn">수정</a>
 						 </td>
 					     </form>
 				         <td class="align_center">
@@ -115,7 +115,6 @@
 	</table>
 </div>
 <br><br>
-
 
 <!-- 페이징 처리부분 -->
 <div style="text-align: center;">

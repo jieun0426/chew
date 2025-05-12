@@ -5,49 +5,41 @@
 
 <mapper namespace="com.mbc.chew.detail.DetailService">
   
-  <select id="dout1" parameterType="String" resultType="com.mbc.chew.detail.DetailDTO">
-  SELECT 
-    storecode,
-    storename,
-    storeaddress,
-    storecategory,
-    storelikes,
-    storeimage,
-    parking,
-    latitude, 
-    longitude,
-    storehours
-  FROM 
-    store_3
-  WHERE storecode = #{storecode}  
-  </select>
-
+	<select id="dout1" parameterType="String" resultType="com.mbc.chew.detail.DetailDTO">
+		SELECT storecode,storename,storeaddress,storecategory,storelikes,storeimage,
+	   		parking,latitude,longitude,storehours
+		FROM store_3
+		WHERE storecode = #{storecode}  
+	 </select>
+	
 	<!-- 페이징 처리 -->
 	<select id="paging" resultType="com.mbc.chew.detail.DetailDTO">
-    select * from (
-    	select rownum rn, A.* from (
-    		select storecode, storename, storeaddress, storecategory, storeimage
-			from store_3 order by storecode desc
-    	) A
-    ) where rn between #{param1} and #{param2}
-    </select>
+		select * from (
+			select rownum rn, A.* from (
+				select storecode, storename, storeaddress, storecategory, storeimage
+				from store_3 order by storecode desc
+			) A
+		) where rn between #{param1} and #{param2}
+	</select>
+	
 	<select id="countAllRecords" resultType="int">
 	  select count(*) from store_3
 	</select>
 	
 	<!-- 검색 -->
 	<select id="searchPaging" resultType="com.mbc.chew.detail.DetailDTO">
-    select * from (
-    	select rownum rn, A.* from (
-    		select storecode, storename, storeaddress, storecategory, storeimage
-			from store_3
-			where storename like '%'||#{param3}||'%' or storeaddress like '%'||#{param3}||'%' or storecategory like '%'||#{param3}||'%'
-			order by storecode desc
-    	) A
-    ) where rn between #{param1} and #{param2}
-    </select>
+		select * from (
+			select rownum rn, A.* from (
+				select storecode, storename, storeaddress, storecategory, storeimage
+				from store_3
+				where storename like '%'||#{param3}||'%' or storeaddress like '%'||#{param3}||'%' or storecategory like '%'||#{param3}||'%'
+				order by storecode desc
+			) A
+		) where rn between #{param1} and #{param2}
+	</select>
+	
 	<select id="countSearchRecords" resultType="int">
-	  select count(*) from store_3 where storename like '%'||#{search}||'%' or storeaddress like '%'||#{search}||'%' or storecategory like '%'||#{search}||'%'
+		select count(*) from store_3 where storename like '%'||#{search}||'%' or storeaddress like '%'||#{search}||'%' or storecategory like '%'||#{search}||'%'
 	</select>
 	<!-- 검색 끝 -->
 	<!-- 페이징 처리 끝 -->

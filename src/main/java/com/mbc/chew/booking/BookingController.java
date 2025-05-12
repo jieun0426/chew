@@ -32,33 +32,20 @@ public class BookingController {
 	        String bookingtime = request.getParameter("bookingtime");
 
 	        BookingService bs = sqls.getMapper(BookingService.class);
-	        // bookingtime �� �д����� ��ȯ�ؼ� �Ѱܹ���
+
 	        int bookingmin = Integer.parseInt(bookingtime.substring(0,2)) * 60 + Integer.parseInt(bookingtime.substring(3,5));
 
-	        //����ڰ� �����ð� 2�ð� �̳��� �ߺ����� �Ұ� (�ߺ�üũ)
 	        int userdup = bs.countuserdup(storecode,id,bookingdate,bookingtime,bookingmin);
 	        if (userdup>0) {
 	        	return "duplicate";
 	        }
 	        
-	        
-	        // ��ü ����ð��� 2�ð� ���� (�̹� �ٸ������ ����� 2�ð� �� ����Ұ�)
 	        int storedup = bs.countstoredup(storecode,bookingdate,bookingtime,bookingmin);
 	        if(storedup>0) {
 	        	return "time_unavailable";
-	        	
 	        }
-	        
-	        
-	        bs.insertbook(
-	            0,
-	            storecode,
-	            id,
-	            saramsu,
-	            "대기",
-	            bookingdate,
-	            bookingtime
-	        );
+
+	        bs.insertbook(0,storecode,id,saramsu,"대기",bookingdate,bookingtime);
 	        result = "success";
 	    } catch (Exception e) {
 	        e.printStackTrace();

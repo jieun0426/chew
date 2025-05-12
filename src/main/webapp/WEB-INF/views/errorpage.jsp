@@ -5,12 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>개발 중입니다</title>
-    <style>
-  
-        h2 {
-            color: #ff5722;
-        }
-    </style>
+<style>
+    h2 { color: #ff5722; }
+</style>
 </head>
 <body>
     <h2>⚠ 현재 개발 중인 기능입니다</h2>

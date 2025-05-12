@@ -7,10 +7,8 @@ import java.util.Map;
 
 import com.mbc.chew.detail.DetailDTO;
 import com.mbc.chew.joinlogin.JoinLogDTO;
-import com.mbc.chew.review.ReviewDTO;
 
 public interface MyPageService {
-
 
 	JoinLogDTO getUserById(String id);
 
@@ -22,18 +20,13 @@ public interface MyPageService {
 
 	void deleteUserById0424(String id);
 
-
 	List<DetailDTO> detailid0425(String id);
-
 
 	int countUserReviews(String id);
 
 	List<Map<String, Object>> pagingUserReviews(String id, int start, int end);
 	
-	
 	int countUserBooks(String id);
-	
-	
 	
 	List<Map<String, Object>> pagingUserBook(String id, int start, int end);
 
@@ -42,14 +35,5 @@ public interface MyPageService {
 	void deleteUserReviews(String id);
 
 	void deleteUserLikes(String id);
-
-	
-
-	
-
-
-
-
-
 
 }

@@ -3,18 +3,22 @@ img{
 	display: block;
 	margin: auto;
 }
+
 #nowPage{
   color: black;
   font-weight: bold;
 }
+
 .pageList{
   color: #aaaa7a;
   text-decoration: none; 
 }
+
 a {
   color: black;
   text-decoration: none; 
 }
+
 .input_div {
   display: flex;
   align-items: center;
@@ -55,6 +59,7 @@ a {
 .bin-top {
   transform-origin: bottom right;
 }
+
 .deleteBtn:hover .bin-top {
   transition-duration: 0.5s;
   transform: rotate(160deg);

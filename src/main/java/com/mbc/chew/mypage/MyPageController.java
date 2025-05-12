@@ -46,24 +46,22 @@ public class MyPageController {
 		String id = (String) session.getAttribute("id");
 		String pw = request.getParameter("pw");
 
-		// DB�뿉�꽌 �빐�떦 ID�쓽 �궗�슜�옄 �젙蹂� 議고쉶
 		MyPageService ms = sqlSession.getMapper(MyPageService.class);
 		JoinLogDTO dto = ms.getUserById(id);
 
-		// 鍮꾨�踰덊샇 鍮꾧탳
 		PasswordEncoder pe = new BCryptPasswordEncoder();
 		boolean flag = pe.matches(pw, dto.getPw());
 
 		if (flag) {
-			session.setAttribute("loginstate", true); // 濡쒓렇�씤 �쑀吏�
+			session.setAttribute("loginstate", true);
 			mo.addAttribute("dto", dto);
-			return "mypinfo"; // 留덉씠�럹�씠吏� �젙蹂대줈 �씠�룞
+			return "mypinfo";
 		} else {
 			request.setAttribute("alertMessage", "비밀번호가 틀렸습니다.");
 			return "mypagePwcheck";
 		}
 	}
-	//�쉶�썝�젙蹂�
+
 	@RequestMapping(value = "/mypinfo")
 	public String myinfomodify(HttpServletRequest request, Model mo) {
 		HttpSession session = request.getSession();
@@ -80,7 +78,6 @@ public class MyPageController {
 		return "mypinfo";
 	}
 	
-	//�쉶�썝�젙蹂댁꽭�씠釉�
 	@RequestMapping(value = "/myinfosave", method = RequestMethod.POST)
 	public String updateUserInfo(HttpServletRequest request) {
 		String id = request.getParameter("id");
@@ -98,20 +95,18 @@ public class MyPageController {
 		return "redirect:/mypinfo";
 	}
 	
-	//�쉶�썝�깉�눜
 	@RequestMapping(value = "/mypagedel")
 	public String myinfodelete(HttpServletRequest request, Model mo) {
 	    HttpSession session = request.getSession();
 	    String id = (String) session.getAttribute("id");
 
 	    MyPageService ms = sqlSession.getMapper(MyPageService.class);
-	    JoinLogDTO dto = ms.delsave0424(id);  // �삉�뒗 delsave0424(id) �뜥�룄 �맖
+	    JoinLogDTO dto = ms.delsave0424(id);
 
 	    mo.addAttribute("dto", dto);
 
 	    return "mypagedel";
 	}
-
 
 	//회원탈퇴 체크(예약,리뷰,좋아요 다 삭제)
 	@RequestMapping(value = "/mypagedelsave", method = RequestMethod.POST)
@@ -124,8 +119,8 @@ public class MyPageController {
 
 		
 		PasswordEncoder pe = new BCryptPasswordEncoder();
-		String cpw = dto.getPw(); // �븫�샇�솕�맂 鍮꾨�踰덊샇
-		boolean flag = pe.matches(pw, cpw); // 鍮꾨�踰덊샇 鍮꾧탳
+		String cpw = dto.getPw();
+		boolean flag = pe.matches(pw, cpw);
 
 		if (flag) {
 			
@@ -134,7 +129,7 @@ public class MyPageController {
 			ms.deleteUserLikes(id);//좋아요삭제
 			ms.deleteUserById0424(id);
 			HttpSession hs = request.getSession();
-			hs.invalidate();// �꽭�뀡 醫낅즺 (濡쒓렇�븘�썐 �슚怨�)
+			hs.invalidate();
 			return "redirect:/";
 		} else {
 			request.setAttribute("alertMessage", "비밀번호가 틀렸습니다.");
@@ -142,8 +137,6 @@ public class MyPageController {
 		}
 	}
 
-	
-	//�궡媛� �옉�꽦�븳 由щ럭 �솗�씤
 	@RequestMapping(value = "/mypagereview")
 	public String reviewcheckk(HttpServletRequest request, Model mo, HttpSession hs) {
 	    String id = (String) hs.getAttribute("id");
@@ -205,7 +198,6 @@ public class MyPageController {
 	    
 		return "mypagebook";
 	}
-	
 	
 	// 관리자 회원관리 페이지에서 받아온 값
 	@RequestMapping(value = "/mypagepwchecking", method = RequestMethod.GET)

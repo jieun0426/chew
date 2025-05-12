@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class BookingLogCheckController {
-	 
-	     
+	
 	    @RequestMapping("/logincheck")
 	    @ResponseBody
 	    public String logincheck(HttpServletRequest request) {

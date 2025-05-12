@@ -14,8 +14,6 @@ public class DetailDTO {
 	double longitude;
 	String storehours;
 
-	
-	
 	public int getStorecode() {
 		return storecode;
 	}
@@ -77,13 +75,5 @@ public class DetailDTO {
 	public void setStorehours(String storehours) {
 		this.storehours = storehours;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }

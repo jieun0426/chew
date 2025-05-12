@@ -5,96 +5,85 @@
     
 
 <mapper namespace="com.mbc.chew.bookmange.BookManageService">
-<!-- 예약창메인 -->
-<select id="countAllBookings" resultType="int">
-        SELECT COUNT(*) 
-        FROM booking_3
-    </select>
-    
-   <select id="pagingBookings" resultType="map">
-    SELECT *
-    FROM (
-        SELECT 
-            b.saramsu, 
-            b.id, 
-            b.state, 
-            b.bookingdate, 
-            b.bookingtime, 
-            s.storename, 
-            s.storecode,
-            ROW_NUMBER() OVER (ORDER BY b.id ASC, b.bookingdate ASC) AS rn
-        FROM booking_3 b
-        JOIN store_3 s ON b.storecode = s.storecode
-    )
-    WHERE rn BETWEEN #{param1} AND #{param2}
-</select>
+	<!-- 예약창메인 -->
+	<select id="countAllBookings" resultType="int">
+		SELECT COUNT(*) 
+		FROM booking_3
+	</select>
+	    
+	<select id="pagingBookings" resultType="map">
+	    SELECT *
+	    FROM (
+	        SELECT 
+	            b.saramsu, 
+	            b.id, 
+	            b.state, 
+	            b.bookingdate, 
+	            b.bookingtime, 
+	            s.storename, 
+	            s.storecode,
+	            ROW_NUMBER() OVER (ORDER BY b.id ASC, b.bookingdate ASC) AS rn
+	        FROM booking_3 b
+	        JOIN store_3 s ON b.storecode = s.storecode
+	    )
+	    WHERE rn BETWEEN #{param1} AND #{param2}
+	</select>
+	
+	<!-- 예약창자세히보기 -->
+	<select id="select05077" resultType="map">
+	    SELECT 
+	        b.saramsu, 
+	        b.id, 
+	        b.state, 
+	        b.bookingdate, 
+	        b.bookingtime, 
+	        s.storename, 
+	        s.storecode
+	    FROM booking_3 b
+	    JOIN store_3 s ON b.storecode = s.storecode
+	    WHERE b.storecode = #{storecode}
+	      AND b.id = #{id}
+	      AND b.bookingdate = TO_DATE(#{bookingdate, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+	      AND b.bookingtime = #{bookingtime}
+	</select>
 
+	<update id="updateBooking" parameterType="com.mbc.chew.booking.BookingDTO">
+	    UPDATE booking_3
+	    SET
+	        SARAMSU = #{saramsu},
+	        STATE = #{state},
+	        BOOKINGDATE = #{bookingdate},
+	        BOOKINGTIME = #{bookingtime}
+	    WHERE storecode = #{storecode, jdbcType=VARCHAR}
+	      AND id = #{id, jdbcType=VARCHAR}
+	      AND bookingdate = #{bookingdate}
+	      AND bookingtime = #{bookingtime}
+	</update>
 
-
-
-<!-- 예약창자세히보기 -->
-<select id="select05077" resultType="map">
-    SELECT 
-        b.saramsu, 
-        b.id, 
-        b.state, 
-        b.bookingdate, 
-        b.bookingtime, 
-        s.storename, 
-        s.storecode
-    FROM booking_3 b
-    JOIN store_3 s ON b.storecode = s.storecode
-    WHERE b.storecode = #{storecode}
-      AND b.id = #{id}
-      AND b.bookingdate = TO_DATE(#{bookingdate, jdbcType=VARCHAR}, 'YYYY-MM-DD')
-      AND b.bookingtime = #{bookingtime}
-</select>
-
-
-
-
-<update id="updateBooking" parameterType="com.mbc.chew.booking.BookingDTO">
-    UPDATE booking_3
-    SET
-        SARAMSU = #{saramsu},
-        STATE = #{state},
-        BOOKINGDATE = #{bookingdate},
-        BOOKINGTIME = #{bookingtime}
-    WHERE storecode = #{storecode, jdbcType=VARCHAR}
-      AND id = #{id, jdbcType=VARCHAR}
-      AND bookingdate = #{bookingdate}
-      AND bookingtime = #{bookingtime}
-</update>
-
-
-
-<!-- 예약창 검색 -->
-<select id="countBookingsById" parameterType="string" resultType="int">
-    SELECT COUNT(*)
-    FROM booking_3
-    WHERE id LIKE '%' || #{id} || '%'
-</select>
-
-<select id="pagingBookingsById" resultType="map">
-    SELECT *
-    FROM (
-        SELECT 
-            b.saramsu, 
-            b.id, 
-            b.state, 
-            b.bookingdate, 
-            b.bookingtime, 
-            s.storename, 
-            s.storecode,
-            ROW_NUMBER() OVER (ORDER BY b.id ASC, b.bookingdate ASC) AS rn
-        FROM booking_3 b
-        JOIN store_3 s ON b.storecode = s.storecode
-        WHERE b.id LIKE '%' || #{param1} || '%'
-    )
-    WHERE rn BETWEEN #{param2} AND #{param3}
-</select>
-
-
-
+	<!-- 예약창 검색 -->
+	<select id="countBookingsById" parameterType="string" resultType="int">
+	    SELECT COUNT(*)
+	    FROM booking_3
+	    WHERE id LIKE '%' || #{id} || '%'
+	</select>
+	
+	<select id="pagingBookingsById" resultType="map">
+	    SELECT *
+	    FROM (
+	        SELECT 
+	            b.saramsu, 
+	            b.id, 
+	            b.state, 
+	            b.bookingdate, 
+	            b.bookingtime, 
+	            s.storename, 
+	            s.storecode,
+	            ROW_NUMBER() OVER (ORDER BY b.id ASC, b.bookingdate ASC) AS rn
+	        FROM booking_3 b
+	        JOIN store_3 s ON b.storecode = s.storecode
+	        WHERE b.id LIKE '%' || #{param1} || '%'
+	    )
+	    WHERE rn BETWEEN #{param2} AND #{param3}
+	</select>
 
 </mapper>

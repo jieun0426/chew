@@ -53,6 +53,4 @@ public class MemberDTO {
 		this.birth = birth;
 	}
 
-
-	
 }

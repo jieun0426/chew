@@ -2,8 +2,6 @@ package com.mbc.chew.review;
 
 import java.util.ArrayList;
 
-import com.mbc.chew.store.StoreDTO;
-
 public interface ReviewService {
 
 	void insertReview(ReviewDTO dto);
@@ -17,16 +15,5 @@ public interface ReviewService {
 	void deleteReview(String id, int storecode);
 
 	void updateReview(ReviewDTO dto);
-
-//	ArrayList<ReviewManageDTO> getAllStoresWithReviewInfo();
-//
-//	int getReviewCountByStorecode(int storecode);
-//
-//	double getAverageRatingByStorecode(int storecode);
-
-	
-
-	 
-	 
 
 }

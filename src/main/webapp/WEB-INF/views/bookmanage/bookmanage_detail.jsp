@@ -8,13 +8,10 @@
 <head>
 <meta charset="UTF-8">
 <title>예약 정보</title>
-<link rel="stylesheet" href="css/base.css">
-<link rel="stylesheet" href="css/buttons.css">
-<link rel="stylesheet" href="css/tables.css">
+<link rel="stylesheet" href="css/vtable.css">
 </head>
 <body>
-
-	<h2>예약 수정</h2>
+<h2>예약 수정</h2>
 
 <form action="updateBookings" method="post">
     <input type="hidden" name="id" value="${detail.ID}" />

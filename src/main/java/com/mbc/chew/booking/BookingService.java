@@ -9,8 +9,7 @@ public interface BookingService {
 	void insertbook(int tablenum, int storecode, String id, int saramsu, String state, Date bookingdate,
 			String bookingtime);
 
+	int countuserdup(@Param("storecode")int storecode, @Param("id") String id, @Param("bookingdate") Date bookingdate,@Param("bookingtime") String bookingtime,@Param("bookingmin") int bookingmin);   //ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Î½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¸ï¿½ï¿½ï¿½ï¿½ ï¿½Èµï¿½
 
-	int countuserdup(@Param("storecode")int storecode, @Param("id") String id, @Param("bookingdate") Date bookingdate,@Param("bookingtime") String bookingtime,@Param("bookingmin") int bookingmin);   //ÇØ´ç »ç¿ëÀÚ µÎ½Ã°£³» ÁßÃ¸¿¹¾à ¾ÈµÊ
-
-	int countstoredup(@Param("storecode") int storecode,@Param("bookingdate") Date bookingdate,@Param("bookingtime") String bookingtime,@Param("bookingmin") int bookingmin); //´Ù¸¥ »ç¿ëÀÚµµ ¿¹¾à½Ã°£ ±âÁØ2½Ã°£ ±îÁö ¿¹¾à¾ÈµÊ
+	int countstoredup(@Param("storecode") int storecode,@Param("bookingdate") Date bookingdate,@Param("bookingtime") String bookingtime,@Param("bookingmin") int bookingmin); //ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½2ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Èµï¿½
 }

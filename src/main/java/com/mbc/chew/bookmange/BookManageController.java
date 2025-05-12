@@ -42,7 +42,7 @@ public class BookManageController {
 
         int nowPage;
         try {
-            nowPage = Integer.parseInt(request.getParameter("page"));
+        	nowPage = Integer.parseInt(request.getParameter("page"));
         } catch (Exception e) {
             nowPage = 1;
         }
@@ -80,10 +80,6 @@ public class BookManageController {
         mo.addAttribute("detail", detail);
         return "bookmanage_detail";
     }
-
-
-
-
 
     // 예약 정보 업데이트
     @RequestMapping(value = "/updateBookings", method = RequestMethod.POST)

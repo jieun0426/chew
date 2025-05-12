@@ -9,42 +9,37 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 @Component
 public class MemberInterceptor extends HandlerInterceptorAdapter{
-//°Ë¹®¼Ò ´À³¦ ,Controller ½ÇÇàÀü¿¡ ·Î±×ÀÎµÈÁö,°ü¸®ÀÚ ÀÎÁö ÆÇº°.
-	@Override
+//ê²€ë¬¸ì†Œ ëŠë‚Œ ,Controller ì‹¤í–‰ì „ì— ë¡œê·¸ì¸ëœì§€,ê´€ë¦¬ì ì¸ì§€ íŒë³„.
+   @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-	
+   
 	HttpSession hs = request.getSession(false);
-	
+   
 	if (hs == null || hs.getAttribute("id") == null) {
-        // ¼¼¼ÇÀÌ ¾ø°Å³ª, ¼¼¼Ç¿¡ "id" ¼Ó¼ºÀÌ ¾øÀ¸¸é ·Î±×ÀÎµÇÁö ¾ÊÀº »óÅÂ
-        System.out.println("[Interceptor] ºñ·Î±×ÀÎ »ç¿ëÀÚ Á¢±Ù ½Ãµµ: " + request.getRequestURI());
+		// ì„¸ì…˜ì´ ì—†ê±°ë‚˜, ì„¸ì…˜ì— "id" ì†ì„±ì´ ì—†ìœ¼ë©´ ë¡œê·¸ì¸ë˜ì§€ ì•Šì€ ìƒíƒœ
+        System.out.println("[Interceptor] ë¹„ë¡œê·¸ì¸ ì‚¬ìš©ì ì ‘ê·¼ ì‹œë„: " + request.getRequestURI());
         response.setContentType("text/html; charset=UTF-8");
         response.getWriter().println("<script>");
-        response.getWriter().println("alert('·Î±×ÀÎÀÌ ÇÊ¿äÇÕ´Ï´Ù.');");
+        response.getWriter().println("alert('ë¡œê·¸ì¸ì´ í•„ìš”í•©ë‹ˆë‹¤.');");
         response.getWriter().println("location.href='" + request.getContextPath() + "/loginput';");
         response.getWriter().println("</script>");
         response.getWriter().flush();
         return false;
-    }
-	
-	
+	}
+   
 	String loginId = (String) hs.getAttribute("id");
     if (!"admin".equals(loginId)) {
-        // ·Î±×ÀÎÀº ÇßÁö¸¸ ID°¡ "admin"ÀÌ ¾Æ´Ô
-        System.out.println("Àß¸øµÈÁ¢±Ù:°ü¸®ÀÚ Àü¿ë ±ÇÇÑÀÔ´Ï´Ù" + loginId+"È¸¿øÀÌ Á¢±Ù½ÃµµÇÔ" + ", URI: " + request.getRequestURI());
+        // ë¡œê·¸ì¸ì€ í–ˆì§€ë§Œ IDê°€ "admin"ì´ ì•„ë‹˜
+        System.out.println("ì˜ëª»ëœì ‘ê·¼:ê´€ë¦¬ì ì „ìš© ê¶Œí•œì…ë‹ˆë‹¤" + loginId+"íšŒì›ì´ ì ‘ê·¼ì‹œë„í•¨" + ", URI: " + request.getRequestURI());
         response.setContentType("text/html; charset=UTF-8"); 
         response.getWriter().println("<script>");
-        response.getWriter().println("alert('Á¢±ÙµÈ Á¦ÇÑÀÔ´Ï´Ù(°ü¸®ÀÚÀü¿ë)');");
+        response.getWriter().println("alert('ì ‘ê·¼ëœ ì œí•œì…ë‹ˆë‹¤(ê´€ë¦¬ìì „ìš©)');");
         response.getWriter().println("history.back();");
         response.getWriter().println("</script>");
-        response.getWriter().flush(); // ÀÀ´ä Áï½Ã Àü¼Û
+        response.getWriter().flush(); // ì‘ë‹µ ì¦‰ì‹œ ì „ì†¡
         return false; 
     }
-    System.out.println("°ü¸®ÀÚ(" + loginId + ")·Î ·Î±×ÀÎ ¼º°ø:" + request.getRequestURI());
+    System.out.println("ê´€ë¦¬ì(" + loginId + ")ë¡œ ë¡œê·¸ì¸ ì„±ê³µ:" + request.getRequestURI());
     return true;
-		
-		
-		
-		
-	}
+   }
 }

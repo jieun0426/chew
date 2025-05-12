@@ -23,13 +23,11 @@ public class JoinLogController {
 	@Autowired
 	SqlSession sqlSession;
 	
-	
 	@RequestMapping("/errorpage")
     public String Error() {
         return "errorpage";
     }
 
-	
 	@RequestMapping(value = "/joinput")
 	public String jj1()
 	{
@@ -38,8 +36,7 @@ public class JoinLogController {
 	
 	@RequestMapping(value = "/joinsave")
 	public void jj2(HttpServletRequest request, 
-			HttpServletResponse response) throws IOException
-	{
+			HttpServletResponse response) throws IOException {
 		String id= request.getParameter("id");
 		String pw= request.getParameter("pw");
 		String name= request.getParameter("name");
@@ -80,13 +77,9 @@ public class JoinLogController {
 	    out.close();
 	}
 
-	
-	
-	
 	@RequestMapping(value = "/loginput")
 	public String jj6()
 	{
-		
 		return "loginput";
 	}
 	
@@ -117,8 +110,8 @@ public class JoinLogController {
 			pww.close();
 			return "redirect:/loginput";
 		}
-	
 	}
+	
 	@RequestMapping(value = "/logout")
 	public String log3(HttpServletRequest request) 
 	{

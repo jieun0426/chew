@@ -167,7 +167,7 @@ public class FAQController {
 	    FAQDTO dto = new FAQDTO();
 	    dto.setNum(Integer.parseInt(qnum));
 	    dto.setContent(content);
-	    dto.setId(id); // 누가 썼는지 기록
+	    dto.setId(id);
 	    
 	    try {
 	        fs.insertAnswer(dto);
@@ -205,7 +205,7 @@ public class FAQController {
 	    FAQDTO dto = new FAQDTO();
 	    dto.setGroups(Integer.parseInt(qnum));
 	    dto.setContent(content);
-	    dto.setId(id); // 누가 썼는지 기록
+	    dto.setId(id);
 	    
 	    try {
 	        fs.updateAnswer(dto);

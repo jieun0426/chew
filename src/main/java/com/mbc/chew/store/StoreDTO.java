@@ -54,5 +54,4 @@ public class StoreDTO {
 		this.storeimage = storeimage;
 	}
 	
-	
 }

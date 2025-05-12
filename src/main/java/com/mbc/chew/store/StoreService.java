@@ -52,22 +52,18 @@ public interface StoreService {
 
 	List<StoreImageDTO> detailImages(int storecode);
 
-   /*void deleteDetailImages(@Param("storecode") int storecode);
-    
-   void insertDetailImage(@Param("storecode") int storecode, @Param("filename") String filename);*/
+	void updateDetailImage(@Param("storecode") int storecode, @Param("newFilename") String newFilename, @Param("oldFilename") String oldFilename);
 
-   void updateDetailImage(@Param("storecode") int storecode, @Param("newFilename") String newFilename, @Param("oldFilename") String oldFilename);
+	void insertDetailImage(@Param("storecode") int storecode, @Param("filename") String filename);
 
-   void insertDetailImage(@Param("storecode") int storecode, @Param("filename") String filename);
+	StoreImageDTO selectOneDetailImage(int storecode);
 
-   StoreImageDTO selectOneDetailImage(int storecode);
+	void deleteReviewsByStorecode(int storecode);
 
-   void deleteReviewsByStorecode(int storecode);
+	void deleteDetailImages(int storecode);
 
-   void deleteDetailImages(int storecode);
+	void deleteReservationsByStorecode(int storecode);
 
-   void deleteReservationsByStorecode(int storecode);
-
-   void deletelikesByStorecode(int storecode);
+	void deletelikesByStorecode(int storecode);
 
 }

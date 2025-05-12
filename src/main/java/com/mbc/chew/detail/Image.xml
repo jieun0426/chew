@@ -5,15 +5,11 @@
 
 <mapper namespace="com.mbc.chew.detail.ImageService">
 
-  <select id="getImage" resultType="com.mbc.chew.detail.ImageDTO">
-      SELECT 
-      STORECODE,
-      IMAGE_FILENAME
-      FROM STORE_IMAGE_3
-      WHERE STORECODE = #{storecode}
-  </select>
-  
-
+	<select id="getImage" resultType="com.mbc.chew.detail.ImageDTO">
+		SELECT STORECODE,IMAGE_FILENAME
+	    FROM STORE_IMAGE_3
+	    WHERE STORECODE = #{storecode}
+	</select>
 
 </mapper>
 

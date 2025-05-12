@@ -1,7 +1,6 @@
 package com.mbc.chew.likes;
 
 
-
 public interface LikesService {
 
    int isLiked(LikesDTO ldto);
@@ -15,7 +14,5 @@ public interface LikesService {
    void increaseLikes(Integer storecode);
 
    int getLikesCountFromStore3(Integer storecode);
-
-   
 
 }
