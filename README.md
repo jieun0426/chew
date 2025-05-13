@@ -23,10 +23,10 @@
 <br><br>
 
 # 기술 스택
-- 프론트엔드 : HTML, CSS, JavaScript, AJAX, JQuery
-- 백엔드 : Java (Spring MVC), Tiles (템플릿 프레임워크)  
-- Datebase : MyBatis, Oracle
-- 기타 : Tomcat 9.0, STS 3, Git, GitHub
+- 프론트엔드 : HTML, CSS, JavaScript, AJAX, JQuery, JSTL
+- 백엔드 : Java 11, JSP, Spring MVC, Tiles(프레임워크), MyBatis
+- Datebase : Oracle
+- 기타 : Tomcat 9.0, Git, GitHub, kakao map API
 <br><br>
 
 # 주요 기능
