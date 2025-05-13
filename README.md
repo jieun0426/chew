@@ -13,21 +13,20 @@
 - 화면 미리보기
 - 설치 및 실행 방법
 - SQL 스크립트
-- 디렉토리 구조
 - 회고 및 느낀점
 <br><br>
 
 # 프로젝트 소개
 - 목표 : 간편한 예약 시스템과 직관적인 맛집 탐색 기능 제공
 - 대상 : 외식 전 예약을 선호하는 사용자
-- 기획 기간 : 2025.04.04 - 2025.04.08
-- 개발 기간 : 2025.04.09 - 2025.05.14
+- 프로젝트 기간 : 2025.04.09 - 2025.05.14
 <br><br>
 
 # 기술 스택
-- 프론트엔드 : HTML, CSS, JavaScript, AJAX
+- 프론트엔드 : HTML, CSS, JavaScript, AJAX, JQuery
 - 백엔드 : Java (Spring MVC), Tiles (템플릿 프레임워크)  
 - Datebase : MyBatis, Oracle
+- 기타 : Tomcat 9.0, STS 3, Git, GitHub
 <br><br>
 
 # 주요 기능
@@ -47,9 +46,29 @@
 <br><br>
 
 # 화면 미리보기
+- 메인화면
 ![main_gif](https://github.com/user-attachments/assets/79a96541-bd9c-4a05-a45d-0f8665503284)
 <br><br><br>
+- 맛집 상세보기
 ![detail](https://github.com/user-attachments/assets/826df5e8-f3dc-4b51-935c-08baec717933)
+<br><br><br>
+- 예약
+![booking1](https://github.com/user-attachments/assets/f1638668-2b52-4a0c-9da0-ed45ad6252c4)
+
+- 마이페이지-예약내역
+![image](https://github.com/user-attachments/assets/70a7bc44-331e-4286-9bce-2d2cfa91ac2d)
+
+<br><br><br>
+- 매장 관리
+![storemanage](https://github.com/user-attachments/assets/68838dea-db82-471c-89eb-3be9b784120d)
+<br><br><br>
+- 회원 관리
+![memberlist](https://github.com/user-attachments/assets/ee23bdd1-b5c0-48dc-a975-8b9d08497e1f)
+<br><br><br>
+- 마이페이지 내정보수정
+![mypage](https://github.com/user-attachments/assets/888ac7a4-8dcc-46eb-87a7-f61ea9c4c341)
+<br><br><br>
+
 
 <br><br>
 # 설치 및 실행 방법
@@ -76,10 +95,6 @@
 <br><br>
 
 
-<br><br>
-# 디렉토리 구조
-
-<br><br>
 # 회고 및 느낀점
 - MVC 패턴을 실제로 적용해보며 이해도가 높아짐
 - Git 협업 경험이 생김
