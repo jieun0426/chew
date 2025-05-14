@@ -46,7 +46,8 @@
 <br><br>
 
 ## UseCase Diagram
-![image](https://github.com/user-attachments/assets/de57a48c-62a0-4dad-a23b-ec38f34eb7a8)
+![US Diagram](https://github.com/user-attachments/assets/bc30f79a-b3f6-4d74-ba00-a9ad870ee8e3)
+
 <br><br>
 
 # 화면 미리보기
