@@ -1,4 +1,4 @@
-# 맛집 예약 사이트 - 츄토피아
+# 맛집 예약 사이트 - Chewtopia
 
 웹 기반 맛집 예약 서비스입니다. 사용자는 맛집을 검색하고, 원하는 시간에 맞춰 실시간으로 예약할 수 있습니다.<br>
 이 프로젝트는 사용자 친화적인 UI/UX와 백엔드 예약 시스템의 설계에 중점을 두었습니다.
@@ -14,6 +14,7 @@
 - 설치 및 실행 방법
 - SQL 스크립트
 - 회고 및 느낀점
+- 첨부 파일
 <br><br>
 
 # 프로젝트 소개
@@ -24,7 +25,7 @@
 
 # 기술 스택
 - 프론트엔드 : HTML, CSS, JavaScript, AJAX, JQuery, JSTL
-- 백엔드 : Java 11, JSP, Spring MVC, Tiles(프레임워크), MyBatis
+- 백엔드 : Java 11, JSP, Spring MVC, Tiles(프레임워크), MyBatis, Spring JDBC
 - Datebase : Oracle
 - 기타 : Tomcat 9.0, Git, GitHub, kakao map API
 <br><br>
@@ -71,17 +72,20 @@
 ## 마이페이지 내정보수정
 ![mypage](https://github.com/user-attachments/assets/888ac7a4-8dcc-46eb-87a7-f61ea9c4c341)
 <br><br><br>
+## FAQ
+![faq](https://github.com/user-attachments/assets/d1b33a18-5ed7-404d-a7b9-803a5a84be45)
+
 
 
 <br><br>
 # 설치 및 실행 방법
-1. 이 저장소 클론:
-- git clone https://github.com/jieun0426/chew.git
+1. 이 저장소 클론 - git clone https://github.com/jieun0426/chew.git
 
 2. IDE에서 열기
 
-3. 서버 설정
-- 포트번호 8077
+3. 서버 설정 - 포트번호 8077
+
+4. DB 설정 - 접속 이름 : MBC / 패스워드 : 1234 / 호스트이름 : localhost / 포트 : 1521 / SID : xe
 
 <br><br>
 # SQL 스크립트
@@ -97,8 +101,10 @@
 
 <br><br>
 
-
 # 회고 및 느낀점
 - MVC 패턴을 실제로 적용해보며 이해도가 높아짐
 - Git 협업 경험이 생김
 
+
+# 첨부 파일
+[Chewtopia.pdf](https://github.com/user-attachments/files/20198110/Chewtopia.pdf)
