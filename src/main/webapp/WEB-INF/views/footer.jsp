@@ -17,7 +17,7 @@
     <span>https://github.com/jieun0426 | 차지은
            &ensp; https://github.com/Jimin-718 | 김지민<br/>
            https://github.com/eunlee529 | 고은이
-           &ensp;https://github.com/levi0408 | 차지수<br/>
+           &ensp;https://github.com/levi0408 | 김지수<br/>
     </span>
   </p>
 </div>
